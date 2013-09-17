@@ -1,0 +1,13 @@
+[user]
+	name = Niels Henrik Hagen
+	email = nhhagen@gmail.com
+[color]
+	ui = auto
+[core]
+	autocrlf = input
+[push]
+	default = simple
+[log]
+	date = relative
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold)<%an>%Creset' --abbrev-commit --date=relative
