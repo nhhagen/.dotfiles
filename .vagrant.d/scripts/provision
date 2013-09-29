@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+export DEBIAN_FRONTEND=noninteractive
+apt-get update > /dev/null
+apt-get -y install python-software-properties
+apt-get update > /dev/null
+add-apt-repository -y ppa:git-core/ppa
+apt-get update > /dev/null
+apt-get -y install vim bash git-core
+su -c "cd /home/vagrant/.dotfiles && bash setup.sh" vagrant
+
