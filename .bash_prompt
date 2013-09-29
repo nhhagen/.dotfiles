@@ -79,7 +79,7 @@ case "$UNAME" in
     export PS1="in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$ORANGE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
     ;;
   Linux)
-    export PS1="\[$GREEN\]\u\[$RESET\] at \[$PURPLE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$ORANGE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
+    export PS1="\[$MAGENTA\]\u\[$RESET\] at \[$PURPLE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$ORANGE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
     ;;
 esac
 export PS2="\[$ORANGE\]→ \[$RESET\]" 
