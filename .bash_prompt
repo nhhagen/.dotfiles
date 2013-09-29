@@ -73,8 +73,8 @@ function git_dirty_flag {
   git status 2> /dev/null | grep -c : | awk '{if ($1 > 0) print "⚡"}'
 }
 
-UNAME=$(uname)
-case "$UNAME" in
+SYSTEM_TYPE=$(uname)
+case "$SYSTEM_TYPE" in
   Darwin)
     export PS1="in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$ORANGE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
     ;;
