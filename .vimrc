@@ -3,8 +3,6 @@ if has("autocmd")
   autocmd! bufwritepost .vimrc source $MYVIMRC
 endif   
 
-execute pathogen#infect()
-
 set nobackup
 set nowritebackup
 set nocompatible                " choose no compatibility with legacy vi
