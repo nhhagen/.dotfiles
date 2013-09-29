@@ -73,5 +73,13 @@ function git_dirty_flag {
   git status 2> /dev/null | grep -c : | awk '{if ($1 > 0) print "⚡"}'
 }
 
-#if local then .bash_prompt_local else .bash_prompt_remote
-source ~/.bash_prompt_local
+UNAME=$(uname)
+case "$UNAME" in
+  Darwin)
+    export PS1="in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$ORANGE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
+    ;;
+  Linux)
+    export PS1="\[$GREEN\]\u\[$RESET\] at \[$PURPLE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$ORANGE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
+    ;;
+esac
+export PS2="\[$ORANGE\]→ \[$RESET\]" 
