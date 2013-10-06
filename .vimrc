@@ -1,7 +1,9 @@
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd! bufwritepost .vimrc source $MYVIMRC
-endif   
+endif
+
+execute pathogen#infect()
 
 set nobackup
 set nowritebackup
@@ -15,6 +17,8 @@ set ruler
 set scrolloff=2                   " minimum lines above/below cursor
 set laststatus=2                  " always show status bar
 
+colorscheme molokai
+
 "" Whitespace
 set nowrap                      " don't wrap lines
 set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
@@ -26,4 +30,7 @@ set hlsearch                    " highlight matches
 set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
