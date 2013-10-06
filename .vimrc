@@ -12,7 +12,8 @@ set showcmd                     " display incomplete commands
 filetype plugin indent on       " load file type plugins + indentation
 set number
 set ruler
-colorscheme darkblue
+set scrolloff=2                   " minimum lines above/below cursor
+set laststatus=2                  " always show status bar
 
 "" Whitespace
 set nowrap                      " don't wrap lines
