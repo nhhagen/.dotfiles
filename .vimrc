@@ -4,6 +4,7 @@ if has("autocmd")
 endif
 
 execute pathogen#infect()
+execute pathogen#helptags()
 
 set nobackup
 set nowritebackup
@@ -17,7 +18,10 @@ set ruler
 set scrolloff=2                   " minimum lines above/below cursor
 set laststatus=2                  " always show status bar
 
+set background=dark
 colorscheme molokai
+"let g:molokai_original = 1
+let g:rehash256 = 1
 
 "" Whitespace
 set nowrap                      " don't wrap lines
