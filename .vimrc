@@ -1,7 +1,10 @@
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd! bufwritepost .vimrc source $MYVIMRC
-endif   
+endif
+
+execute pathogen#infect()
+execute pathogen#helptags()
 
 set nobackup
 set nowritebackup
@@ -12,7 +15,13 @@ set showcmd                     " display incomplete commands
 filetype plugin indent on       " load file type plugins + indentation
 set number
 set ruler
-colorscheme darkblue
+set scrolloff=2                   " minimum lines above/below cursor
+set laststatus=2                  " always show status bar
+
+set background=dark
+colorscheme molokai
+"let g:molokai_original = 1
+let g:rehash256 = 1
 
 "" Whitespace
 set nowrap                      " don't wrap lines
@@ -25,4 +34,7 @@ set hlsearch                    " highlight matches
 set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
