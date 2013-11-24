@@ -7,6 +7,7 @@ OSX='Darwin'
 
 ln -Ffs ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -Ffs ~/.dotfiles/.vimrc ~/.vimrc
+ln -Ffs ~/.dotfiles/.vim ~/.vim
 ln -Ffs ~/.dotfiles/.bash_prompt ~/.bash_prompt
 if [ "$SYSTEM_TYPE" == "$LINUX" ]; then
   ln -Ffs ~/.dotfiles/.bashrc_linux ~/.bashrc
