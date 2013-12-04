@@ -3,6 +3,7 @@
 	email = nhhagen@gmail.com
 [color]
 	ui = auto
+	ui = true
 [core]
 	autocrlf = input
 [push]
