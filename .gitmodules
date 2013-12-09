@@ -13,3 +13,6 @@
 [submodule ".vim/bundle/editorconfig-vim"]
 	path = .vim/bundle/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
+[submodule ".vim/bundle/vim-monokai"]
+	path = .vim/bundle/vim-monokai
+	url = https://github.com/sickill/vim-monokai.git

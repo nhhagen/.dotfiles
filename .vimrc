@@ -20,7 +20,7 @@ set scrolloff=2                   " minimum lines above/below cursor
 set laststatus=2                  " always show status bar
 
 set background=dark
-colorscheme molokai
+colorscheme monokai
 "let g:molokai_original = 1
 let g:rehash256 = 1
 
