@@ -16,3 +16,6 @@
 [submodule ".vim/bundle/vim-monokai"]
 	path = .vim/bundle/vim-monokai
 	url = https://github.com/sickill/vim-monokai.git
+[submodule "Smyck-Color-Scheme"]
+	path = Smyck-Color-Scheme
+	url = https://github.com/hukl/Smyck-Color-Scheme.git
