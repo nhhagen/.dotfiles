@@ -7,11 +7,12 @@ elif infocmp xterm-256color >/dev/null 2>&1; then
 	export TERM=xterm-256color
 fi
 
-RED="\033[1;31m"
+
+RED="\033[0;31m"
 ORANGE="\033[1;33m"
 GREEN="\033[1;32m"
-PURPLE="\033[1;35m"
-WHITE="\033[1;37m"
+PURPLE="\033[0;35m"
+WHITE="\033[0;37m"
 BOLD=""
 RESET="\033[m"
 
@@ -20,6 +21,7 @@ export GREEN
 export PURPLE
 export WHITE
 export RED
+export BLUE
 export BOLD
 export RESET
 
@@ -31,7 +33,7 @@ function parse_git_branch {
   diverge_pattern="Your branch and (.*) have diverged"
   
   if [[ ! ${git_status}} =~ "working directory clean" ]]; then
-    state="${RED}⚡"
+    state="⚡"
   fi
   # add an else if or two here if you want to get more specific
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
@@ -46,7 +48,7 @@ function parse_git_branch {
   fi
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
     branch=${BASH_REMATCH[1]}
-    echo " ${branch} ${remote} ${state}"
+    echo " ${branch} ${remote}${state}"
   fi
 }
 
@@ -57,10 +59,10 @@ function git_dirty_flag {
 SYSTEM_TYPE=$(uname)
 case "$SYSTEM_TYPE" in
   Darwin)
-    export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$ORANGE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
+    export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$PURPLE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
     ;;
   Linux)
-    export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$ORANGE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
+    export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$PURPLE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
     ;;
 esac
 export PS2="\[$ORANGE\]→ \[$RESET\]" 
