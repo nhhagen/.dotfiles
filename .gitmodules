@@ -25,3 +25,6 @@
 [submodule ".vim/bundle/nginx-vim-syntax"]
 	path = .vim/bundle/nginx-vim-syntax
 	url = https://github.com/evanmiller/nginx-vim-syntax.git
+[submodule ".vim/bundle/vim-ps1"]
+	path = .vim/bundle/vim-ps1
+	url = https://github.com/PProvost/vim-ps1.git
