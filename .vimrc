@@ -6,6 +6,7 @@ endif
 execute pathogen#infect()
 execute pathogen#helptags()
 
+set noswapfile
 set nobackup
 set nowritebackup
 set nocompatible                " choose no compatibility with legacy vi
