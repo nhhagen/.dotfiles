@@ -6,6 +6,7 @@
 	ui = true
 [core]
 	autocrlf = input
+	editor = /usr/bin/vim
 [push]
 	default = simple
 [log]
