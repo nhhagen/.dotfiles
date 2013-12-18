@@ -44,7 +44,7 @@ function parse_git_branch {
     fi
   fi
   if [[ ${git_status} =~ ${diverge_pattern} ]]; then
-    remote="${RED}↕"
+    remote="↕"
   fi
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
     branch=${BASH_REMATCH[1]}
