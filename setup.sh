@@ -4,10 +4,9 @@ SYSTEM_TYPE=$(uname)
 
 LINUX='Linux'
 OSX='Darwin'
-
-git submodule foreach git init
+git submodule update --init --recursive
 git submodule foreach git pull origin master
-
+git submodule update --init --recursive
 ln -Ffs ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -Ffs ~/.dotfiles/.vimrc ~/.vimrc
 ln -Ffs ~/.dotfiles/.vim ~/.vim
@@ -19,3 +18,8 @@ if [ "$SYSTEM_TYPE" == "$OSX" ]; then
   ln -Ffs ~/.dotfiles/.bashrc_mac ~/.bashrc
   ln -Ffs ~/.dotfiles/.bash_profile_mac ~/.bash_profile
 fi
+ROOT=$(pwd)
+cd ~/.dotfiles/.vim/bundle/YouCompleteMe/
+./install.sh
+cd $ROOT 
+
