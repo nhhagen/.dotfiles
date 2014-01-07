@@ -8,18 +8,19 @@ git submodule update --init --recursive
 git submodule foreach git pull origin master
 git submodule update --init --recursive
 ln -Ffs ~/.dotfiles/.gitconfig ~/.gitconfig
-ln -Ffs ~/.dotfiles/.vimrc ~/.vimrc
-ln -Ffs ~/.dotfiles/.vim ~/.vim
-ln -Ffs ~/.dotfiles/.bash_prompt ~/.bash_prompt
+ln -fs ~/.dotfiles/.vimrc ~/.vimrc
+ln -fs ~/.dotfiles/.vim ~/.vim
+ln -fs ~/.dotfiles/.bash_prompt ~/.bash_prompt
 if [ "$SYSTEM_TYPE" == "$LINUX" ]; then
   ln -Ffs ~/.dotfiles/.bashrc_linux ~/.bashrc
 fi
 if [ "$SYSTEM_TYPE" == "$OSX" ]; then
   ln -Ffs ~/.dotfiles/.bashrc_mac ~/.bashrc
   ln -Ffs ~/.dotfiles/.bash_profile_mac ~/.bash_profile
+
+  ROOT=$(pwd)
+  cd ~/.dotfiles/.vim/bundle/YouCompleteMe/
+  ./install.sh
+  cd $ROOT
 fi
-ROOT=$(pwd)
-cd ~/.dotfiles/.vim/bundle/YouCompleteMe/
-./install.sh
-cd $ROOT 
 
