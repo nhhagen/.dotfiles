@@ -5,6 +5,9 @@ SYSTEM_TYPE=$(uname)
 LINUX='Linux'
 OSX='Darwin'
 
+git submodule foreach git init
+git submodule foreach git pull origin master
+
 ln -Ffs ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -Ffs ~/.dotfiles/.vimrc ~/.vimrc
 ln -Ffs ~/.dotfiles/.vim ~/.vim

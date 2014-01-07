@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/Users/niels.hagen/code/naf/configuration/solr/dev/collections'
-let g:netrw_dirhist_2='/Users/niels.hagen/code/naf/configuration/solr/dev'
-let g:netrw_dirhist_3='/Users/niels.hagen/code/naf/configuration/solr'
-let g:netrw_dirhist_4='/Users/niels.hagen/code/naf/configuration'
-let g:netrw_dirhist_5='/Users/niels.hagen/code/naf'
-let g:netrw_dirhist_6='/Users/niels.hagen/code/naf/deployment'
-let g:netrw_dirhist_7='/Users/niels.hagen/code/naf/deployment/prod'
-let g:netrw_dirhist_8='/Users/niels.hagen/code/naf/deployment'
-let g:netrw_dirhist_9='/Users/niels.hagen/code/naf/deployment/common'
+let g:netrw_dirhist_cnt =0
