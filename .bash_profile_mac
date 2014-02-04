@@ -4,20 +4,8 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=$JAVA_HOME/bin:/usr/local/bin:$PATH
 export PATH=/usr/local/share/npm/bin:$PATH
 
-if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
-  source `brew --prefix`/etc/bash_completion.d/git-completion.bash
-fi
-
-if [ -f `brew --prefix`/etc/bash_completion.d/git-prompt.sh ]; then
-  source `brew --prefix`/etc/bash_completion.d/git-prompt.sh
-fi
-
-if [ -f `brew --prefix`/Library/Contributions/brew_bash_completion.sh ]; then
-  source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
-fi
-
-if [ -f `brew --prefix`/etc/bash_completion.d/vagrant ]; then
-  source `brew --prefix`/etc/bash_completion.d/vagrant
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+ source  `brew --prefix`/etc/bash_completion
 fi
 
 export PATH=/Library/Frameworks/Mono.framework/Versions/3.0.6/bin/:$PATH
@@ -36,4 +24,5 @@ export CLICOLOR=1
 export GREP_OPTIONS='--color=auto'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-function gi() { curl http://gitignore.io/api/$@ ;}
+function gi() { curl http://www.gitignore.io/api/$@ ;}
+
