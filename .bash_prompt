@@ -54,7 +54,7 @@ function parse_git_branch {
     remote="↕"
   fi
   if [[ $branch ]]; then
-    echo " $branch +$not_indexed_new:~$not_indexed_modified:-$not_indexed_deleted:?$untracked|+$indexed_new:~$indexed_modified:-$indexed_deleted $remote"
+    echo -e " $PURPLE$branch$RESET [$RED+$not_indexed_new ~$not_indexed_modified -$not_indexed_deleted ?$untracked$RESET|$GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET] $remote"
   fi
 }
 
@@ -65,7 +65,7 @@ function git_dirty_flag {
 SYSTEM_TYPE=$(uname)
 case "$SYSTEM_TYPE" in
   Darwin)
-    export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$PURPLE\]\$(parse_git_branch)\[$RESET\]\n\[$ORANGE\]\$ \[$RESET\]"
+    export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\$(parse_git_branch)\n\[$ORANGE\]\$ \[$RESET\]"
     ;;
   Linux)
     export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$PURPLE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
