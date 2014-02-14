@@ -2,9 +2,9 @@
 # Screenshot: http://i.imgur.com/s0Blh.png
 
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-	export TERM=gnome-256color
+  export TERM=gnome-256color
 elif infocmp xterm-256color >/dev/null 2>&1; then
-	export TERM=xterm-256color
+  export TERM=xterm-256color
 fi
 
 
@@ -28,27 +28,36 @@ export RESET
 function parse_git_branch {
   git rev-parse --git-dir &> /dev/null
   git_status="$(git status 2> /dev/null)"
-  branch_pattern="^On branch ([^${IFS}]*)"
+  branch=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
   remote_pattern="Your branch is (.*)"
   diverge_pattern="Your branch and (.*) have diverged"
-  
+  # Get number of files added to the index (but uncommitted)
+  indexed_modified=$(git status --porcelain 2>/dev/null| grep "^M" | wc -l | awk '{print $1}')
+  # Get number of files that are uncommitted and not added
+  not_indexed_modified=$(git status --porcelain 2>/dev/null| grep "^.M" | wc -l | awk '{print $1}')
+  # Get number of files added to the index (but uncommitted)
+  indexed_new=$(git status --porcelain 2>/dev/null| grep "^A" | wc -l | awk '{print $1}')
+  # Get number of files that are uncommitted and not added
+  not_indexed_new=$(git status --porcelain 2>/dev/null| grep "^.M" | wc -l | awk '{print $1}')
+  # untracked
+  untracked=$(git status --porcelain 2>/dev/null| grep "^??" | wc -l |awk '{print $1}')
+
   if [[ ! ${git_status}} =~ "working directory clean" ]]; then
     state="⚡"
   fi
   # add an else if or two here if you want to get more specific
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
     if [[ ${BASH_REMATCH[1]} =~ "ahead" ]]; then
-      remote="${YELLOW}↑"
+      remote="↑"
     elif [[ ${BASH_REMATCH[1]} =~ "behind" ]]; then
-      remote="${YELLOW}↓"
+      remote="↓"
     fi
   fi
   if [[ ${git_status} =~ ${diverge_pattern} ]]; then
     remote="↕"
   fi
-  if [[ ${git_status} =~ ${branch_pattern} ]]; then
-    branch=${BASH_REMATCH[1]}
-    echo " ${branch} ${remote}${state}"
+  if [[ $branch ]]; then
+    echo " ${branch} ${remote} +$not_indexed_new:~$not_indexed_modified:?$untracked|+$indexed_new:~$indexed_modified"
   fi
 }
 
@@ -65,4 +74,4 @@ case "$SYSTEM_TYPE" in
     export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$PURPLE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
     ;;
 esac
-export PS2="\[$ORANGE\]→ \[$RESET\]" 
+export PS2="\[$ORANGE\]→ \[$RESET\]"
