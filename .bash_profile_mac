@@ -8,7 +8,7 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
  source  `brew --prefix`/etc/bash_completion
 fi
 
-export PATH=/Library/Frameworks/Mono.framework/Versions/3.0.6/bin/:$PATH
+export PATH=/Library/Frameworks/Mono.framework/Versions/3.0.6/bin:$PATH
 export PATH=~/bin:$PATH
 
 export GIT_PS1_SHOWSTASHSTATE=true
