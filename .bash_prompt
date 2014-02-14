@@ -56,9 +56,5 @@ function parse_git_branch {
   fi
 }
 
-function git_dirty_flag {
-  git status 2> /dev/null | grep -c : | awk '{if ($1 > 0) print "⚡"}'
-}
-
 export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\$(parse_git_branch)\n\[$ORANGE\]\$ \[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
