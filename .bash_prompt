@@ -45,16 +45,16 @@ function parse_git_branch {
   # add an else if or two here if you want to get more specific
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
     if [[ ${BASH_REMATCH[1]} =~ "ahead" ]]; then
-      remote="↑ "
+      remote="↑"
     elif [[ ${BASH_REMATCH[1]} =~ "behind" ]]; then
-      remote="↓ "
+      remote="↓"
     fi
   fi
   if [[ ${git_status} =~ ${diverge_pattern} ]]; then
-    remote="↕ "
+    remote="↕"
   fi
   if [[ $branch ]]; then
-    echo " $branch $remote+$not_indexed_new:~$not_indexed_modified:-$not_indexed_deleted:?$untracked|+$indexed_new:~$indexed_modified:-$indexed_deleted"
+    echo " $branch +$not_indexed_new:~$not_indexed_modified:-$not_indexed_deleted:?$untracked|+$indexed_new:~$indexed_modified:-$indexed_deleted $remote"
   fi
 }
 
