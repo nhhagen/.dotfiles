@@ -31,15 +31,12 @@ function parse_git_branch {
   branch=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
   remote_pattern="Your branch is (.*)"
   diverge_pattern="Your branch and (.*) have diverged"
-  # Get number of files added to the index (but uncommitted)
   indexed_modified=$(git status --porcelain 2>/dev/null| grep "^M" | wc -l | awk '{print $1}')
-  # Get number of files that are uncommitted and not added
   not_indexed_modified=$(git status --porcelain 2>/dev/null| grep "^.M" | wc -l | awk '{print $1}')
-  # Get number of files added to the index (but uncommitted)
   indexed_new=$(git status --porcelain 2>/dev/null| grep "^A" | wc -l | awk '{print $1}')
-  # Get number of files that are uncommitted and not added
-  not_indexed_new=$(git status --porcelain 2>/dev/null| grep "^.M" | wc -l | awk '{print $1}')
-  # untracked
+  not_indexed_new=$(git status --porcelain 2>/dev/null| grep "^.A" | wc -l | awk '{print $1}')
+  indexed_deleted=$(git status --porcelain 2>/dev/null| grep "^D" | wc -l | awk '{print $1}')
+  not_indexed_deleted=$(git status --porcelain 2>/dev/null| grep "^.D" | wc -l | awk '{print $1}')
   untracked=$(git status --porcelain 2>/dev/null| grep "^??" | wc -l |awk '{print $1}')
 
   if [[ ! ${git_status}} =~ "working directory clean" ]]; then
@@ -57,7 +54,7 @@ function parse_git_branch {
     remote="↕"
   fi
   if [[ $branch ]]; then
-    echo " ${branch} ${remote} +$not_indexed_new:~$not_indexed_modified:?$untracked|+$indexed_new:~$indexed_modified"
+    echo " $branch $remote +$not_indexed_new:~$not_indexed_modified:-$not_indexed_deleted:?$untracked|+$indexed_new:~$indexed_modified:-$indexed_deleted"
   fi
 }
 
@@ -68,7 +65,7 @@ function git_dirty_flag {
 SYSTEM_TYPE=$(uname)
 case "$SYSTEM_TYPE" in
   Darwin)
-    export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$PURPLE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
+    export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$PURPLE\]\$(parse_git_branch)\[$RESET\]\n\[$ORANGE\]\$ \[$RESET\]"
     ;;
   Linux)
     export PS1="\[$RED\]\u\[$RESET\] at \[$ORANGE\]\h\[$RESET\] in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\[$PURPLE\]\$(parse_git_branch)\[$RESET\]\n\$ \[$RESET\]"
