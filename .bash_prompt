@@ -32,14 +32,13 @@ function parse_git_branch {
   remote_pattern="Your branch is (.*)"
   diverge_pattern="Your branch and (.*) have diverged"
   git_status_clean=$(git status --porcelain 2> /dev/null)
-
-  indexed_modified=$(echo $git_status_clean | grep "^M" | wc -l | awk '{print $1}')
-  not_indexed_modified=$(echo $git_status_clean | grep "^.M" | wc -l | awk '{print $1}')
-  indexed_new=$(echo $git_status_clean | grep "^A" | wc -l | awk '{print $1}')
-  not_indexed_new=$(echo $git_status_clean | grep "^.A" | wc -l | awk '{print $1}')
-  indexed_deleted=$(echo $git_status_clean | grep "^D" | wc -l | awk '{print $1}')
-  not_indexed_deleted=$(echo $git_status_clean | grep "^.D" | wc -l | awk '{print $1}')
-  untracked=$(echo $git_status_clean | grep "^??" | wc -l |awk '{print $1}')
+  indexed_modified=$(echo -e "$git_status_clean" | grep "^M" | wc -l | awk '{print $1}')
+  not_indexed_modified=$(echo -e "$git_status_clean" | grep "^.M" | wc -l | awk '{print $1}')
+  indexed_new=$(echo -e "$git_status_clean" | grep "^A" | wc -l | awk '{print $1}')
+  not_indexed_new=$(echo -e "$git_status_clean" | grep "^.A" | wc -l | awk '{print $1}')
+  indexed_deleted=$(echo -e "$git_status_clean" | grep "^D" | wc -l | awk '{print $1}')
+  not_indexed_deleted=$(echo -e "$git_status_clean" | grep "^.D" | wc -l | awk '{print $1}')
+  untracked=$(echo -e "$git_status_clean" | grep "^??" | wc -l |awk '{print $1}')
 
   # add an else if or two here if you want to get more specific
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
