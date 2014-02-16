@@ -1,6 +1,9 @@
 # Shamelessly copied from https://github.com/gf3/dotfiles
 # Screenshot: http://i.imgur.com/s0Blh.png
 
+# -*- mode: sh -*-
+# vi: set ft=sh :
+
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
   export TERM=gnome-256color
 elif infocmp xterm-256color >/dev/null 2>&1; then
@@ -52,7 +55,7 @@ function parse_git_branch {
     remote="↕"
   fi
   if [[ $branch ]]; then
-    echo -e " $PURPLE$branch$RESET [$RED+$not_indexed_new ~$not_indexed_modified -$not_indexed_deleted ?$untracked$RESET|$GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET] $remote"
+    echo -e " $PURPLE$branch$RESET $RED+$not_indexed_new ~$not_indexed_modified -$not_indexed_deleted ?$untracked$RESET $GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET $remote"
   fi
 }
 
