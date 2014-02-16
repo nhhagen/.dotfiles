@@ -1,3 +1,5 @@
+set nocompatible                " choose no compatibility with legacy vi
+
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd! bufwritepost .vimrc source $MYVIMRC
@@ -6,19 +8,27 @@ endif
 execute pathogen#infect()
 execute pathogen#helptags()
 
+set t_Co=256
+set title
 set noswapfile
 set nobackup
 set nowritebackup
-set nocompatible                " choose no compatibility with legacy vi
 syntax enable
 set encoding=utf-8
 set showcmd                     " display incomplete commands
 filetype plugin indent on       " load file type plugins + indentation
-set number
+"set number
 set relativenumber
 set ruler
-set scrolloff=2                   " minimum lines above/below cursor
+set scrolloff=5                   " minimum lines above/below cursor
 set laststatus=2                  " always show status bar
+set autoread
+set hidden
+
+"" Folding
+set foldmethod=indent   "fold based on indent
+set foldnestmax=3       "deepest fold is 3 levels
+set nofoldenable        "dont fold by default"
 
 set background=dark
 colorscheme smyck
@@ -34,6 +44,10 @@ set hlsearch                    " highlight matches
 set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
+
+" Buffer management
+nmap <C-h> :bp<CR>
+nmap <C-l> :bn<CR>
 
 let delimitMate_expand_cr = 1
 
