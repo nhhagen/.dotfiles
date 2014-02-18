@@ -17,7 +17,7 @@ syntax enable
 set encoding=utf-8
 set showcmd                     " display incomplete commands
 filetype plugin indent on       " load file type plugins + indentation
-"set number
+set number
 set relativenumber
 set ruler
 set scrolloff=5                   " minimum lines above/below cursor
@@ -44,6 +44,9 @@ set hlsearch                    " highlight matches
 set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
+
+let &colorcolumn="80,".join(range(120,999),",")
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
 " Buffer management
 nmap <C-h> :bp<CR>
