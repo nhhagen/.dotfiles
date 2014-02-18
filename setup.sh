@@ -18,6 +18,10 @@ if [ "$SYSTEM_TYPE" == "$OSX" ]; then
   ROOT=$(pwd)
   cd ~/.dotfiles/.vim/bundle/YouCompleteMe/
   ./install.sh
+
+  cd ~/.dotfiles/.vim/bundle/tern_for_vim
+  npm install
+
   cd $ROOT
 fi
 
