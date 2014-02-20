@@ -55,7 +55,7 @@ function parse_git_branch {
     remote="↕"
   fi
   if [[ $branch ]]; then
-    echo -e " $PURPLE$branch$RESET $RED+$not_indexed_new ~$not_indexed_modified -$not_indexed_deleted ?$untracked$RESET $GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET $remote"
+    echo -e " $PURPLE$branch$RESET $RED+$untracked ~$not_indexed_modified -$not_indexed_deleted $RESET $GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET $remote"
   fi
 }
 
