@@ -45,7 +45,7 @@ set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
 
-let &colorcolumn="80,".join(range(120,999),",")
+let &colorcolumn="81,".join(range(121,999),",")
 highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
 " Buffer management
