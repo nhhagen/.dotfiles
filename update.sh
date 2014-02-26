@@ -7,5 +7,4 @@ git add -A .
 git commit -m "Ran update.sh"
 git push
 sh ~/.dotfiles/setup.sh
-rm .vim/.vim
 
