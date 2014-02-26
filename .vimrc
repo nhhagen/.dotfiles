@@ -29,7 +29,6 @@ set hidden
 set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default"
-set background=dark
 colorscheme smyck
 ""let g:rehash256 = 1
 ""let g:molokai_original = 1
