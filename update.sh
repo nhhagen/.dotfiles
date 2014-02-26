@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 
-<<<<<<< HEAD
-git pull --rebase &&
-git submodule update --init --recursive &&
-git submodule foreach git pull --rebase origin master &&
-git add -A . &&
-git commit -m "Ran update.sh" &&
-git push &&
-=======
-git pull
+git pull --rebase
 git submodule update --init --recursive
 git submodule foreach git pull origin master
 git add -A .
