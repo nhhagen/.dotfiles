@@ -12,6 +12,6 @@
 [log]
 	date = relative
 [alias]
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold)<%an>%Creset' --abbrev-commit --date=relative
+	lg = log --graph --decorate --pretty=format:'%C(yellow)%h%Creset - %C(green)(%cr)%Creset -%C(magenta)%d%Creset %s %C(blue)(%an)%Creset'
 [github]
 	user = nhhagen
