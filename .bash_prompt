@@ -81,5 +81,10 @@ function parse_git_branch {
   fi
 }
 
-export PS1="\[$RED\]\u\[$RESET\] at \[$YELLOW\]\h\[$RESET\] in \[$BLUE\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\$(parse_git_branch)\n\[$YELLOW\]\$ \[$RESET\]"
+HOST=""
+if [[ -n "$SSH_CLIENT$SSH2_CLIENT$SSH_TTY" ]] ; then
+  HOST="@ \[$YELLOW\]\h\[$RESET\] "
+fi
+
+export PS1="\[$RED\]\u\[$RESET\] ${HOST}in \[$BLUE\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on\")\$(parse_git_branch)\n\[$YELLOW\]\$ \[$RESET\]"
 export PS2="\[$YELLOW\]→ \[$RESET\]"
