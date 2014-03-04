@@ -51,10 +51,7 @@ export BOLD_CYAN
 export BOLD_WHITE
 
 function parse_git_branch {
-  git rev-parse --git-dir &> /dev/null
-  git_status="$(git status 2> /dev/null)"
   branch=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-  remote_pattern="Your branch is (.*)"
   git_status_clean=$(git status --porcelain 2> /dev/null)
   indexed_modified=$(echo -e "$git_status_clean" | grep "^M" | wc -l | awk '{print $1}')
   not_indexed_modified=$(echo -e "$git_status_clean" | grep "^.M" | wc -l | awk '{print $1}')
@@ -64,17 +61,14 @@ function parse_git_branch {
   not_indexed_deleted=$(echo -e "$git_status_clean" | grep "^.D" | wc -l | awk '{print $1}')
   untracked=$(echo -e "$git_status_clean" | grep "^??" | wc -l |awk '{print $1}')
 
-  # add an else if or two here if you want to get more specific
-  if [[ ${git_status} =~ ${remote_pattern} ]]; then
-    behind=$(git rev-list HEAD..origin | wc -l | awk '{print $1}')
-    ahead=$(git rev-list origin..HEAD | wc -l | awk '{print $1}')
-    remote=""
-    if [[ $ahead != 0 ]]; then
-      remote="$remote ${RED}↑$ahead${RESET}"
-    fi
-    if [[ $behind != 0 ]]; then
-      remote="$remote ${RED}↓$behind${RESET}"
-    fi
+  behind=$(git rev-list HEAD..origin 2> /dev/null | wc -l | awk '{print $1}')
+  ahead=$(git rev-list origin..HEAD 2> /dev/null | wc -l | awk '{print $1}')
+  remote=""
+  if [[ $ahead != 0 ]]; then
+    remote="$remote ${YELLOW}↑$ahead${RESET}"
+  fi
+  if [[ $behind != 0 ]]; then
+    remote="$remote ${YELLOW}↓$behind${RESET}"
   fi
 
   if [[ $branch ]]; then
