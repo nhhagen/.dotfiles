@@ -10,6 +10,9 @@ elif infocmp xterm-256color >/dev/null 2>&1; then
   export TERM=xterm-256color
 fi
 
+BOLD="\033[1m"
+RESET="\033[m"
+
 BLACK="\033[0;30"
 RED="\033[0;31m"
 GREEN="\033[0;32m"
@@ -18,8 +21,15 @@ BLUE="\033[0;34m"
 MAGENTA="\033[0;35m"
 CYAN="\033[0;36m"
 WHITE="\033[0;37m"
-BOLD="\033[1m"
-RESET="\033[m"
+
+BRIGHT_BLACK="\033[0;90"
+BRIGHT_RED="\033[0;91m"
+BRIGHT_GREEN="\033[0;92m"
+BRIGHT_YELLOW="\033[0;93m"
+BRIGHT_BLUE="\033[0;94m"
+BRIGHT_MAGENTA="\033[0;95m"
+BRIGHT_CYAN="\033[0;96m"
+BRIGHT_WHITE="\033[0;97m"
 
 BOLD_BLACK="\033[1;30"
 BOLD_RED="\033[1;31m"
@@ -72,7 +82,7 @@ function parse_git_branch {
   fi
 
   if [[ $branch ]]; then
-    echo -e " on $MAGENTA$branch$RESET $RED+$untracked ~$not_indexed_modified -$not_indexed_deleted $RESET $GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET$remote"
+    echo -e " on $MAGENTA$branch$RESET $RED+$untracked ~$not_indexed_modified -$not_indexed_deleted$RESET $GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET$remote"
   fi
 }
 
