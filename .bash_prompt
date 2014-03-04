@@ -32,8 +32,8 @@ BOLD_WHITE="\033[1;37m"
 
 export BLACK
 export RED
-export BOLD_GREEN
-export BOLD_YELLOW
+export GREEN
+export YELLOW
 export BLUE
 export MAGENTA
 export CYAN
@@ -72,7 +72,7 @@ function parse_git_branch {
   fi
 
   if [[ $branch ]]; then
-    echo -e " on $MAGENTA$branch$RESET $RED+$untracked ~$not_indexed_modified -$not_indexed_deleted $RESET $BOLD_GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET$remote"
+    echo -e " on $MAGENTA$branch$RESET $RED+$untracked ~$not_indexed_modified -$not_indexed_deleted $RESET $GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET$remote"
   fi
 }
 
