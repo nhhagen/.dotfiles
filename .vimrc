@@ -49,6 +49,9 @@ set smartcase                   " ... unless they contain at least one capital l
 let &colorcolumn="81,".join(range(121,999),",")
 highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
+sign define dummy
+execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
+
 " Buffer management
 nmap <C-h> :bp<CR>
 nmap <C-l> :bn<CR>
