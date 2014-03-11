@@ -74,10 +74,10 @@ function parse_git_branch {
   behind=$(git rev-list --count HEAD..origin 2> /dev/null)
   ahead=$(git rev-list --count origin..HEAD 2> /dev/null)
   remote=""
-  if [[ $ahead != 0 ]]; then
+  if [[ -n $ahead ]]; then
     remote="$remote ${YELLOW}↑$ahead${RESET}"
   fi
-  if [[ $behind != 0 ]]; then
+  if [[ -n $behind ]]; then
     remote="$remote ${YELLOW}↓$behind${RESET}"
   fi
 
