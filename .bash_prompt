@@ -74,8 +74,9 @@ function parse_git_branch {
   remote=""
   curr_remote=$(git config branch.${branch}.remote 2> /dev/null)
   if [[ -n $curr_remote ]]; then
-    ahead=$(git rev-list --left-only --count ${branch}...origin/${branch} 2> /dev/null)
-    behind=$(git rev-list --left-only  --count origin/${branch}...${branch} 2> /dev/null)
+    curr_merge_branch=$(git config branch.${branch}.merge | cut -d / -f 3);
+    ahead=$(git rev-list --left-only --count ${branch}...origin/${curr_merge_branch} 2> /dev/null)
+    behind=$(git rev-list --left-only  --count origin/${curr_merge_branch}...${branch} 2> /dev/null)
     if [[ -n $ahead && $ahead != 0 ]]; then
       remote="$remote ${YELLOW}↑$ahead${RESET}"
     fi
