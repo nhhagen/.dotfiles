@@ -9,6 +9,9 @@ ln -fs ~/.dotfiles/.vimrc ~/.vimrc
 ln -fs ~/.dotfiles/.vim ~/.vim && rm -f ~/.dotfiles/.vim/.vim
 ln -fs ~/.dotfiles/.bash_prompt ~/.bash_prompt
 ln -fs ~/.dotfiles/.tmux.conf ~/.tmux.conf
+ln -fs ~/.dotfiles/.subversion/config ~/.subversion/config
+ln -fs ~/.dotfiles/.colordiffrc ~/.colordiffrc
+ln -fs ~/.dotfiles/.colorsvnrc ~/.colorsvnrc
 if [ "$SYSTEM_TYPE" == "$LINUX" ]; then
   ln -Ffs ~/.dotfiles/.bashrc_linux ~/.bashrc
 fi
