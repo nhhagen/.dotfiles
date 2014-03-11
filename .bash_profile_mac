@@ -8,6 +8,10 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
  source  `brew --prefix`/etc/bash_completion
 fi
 
+if [ -f `brew --prefix`/etc/profile.d/colorsvn-env.sh ]; then
+  source `brew --prefix`/etc/profile.d/colorsvn-env.sh
+fi
+
 export PATH=/Library/Frameworks/Mono.framework/Versions/3.0.6/bin:$PATH
 export PATH=~/bin:$PATH
 
