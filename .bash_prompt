@@ -71,8 +71,8 @@ function parse_git_branch {
   not_indexed_deleted=$(echo -e "$git_status_clean" | grep "^.D" | wc -l | awk '{print $1}')
   untracked=$(echo -e "$git_status_clean" | grep "^??" | wc -l |awk '{print $1}')
 
-  behind=$(git rev-list HEAD..origin 2> /dev/null | wc -l | awk '{print $1}')
-  ahead=$(git rev-list origin..HEAD 2> /dev/null | wc -l | awk '{print $1}')
+  behind=$(git rev-list --count HEAD..origin 2> /dev/null)
+  ahead=$(git rev-list --count origin..HEAD 2> /dev/null)
   remote=""
   if [[ $ahead != 0 ]]; then
     remote="$remote ${YELLOW}↑$ahead${RESET}"
