@@ -23,6 +23,7 @@ set ruler
 set scrolloff=5                   " minimum lines above/below cursor
 set laststatus=2                  " always show status bar
 set autoread
+set autowrite
 set hidden
 
 "" Folding
