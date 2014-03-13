@@ -61,3 +61,6 @@
 [submodule ".vim/bundle/salt-vim"]
 	path = .vim/bundle/salt-vim
 	url = https://github.com/saltstack/salt-vim.git
+[submodule ".vim/bundle/node"]
+	path = .vim/bundle/node
+	url = https://github.com/moll/vim-node.git
