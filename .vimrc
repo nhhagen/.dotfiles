@@ -48,6 +48,8 @@ set smartcase                   " ... unless they contain at least one capital l
 
 let &colorcolumn="81,".join(range(121,999),",")
 highlight ColorColumn ctermbg=235 guibg=#2c2d27
+set cursorline
+highlight CursorLine ctermbg=235 guibg=#2c2d27
 
 autocmd BufEnter * sign define dummy
 autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
