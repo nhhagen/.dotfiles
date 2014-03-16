@@ -79,3 +79,13 @@ au VimResized * exe "normal! \<c-w>="
 vnoremap < <gv
 vnoremap > >gv
 
+" Turn off normal arrow keys for navigation
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
+inoremap  <Up> <NOP>
+inoremap  <Down> <NOP>
+inoremap  <Left> <NOP>
+inoremap  <Right> <NOP>
+
