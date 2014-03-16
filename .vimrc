@@ -20,7 +20,7 @@ filetype plugin indent on       " load file type plugins + indentation
 set number
 set relativenumber
 set ruler
-set scrolloff=5                   " minimum lines above/below cursor
+set scrolloff=9                   " minimum lines above/below cursor
 set laststatus=2                  " always show status bar
 set autoread
 set autowrite
@@ -30,6 +30,7 @@ set hidden
 set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default"
+
 colorscheme smyck
 ""let g:rehash256 = 1
 ""let g:molokai_original = 1
@@ -51,6 +52,7 @@ let &colorcolumn="81,".join(range(121,999),",")
 highlight ColorColumn ctermbg=235 guibg=#2c2d27
 set cursorline
 highlight CursorLine ctermbg=235 guibg=#2c2d27
+highlight SignColumn ctermbg=235 guibg=#2c2d27
 
 autocmd BufEnter * sign define dummy
 autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
