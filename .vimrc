@@ -53,6 +53,8 @@ highlight ColorColumn ctermbg=235 guibg=#2c2d27
 set cursorline
 highlight CursorLine ctermbg=235 guibg=#2c2d27
 highlight SignColumn ctermbg=235 guibg=#2c2d27
+highlight VertSplit ctermbg=10 guibg=#d1fa71 ctermfg=235 guifg=#2c2d27
+"set fillchars+=vert:\ " must have whitespace after the \
 
 autocmd BufEnter * sign define dummy
 autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
