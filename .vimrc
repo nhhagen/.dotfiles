@@ -1,12 +1,51 @@
 set nocompatible                " choose no compatibility with legacy vi
+filetype off
 
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd! bufwritepost .vimrc source $MYVIMRC
 endif
 
-execute pathogen#infect()
-execute pathogen#helptags()
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+  echo "Installing Vundle.."
+  echo ""
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+  let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+"Add your bundles here
+Bundle 'vim-scripts/JavaScript-Indent.git'
+Bundle 'Valloric/YouCompleteMe.git'
+Bundle 'kien/ctrlp.vim.git'
+Bundle 'Raimondi/delimitMate.git'
+Bundle 'editorconfig/editorconfig-vim.git'
+Bundle 'mattn/gist-vim.git'
+Bundle 'tomasr/molokai.git'
+Bundle 'evanmiller/nginx-vim-syntax.git'
+Bundle 'moll/vim-node.git'
+Bundle 'rodjek/vim-puppet.git'
+Bundle 'saltstack/salt-vim.git'
+Bundle 'scrooloose/syntastic.git'
+Bundle 'marijnh/tern_for_vim.git'
+Bundle 'bling/vim-airline'
+Bundle 'tpope/vim-fugitive.git'
+Bundle 'airblade/vim-gitgutter.git'
+Bundle 'jelera/vim-javascript-syntax.git'
+Bundle 'sickill/vim-monokai.git'
+Bundle 'PProvost/vim-ps1.git'
+Bundle 'mattn/webapi-vim.git'
+if iCanHazVundle == 0
+  echo "Installing Bundles, please ignore key map error messages"
+  echo ""
+  :BundleInstall
+endif
+" Setting up Vundle - the vim plugin bundler end
 
 set t_Co=256
 set title
