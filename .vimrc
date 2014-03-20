@@ -47,6 +47,7 @@ if iCanHazVundle == 0
 endif
 " Setting up Vundle - the vim plugin bundler end
 
+filetype plugin indent on       " load file type plugins + indentation
 set t_Co=256
 set title
 set noswapfile
@@ -55,7 +56,6 @@ set nowritebackup
 syntax enable
 set encoding=utf-8
 set showcmd                     " display incomplete commands
-filetype plugin indent on       " load file type plugins + indentation
 set number
 set relativenumber
 set ruler
