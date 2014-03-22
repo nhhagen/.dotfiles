@@ -1,4 +1,9 @@
 " vim: set foldmarker={,} foldlevel=0 foldmethod=marker :
+
+" No legacy vi, must be first {
+  set nocompatible
+" }
+
 " Source the vimrc file after saving it {
   if has("autocmd")
     autocmd! bufwritepost .vimrc source $MYVIMRC
@@ -6,7 +11,6 @@
 " }
 
 " Vundle {
-  set nocompatible                " choose no compatibility with legacy vi
   filetype off
 
   let iCanHazVundle=1
