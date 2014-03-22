@@ -10,8 +10,8 @@ endif
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
 if !filereadable(vundle_readme)
-  echo "Installing Vundle.."
-  echo ""
+  echo 'Installing Vundle..'
+  echo ''
   silent !mkdir -p ~/.vim/bundle
   silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
   let iCanHazVundle=0
@@ -41,8 +41,8 @@ Bundle 'sickill/vim-monokai.git'
 Bundle 'PProvost/vim-ps1.git'
 Bundle 'mattn/webapi-vim.git'
 if iCanHazVundle == 0
-  echo "Installing Bundles, please ignore key map error messages"
-  echo ""
+  echo 'Installing Bundles, please ignore key map error messages'
+  echo ''
   :BundleInstall
 endif
 " Setting up Vundle - the vim plugin bundler end
@@ -129,4 +129,3 @@ inoremap  <Up> <NOP>
 inoremap  <Down> <NOP>
 inoremap  <Left> <NOP>
 inoremap  <Right> <NOP>
-
