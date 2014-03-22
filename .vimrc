@@ -68,7 +68,8 @@ set hidden
 "" Folding
 set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default"
+"set nofoldenable        "dont fold by default
+set foldlevel=100       " don't autofold anything (but let me do it if I want to)
 
 colorscheme smyck
 ""let g:rehash256 = 1
@@ -92,6 +93,7 @@ highlight ColorColumn ctermbg=235 guibg=#2c2d27
 set cursorline
 highlight CursorLine ctermbg=235 guibg=#2c2d27
 highlight SignColumn ctermbg=235 guibg=#2c2d27
+highlight Folded ctermbg=235 guibg=#2c2d27
 highlight VertSplit ctermbg=10 guibg=#d1fa71 ctermfg=235 guifg=#2c2d27
 set fillchars+=vert:│ " must have whitespace after the \
 
