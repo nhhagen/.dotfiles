@@ -40,6 +40,10 @@ Bundle 'jelera/vim-javascript-syntax.git'
 Bundle 'sickill/vim-monokai.git'
 Bundle 'PProvost/vim-ps1.git'
 Bundle 'mattn/webapi-vim.git'
+Bundle 'gre/play2vim.git'
+Bundle 'derekwyatt/vim-scala'
+Bundle 'othree/html5.vim'
+
 if iCanHazVundle == 0
   echo 'Installing Bundles, please ignore key map error messages'
   echo ''
