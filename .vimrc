@@ -48,6 +48,7 @@
   Bundle 'gre/play2vim.git'
   Bundle 'derekwyatt/vim-scala'
   Bundle 'othree/html5.vim'
+  Bundle 'plasticboy/vim-markdown'
 
   if iCanHazVundle == 0
     echo 'Installing Bundles, please ignore key map error messages'
