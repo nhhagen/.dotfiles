@@ -116,8 +116,8 @@
 " }
 
 " Buffer management {
-nmap <C-h> :bp<CR>
-nmap <C-l> :bn<CR>
+  nmap <C-h> :bp<CR>
+  nmap <C-l> :bn<CR>
 " }
 
 " Delimate {
