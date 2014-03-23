@@ -5,7 +5,7 @@
 	<key>AdjustWindowForFontSizeChange</key>
 	<true/>
 	<key>AllowClipboardAccess</key>
-	<false/>
+	<true/>
 	<key>AnimateDimming</key>
 	<false/>
 	<key>AppleAntiAliasingThreshold</key>
@@ -743,11 +743,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1669 215 445 270 0 0 2560 1440 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>1142 830 924 485 0 0 2560 1440 </string>
+	<string>695 602 924 485 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>675 752 850 426 0 0 1920 1178 </string>
+	<string>145 394 850 448 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>860 94 850 426 0 0 2560 1418 </string>
+	<string>1115 667 850 426 0 0 2560 1418 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1551,7 +1551,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-03-04T11:39:16Z</date>
+	<date>2014-03-22T20:57:03Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -1594,6 +1594,10 @@
 	<integer>0</integer>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
+	<key>findIgnoreCase_iTerm</key>
+	<true/>
+	<key>findRegex_iTerm</key>
+	<false/>
 	<key>iTerm Version</key>
 	<string>1.0.0.20140112</string>
 </dict>

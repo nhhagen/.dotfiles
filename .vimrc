@@ -163,3 +163,8 @@
   inoremap  <Left> <NOP>
   inoremap  <Right> <NOP>
 " }
+
+" System clipboard support {
+  set clipboard=unnamed
+" }
+
