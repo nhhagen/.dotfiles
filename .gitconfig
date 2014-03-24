@@ -13,5 +13,10 @@
 	date = relative
 [alias]
 	lg = log --graph --decorate --pretty=format:'%C(yellow)%h%Creset - %C(green)(%cr)%Creset -%C(magenta)%d%Creset %s %C(blue)(%an)%Creset'
+	d = difftool
 [github]
 	user = nhhagen
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
