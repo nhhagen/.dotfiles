@@ -51,6 +51,7 @@
   Plugin 'tpope/vim-fugitive.git'
   Plugin 'vim-scripts/JavaScript-Indent.git'
   Plugin 'luochen1990/rainbow'
+  Plugin 'Yggdroot/indentLine'
 
   if iCanHazVundle == 0
     echo 'Installing Plugins, please ignore key map error messages'
