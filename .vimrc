@@ -50,6 +50,7 @@
   Plugin 'tomasr/molokai.git'
   Plugin 'tpope/vim-fugitive.git'
   Plugin 'vim-scripts/JavaScript-Indent.git'
+  Plugin 'luochen1990/rainbow'
 
   if iCanHazVundle == 0
     echo 'Installing Plugins, please ignore key map error messages'
@@ -169,3 +170,6 @@
   set clipboard=unnamed
 " }
 
+" Rainbow Parentheses {
+  let g:rainbow_active = 1
+" }
