@@ -176,3 +176,6 @@
   let g:rainbow_conf = { 'parentheses': [['(',')'], ['\[','\]'], ['{','}'], ['<','>']] }
 " }
 
+" indentLine {
+  let g:indentLine_char = '⎜'
+" }
