@@ -184,3 +184,7 @@
   autocmd BufEnter * EclimDisable
   autocmd BufEnter *.java EclimEnable
 " }
+
+" ctrlp {
+  let g:ctrlp_extensions = ['tag']
+" }
