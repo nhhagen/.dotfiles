@@ -179,3 +179,8 @@
 " indentLine {
   let g:indentLine_char = '⎜'
 " }
+
+" eclim {
+  autocmd BufEnter * EclimDisable
+  autocmd BufEnter *.java EclimEnable
+" }
