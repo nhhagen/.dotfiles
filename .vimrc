@@ -168,7 +168,7 @@
 " }
 
 " System clipboard support {
-  set clipboard=unnamed
+" set clipboard=unnamed
 " }
 
 " Rainbow Parentheses {
