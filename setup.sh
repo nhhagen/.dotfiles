@@ -13,7 +13,7 @@ ln -fs ~/.dotfiles/.subversion/config ~/.subversion/config
 ln -fs ~/.dotfiles/.colordiffrc ~/.colordiffrc
 ln -fs ~/.dotfiles/.colorsvnrc ~/.colorsvnrc
 
-vim +PluginInstall +qall
+vim +PluginUpdate +qall
 
 if [ "$SYSTEM_TYPE" == "$LINUX" ]; then
   ln -Ffs ~/.dotfiles/.bashrc_linux ~/.bashrc
