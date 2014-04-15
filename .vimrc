@@ -52,7 +52,7 @@
   Plugin 'tpope/vim-fugitive.git'
   Plugin 'vim-scripts/JavaScript-Indent.git'
   Plugin 'luochen1990/rainbow'
-  Plugin 'Yggdroot/indentLine'
+  Plugin 'nathanaelkane/vim-indent-guides'
 
   if iCanHazVundle == 0
     echo 'Installing Plugins, please ignore key map error messages'
@@ -177,10 +177,6 @@
   let g:rainbow_conf = { 'parentheses': [['(',')'], ['\[','\]'], ['{','}'], ['<','>']] }
 " }
 
-" indentLine {
-  let g:indentLine_char = '⎜'
-" }
-
 " eclim {
   autocmd BufEnter * EclimDisable
   autocmd BufEnter *.java EclimEnable
@@ -188,4 +184,13 @@
 
 " ctrlp {
   let g:ctrlp_extensions = ['tag']
+" }
+
+" vim-indent-guides {
+  let g:indent_guides_auto_colors = 0
+  let g:indent_guides_guide_size = 1
+  let g:indent_guides_start_level = 2
+  hi IndentGuidesOdd  ctermbg=235 guibg=#2c2d27
+  hi IndentGuidesEven ctermbg=235 guibg=#2c2d27
+  au VimEnter * :IndentGuidesEnable
 " }
