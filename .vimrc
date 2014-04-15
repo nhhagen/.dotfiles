@@ -1,4 +1,5 @@
-" vim: set foldmarker={,} foldlevel=0 foldmethod=marker :
+" vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
+" vim: set tabstop=2 shiftwidth=2:
 
 " No legacy vi, must be first {
   set nocompatible
@@ -106,7 +107,7 @@
 
 " Whitespace {
   set nowrap                      " don't wrap lines
-  set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
+  set tabstop=4 shiftwidth=4      " a tab is 4 spaces
   set smarttab                    " insert tabs on the start of a line according to shiftwidth, not tabstop
   set expandtab                   " use spaces, not tabs (optional)
   set backspace=indent,eol,start  " backspace through everything in insert mode
