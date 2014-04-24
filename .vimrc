@@ -178,8 +178,10 @@
 " }
 
 " eclim {
-  autocmd BufEnter * EclimDisable
-  autocmd BufEnter *.java EclimEnable
+  if exists('EclimEnable')
+    autocmd BufEnter * EclimDisable
+    autocmd BufEnter *.java EclimEnable
+  endif
 " }
 
 " ctrlp {
