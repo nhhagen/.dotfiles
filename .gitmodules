@@ -1,3 +1,12 @@
 [submodule "Smyck-Color-Scheme"]
 	path = Smyck-Color-Scheme
 	url = https://github.com/hukl/Smyck-Color-Scheme.git
+[submodule "powerline"]
+	path = powerline
+	url = https://github.com/Lokaltog/powerline.git
+[submodule "Meslo-Font"]
+	path = Meslo-Font
+	url = https://github.com/andreberg/Meslo-Font.git
+[submodule "powerline-fontpatcher"]
+	path = powerline-fontpatcher
+	url = https://github.com/Lokaltog/powerline-fontpatcher.git
