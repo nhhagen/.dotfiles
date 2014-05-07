@@ -83,6 +83,7 @@
 " }
 
 " Colors & UI {
+  set t_Co=256
   colorscheme smyck
   ""let g:rehash256 = 1
   ""let g:molokai_original = 1
@@ -145,7 +146,7 @@
 " }
 
 " Ignores {
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*/target/*
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*.log,*/target/*
   set wildignore+=*/node_modules/*,*/bower_components/*
 " }
 
@@ -175,7 +176,7 @@
 
 " Rainbow Parentheses {
   let g:rainbow_active = 1
-  let g:rainbow_conf = { 'parentheses': [['(',')'], ['\[','\]'], ['{','}'], ['<','>']] }
+  let g:rainbow_conf = { 'parentheses': [['(',')'], ['\[','\]'], ['{','}']] }
 " }
 
 " eclim {
