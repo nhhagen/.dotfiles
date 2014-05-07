@@ -53,6 +53,7 @@
   Plugin 'vim-scripts/JavaScript-Indent.git'
   Plugin 'luochen1990/rainbow'
   Plugin 'nathanaelkane/vim-indent-guides'
+  Plugin 'mileszs/ack.vim'
 
   if iCanHazVundle == 0
     echo 'Installing Plugins, please ignore key map error messages'
@@ -193,4 +194,9 @@
   hi IndentGuidesOdd  ctermbg=235 guibg=#2c2d27
   hi IndentGuidesEven ctermbg=235 guibg=#2c2d27
   au VimEnter * :IndentGuidesEnable
+" }
+
+" Ack {
+  let g:ackhighlight = 1
+  "let g:ackprg =  " -s -H --nocolor --nogroup --column --smart-case --follow"
 " }

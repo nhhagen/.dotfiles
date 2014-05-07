@@ -21,6 +21,7 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 export GIT_PS1_SHOWUPSTREAM="verbose"
 export GIT_PS1_SHOWCOLORHINTS=true
 
+export ACKRC=".ackrc"
 export EDITOR=vim
 
 # Tell ls to be colourful
