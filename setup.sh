@@ -24,10 +24,12 @@ fi
 if [ "$SYSTEM_TYPE" == "$OSX" ]; then
   ln -Ffs ~/.dotfiles/.bashrc_mac ~/.bashrc
   ln -Ffs ~/.dotfiles/.bash_profile_mac ~/.bash_profile
+  ln -Ffs ~/.dotfiles/.zshrc ~/.zshrc
+  ln -Ffs ~/.dotfiles/.zsh_prompt ~/.zsh_prompt
 
   ROOT=$(pwd)
   cd ~/.dotfiles/.vim/bundle/YouCompleteMe/
-  ./install.sh
+  ./install.sh --clang-completer
 
   cd ~/.dotfiles/.vim/bundle/tern_for_vim
   npm install
