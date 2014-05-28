@@ -4,12 +4,6 @@
 # -*- mode: sh -*-
 # vi: set ft=sh :
 
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-  export TERM=gnome-256color
-elif infocmp xterm-256color >/dev/null 2>&1; then
-  export TERM=xterm-256color
-fi
-
 BOLD="\033[1m"
 RESET="\033[m"
 
@@ -61,6 +55,7 @@ export BOLD_CYAN
 export BOLD_WHITE
 
 function parse_git_branch {
+  branch_prefix="\ue0a0"
   branch=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
   git_status_clean=$(git status --porcelain 2> /dev/null)
   indexed_modified=$(echo -e "$git_status_clean" | grep "^M" | wc -l | awk '{print $1}')
@@ -85,8 +80,8 @@ function parse_git_branch {
     fi
   fi
 
-  if [[ $branch ]]; then
-    echo -e " on $MAGENTA$branch$RESET $RED+$untracked ~$not_indexed_modified -$not_indexed_deleted$RESET $GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET$remote"
+  if [ $branch ]; then
+    echo -e " on $MAGENTA$branch_prefix $branch$RESET $RED+$untracked ~$not_indexed_modified -$not_indexed_deleted$RESET $GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET$remote"
   fi
 }
 
@@ -95,5 +90,5 @@ if [[ -n "$SSH_CLIENT$SSH2_CLIENT$SSH_TTY" ]] ; then
   HOST=" at \[$YELLOW\]\h\[$RESET\]"
 fi
 
-export PS1="\[$RED\]\u\[$RESET\]${HOST} in \[$BLUE\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]])\$(parse_git_branch)\n\[$YELLOW\]\$ \[$RESET\]"
+export PS1="\[$RED\]\u\[$RESET\]${HOST} in \[$BLUE\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]])\$(parse_git_branch)\n\[$YELLOW\]❯ \[$RESET\]"
 export PS2="\[$YELLOW\]→ \[$RESET\]"
