@@ -1,0 +1,53 @@
+# Shamelessly copied from https://github.com/gf3/dotfiles
+# Screenshot: http://i.imgur.com/s0Blh.png
+
+# -*- mode: zsh -*-
+# vi: set ft=zsh :
+
+local GIT_PROMPT=""
+
+function precmd() {
+    git_prompt() {
+        local branch_prefix="\ue0a0"
+        local branch="$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')" || return
+        local git_status_clean="$(git status --porcelain 2> /dev/null)"
+        local indexed_modified="$(echo -e "$git_status_clean" | grep "^M" | wc -l | awk '{print $1}')"
+        local not_indexed_modified="$(echo -e "$git_status_clean" | grep "^.M" | wc -l | awk '{print $1}')"
+        local indexed_new="$(echo -e "$git_status_clean" | grep "^A" | wc -l | awk '{print $1}')"
+        local not_indexed_new="$(echo -e "$git_status_clean" | grep "^.A" | wc -l | awk '{print $1}')"
+        local indexed_deleted="$(echo -e "$git_status_clean" | grep "^D" | wc -l | awk '{print $1}')"
+        local not_indexed_deleted="$(echo -e "$git_status_clean" | grep "^.D" | wc -l | awk '{print $1}')"
+        local untracked="$(echo -e "$git_status_clean" | grep "^??" | wc -l | awk '{print $1}')"
+
+        local remote=""
+        local curr_remote="$(git config branch.${branch}.remote 2> /dev/null)"
+        if [[ -n $curr_remote ]]; then
+            local curr_merge_branch="$(git config branch.${branch}.merge | cut -d / -f 3)"
+            local ahead="$(git rev-list --left-only --count ${branch}...origin/${curr_merge_branch} 2> /dev/null)"
+            local behind="$(git rev-list --left-only  --count origin/${curr_merge_branch}...${branch} 2> /dev/null)"
+            if [[ -n $ahead && $ahead != 0 ]]; then
+                remote="$remote %{$fg[yellow]%}↑$ahead%{$reset_color%}"
+            fi
+            if [[ -n $behind && $behind != 0 ]]; then
+                remote="$remote %{$fg[yellow]%}↓$behind%{$reset_color%}"
+            fi
+        fi
+        local result=""
+        if [[ -n $branch ]]; then
+            result=" on %{$fg[magenta]%}$branch_prefix $branch%{$reset_color%} %{$fg[red]%}+$untracked ~$not_indexed_modified -$not_indexed_deleted%{$reset_color%} %{$fg[green]%}+$indexed_new ~$indexed_modified -$indexed_deleted%{$reset_color%}$remote"
+        fi
+        echo "$result"
+    }
+    GIT_PROMPT="$(git_prompt)"
+}
+
+setprompt() {
+    local hostname=""
+    if [[ -n "$SSH_CLIENT$SSH2_CLIENT$SSH_TTY" ]] ; then
+        hostname=" at %{$fg[yellow]%}%m%{$reset_color%}"
+    fi
+    PROMPT='%{$fg[red]%}%n%{$reset_color%}${hostname} in %{$fg[blue]%}%~%{$reset_color%}${GIT_PROMPT}'$'\n''%{$fg[yellow]%}❯%{$reset_color%} '
+    #export PS2="\[$YELLOW\]→ \[$RESET\]"
+}
+
+setprompt
