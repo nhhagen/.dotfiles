@@ -37,6 +37,9 @@
   Plugin 'evanmiller/nginx-vim-syntax.git'
   Plugin 'gre/play2vim.git'
   Plugin 'jelera/vim-javascript-syntax.git'
+  Plugin 'pangloss/vim-javascript'
+  Plugin 'vim-scripts/JavaScript-Indent.git'
+  " Plugin 'mxw/vim-jsx'
   Plugin 'kien/ctrlp.vim.git'
   Plugin 'marijnh/tern_for_vim.git'
   Plugin 'mattn/gist-vim.git'
@@ -50,7 +53,6 @@
   Plugin 'sickill/vim-monokai.git'
   Plugin 'tomasr/molokai.git'
   Plugin 'tpope/vim-fugitive.git'
-  Plugin 'vim-scripts/JavaScript-Indent.git'
   Plugin 'luochen1990/rainbow'
   Plugin 'nathanaelkane/vim-indent-guides'
   Plugin 'mileszs/ack.vim'
@@ -146,7 +148,7 @@
 " }
 
 " Ignores {
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*.log,*/target/*
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*.log,*/target/*,*/tags/*
   set wildignore+=*/node_modules/*,*/bower_components/*
 " }
 
@@ -176,7 +178,7 @@
 
 " Rainbow Parentheses {
   let g:rainbow_active = 1
-  let g:rainbow_conf = { 'parentheses': [['(',')'], ['\[','\]'], ['{','}']] }
+  let g:rainbow_conf = { 'parentheses': [['(',')'], ['\[','\]'], ['{','}']], 'html': { 'parentheses': [] } }
 " }
 
 " eclim {
