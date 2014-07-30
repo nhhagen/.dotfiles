@@ -56,6 +56,8 @@
   Plugin 'luochen1990/rainbow'
   Plugin 'nathanaelkane/vim-indent-guides'
   Plugin 'mileszs/ack.vim'
+  Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+  Plugin 'edkolev/tmuxline.vim'
 
   if iCanHazVundle == 0
     echo 'Installing Plugins, please ignore key map error messages'
@@ -86,17 +88,15 @@
 
 " Colors & UI {
   set t_Co=256
-  colorscheme smyck
-  ""let g:rehash256 = 1
-  ""let g:molokai_original = 1
-  ""colorscheme molokai
+  colorscheme Tomorrow-Night
   let &colorcolumn="81,".join(range(121,999),",")
-  highlight ColorColumn ctermbg=235 guibg=#2c2d27
+  " highlight ColorColumn ctermbg=235 guibg=#2c2d27
   set cursorline
-  highlight CursorLine ctermbg=235 guibg=#2c2d27
-  highlight SignColumn ctermbg=none guibg=#2c2d27
-  highlight Folded ctermbg=none guibg=#2c2d27 ctermfg=8 guifg=#8F8F8F cterm=italic
-  highlight VertSplit ctermbg=10 guibg=#d1fa71 ctermfg=235 guifg=#2c2d27
+  " highlight CursorLine ctermbg=235 guibg=#2c2d27
+  highlight SignColumn ctermbg=none
+  highlight Comment cterm=italic
+  highlight Folded cterm=italic
+  " highlight VertSplit ctermbg=10 guibg=#d1fa71 ctermfg=235 guifg=#2c2d27
   set fillchars+=vert:│ " must have whitespace after the |
   autocmd BufEnter * sign define dummy
   autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
@@ -196,8 +196,8 @@
   let g:indent_guides_auto_colors = 0
   let g:indent_guides_guide_size = 1
   let g:indent_guides_start_level = 2
-  hi IndentGuidesOdd  ctermbg=235 guibg=#2c2d27
-  hi IndentGuidesEven ctermbg=235 guibg=#2c2d27
+  " hi IndentGuidesOdd  ctermbg=235 guibg=#2c2d27
+  " hi IndentGuidesEven ctermbg=235 guibg=#2c2d27
   au VimEnter * :IndentGuidesEnable
 " }
 
