@@ -10,3 +10,6 @@
 [submodule "powerline-fontpatcher"]
 	path = powerline-fontpatcher
 	url = https://github.com/Lokaltog/powerline-fontpatcher.git
+[submodule "tomorrow-theme"]
+	path = tomorrow-theme
+	url = https://github.com/chriskempson/tomorrow-theme.git
