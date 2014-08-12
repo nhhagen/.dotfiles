@@ -1171,11 +1171,13 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>586 519 214 309 0 0 2560 1418 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1669 215 445 270 0 0 2560 1440 </string>
+	<string>1475 215 445 270 0 0 1920 1178 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>1358 294 924 485 0 0 2560 1440 </string>
+	<string>827 460 924 485 0 0 2560 1440 </string>
+	<key>NSWindow Frame UKCrashReporter</key>
+	<string>155 594 592 584 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>732 749 850 426 0 0 2560 1418 </string>
+	<string>92 720 850 426 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>86 987 850 426 0 0 2560 1418 </string>
 	<key>New Bookmarks</key>
@@ -1888,7 +1890,7 @@
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
-			<string>xterm-256color</string>
+			<string>xterm-256color-italic</string>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Triggers</key>
@@ -1981,7 +1983,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-07-30T03:49:20Z</date>
+	<date>2014-07-30T16:13:53Z</date>
 	<key>SUSkippedVersion</key>
 	<string>1.0.0.20140629</string>
 	<key>SavePasteHistory</key>
@@ -2031,6 +2033,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>1.0.0.20140518</string>
+	<string>2.0</string>
 </dict>
 </plist>

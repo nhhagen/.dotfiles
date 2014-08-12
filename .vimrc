@@ -7,63 +7,81 @@
 
 " Source the vimrc file after saving it {
   if has("autocmd")
-    autocmd! bufwritepost .vimrc source $MYVIMRC
+    autocmd! bufwritepost .vimrc source $MYVIMRC | AirlineRefresh
   endif
 " }
 
-" Vundle {
+" Plugin management {
   filetype off
 
-  let iCanHazVundle=1
-  let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-  if !filereadable(vundle_readme)
-    echo 'Installing Vundle..'
-    echo ''
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let iCanHazVundle=0
-  endif
-  set rtp+=~/.vim/bundle/vundle/
-  call vundle#rc()
-  Plugin 'gmarik/vundle'
+  " Vundle install {
+    let iCanHazVundle=1
+    let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+    if !filereadable(vundle_readme)
+      echo 'Installing Vundle..'
+      echo ''
+      silent !mkdir -p ~/.vim/bundle
+      silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+      let iCanHazVundle=0
+    endif
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+    Plugin 'gmarik/vundle'
+  " }
 
-  Plugin 'PProvost/vim-ps1.git'
+  " UI {
+    Plugin 'bling/vim-airline'
+    Plugin 'airblade/vim-gitgutter.git'
+    Plugin 'nathanaelkane/vim-indent-guides'
+    Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+    Plugin 'edkolev/tmuxline.vim'
+    Plugin 'luochen1990/rainbow'
+    Plugin 'sickill/vim-monokai.git'
+    Plugin 'tomasr/molokai.git'
+    Plugin 'kien/ctrlp.vim.git'
+  " }
+
+  " Completion {
+    Plugin 'Valloric/YouCompleteMe.git'
+    Plugin 'marijnh/tern_for_vim.git'
+  " }
+
+  " JavaScript {
+    Plugin 'moll/vim-node.git'
+    Plugin 'jelera/vim-javascript-syntax.git'
+    Plugin 'vim-scripts/JavaScript-Indent.git'
+    Plugin 'pangloss/vim-javascript'
+    " Plugin 'mxw/vim-jsx'
+  " }
+
+  " Misc language & syntax support {
+    Plugin 'PProvost/vim-ps1.git'
+    Plugin 'othree/html5.vim'
+    Plugin 'plasticboy/vim-markdown'
+    Plugin 'rodjek/vim-puppet.git'
+    Plugin 'saltstack/salt-vim.git'
+    Plugin 'evanmiller/nginx-vim-syntax.git'
+    Plugin 'derekwyatt/vim-scala'
+  " }
+
   Plugin 'Raimondi/delimitMate.git'
-  Plugin 'Valloric/YouCompleteMe.git'
-  Plugin 'airblade/vim-gitgutter.git'
-  Plugin 'bling/vim-airline'
-  Plugin 'derekwyatt/vim-scala'
   Plugin 'editorconfig/editorconfig-vim.git'
-  Plugin 'evanmiller/nginx-vim-syntax.git'
   Plugin 'gre/play2vim.git'
-  Plugin 'jelera/vim-javascript-syntax.git'
-  Plugin 'pangloss/vim-javascript'
-  Plugin 'vim-scripts/JavaScript-Indent.git'
-  " Plugin 'mxw/vim-jsx'
-  Plugin 'kien/ctrlp.vim.git'
-  Plugin 'marijnh/tern_for_vim.git'
   Plugin 'mattn/gist-vim.git'
   Plugin 'mattn/webapi-vim.git'
-  Plugin 'moll/vim-node.git'
-  Plugin 'othree/html5.vim'
-  Plugin 'plasticboy/vim-markdown'
-  Plugin 'rodjek/vim-puppet.git'
-  Plugin 'saltstack/salt-vim.git'
   Plugin 'scrooloose/syntastic.git'
-  Plugin 'sickill/vim-monokai.git'
-  Plugin 'tomasr/molokai.git'
   Plugin 'tpope/vim-fugitive.git'
-  Plugin 'luochen1990/rainbow'
-  Plugin 'nathanaelkane/vim-indent-guides'
   Plugin 'mileszs/ack.vim'
-  Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-  Plugin 'edkolev/tmuxline.vim'
+  "Plugin 'xolox/vim-misc'
+  "Plugin 'xolox/vim-easytags'
 
-  if iCanHazVundle == 0
-    echo 'Installing Plugins, please ignore key map error messages'
-    echo ''
-    :PluginInstall
-  endif
+  " Vundle install {
+    if iCanHazVundle == 0
+      echo 'Installing Plugins, please ignore key map error messages'
+      echo ''
+      :PluginInstall
+    endif
+  " }
 " }
 
 " Basics {
@@ -84,28 +102,27 @@
   set autoread
   set autowrite
   set hidden
+  set noshowmode
 " }
 
 " Colors & UI {
   set t_Co=256
+  set t_ut=
   colorscheme Tomorrow-Night
   let &colorcolumn="81,".join(range(121,999),",")
-  " highlight ColorColumn ctermbg=235 guibg=#2c2d27
   set cursorline
-  " highlight CursorLine ctermbg=235 guibg=#2c2d27
   highlight SignColumn ctermbg=none
   highlight Comment cterm=italic
   highlight Folded cterm=italic
-  " highlight VertSplit ctermbg=10 guibg=#d1fa71 ctermfg=235 guifg=#2c2d27
+  "highlight javaMethodTag ctermfg=222 guifg=#f0c674
   set fillchars+=vert:│ " must have whitespace after the |
   autocmd BufEnter * sign define dummy
   autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
 " }
 
 " Folding {
-  set foldmethod=indent   "fold based on indent
-  set foldnestmax=3       "deepest fold is 3 levels
-  "set nofoldenable        "dont fold by default
+  set foldmethod=indent   " fold based on indent
+  set foldnestmax=3       " deepest fold is 3 levels
   set foldlevel=100       " don't autofold anything (but let me do it if I want to)
 " }
 
@@ -127,6 +144,7 @@
 " Buffer management {
   nmap <C-h> :bp<CR>
   nmap <C-l> :bn<CR>
+  " nmap <C-w> :bd<CR> need to find a new key
 " }
 
 " Delimate {
@@ -196,8 +214,8 @@
   let g:indent_guides_auto_colors = 0
   let g:indent_guides_guide_size = 1
   let g:indent_guides_start_level = 2
-  " hi IndentGuidesOdd  ctermbg=235 guibg=#2c2d27
-  " hi IndentGuidesEven ctermbg=235 guibg=#2c2d27
+  highlight IndentGuidesOdd  ctermbg=236 guibg=#3a3a3a
+  highlight IndentGuidesEven ctermbg=236 guibg=#3a3a3a
   au VimEnter * :IndentGuidesEnable
 " }
 
