@@ -106,6 +106,8 @@
   set hidden
   set wildmenu            " visual autocomplete for command menu"
   set noshowmode
+
+  nmap <C-c> :set invnumber invrelativenumber<CR>
 " }
 
 " Colors & UI {
