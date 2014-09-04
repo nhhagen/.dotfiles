@@ -117,9 +117,9 @@
   let &colorcolumn="81,".join(range(121,999),",")
   set cursorline
   highlight SignColumn ctermbg=none
-  highlight Comment cterm=italic
-  highlight Folded cterm=italic
-  "highlight javaMethodTag ctermfg=222 guifg=#f0c674
+  " highlight Comment cterm=italic
+  " highlight Folded cterm=italic
+  " highlight javaMethodTag ctermfg=222 guifg=#f0c674
   set fillchars+=vert:│ " must have whitespace after the |
   autocmd BufEnter * sign define dummy
   autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
