@@ -23,6 +23,8 @@
 --ignore-dir=target/
 --ignore-dir=.target/
 --ignore-dir=bower_components/
+--ignore-dir=analyze/
+--ignore-dir=bin/
 
 --type-set=json=.json
 --type-add=css=scss
