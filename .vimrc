@@ -57,6 +57,7 @@
   " Misc language & syntax support {
     Plugin 'PProvost/vim-ps1.git'
     Plugin 'othree/html5.vim'
+    Plugin 'godlygeek/tabular'
     Plugin 'plasticboy/vim-markdown'
     Plugin 'rodjek/vim-puppet.git'
     Plugin 'saltstack/salt-vim.git'
@@ -72,6 +73,7 @@
   Plugin 'scrooloose/syntastic.git'
   Plugin 'tpope/vim-fugitive.git'
   Plugin 'mileszs/ack.vim'
+  Plugin 'sjl/vitality.vim'
   "Plugin 'xolox/vim-misc'
   "Plugin 'xolox/vim-easytags'
 
