@@ -69,7 +69,7 @@ function parse_git_branch {
   remote=""
   curr_remote=$(git config branch.${branch}.remote 2> /dev/null)
   if [[ -n $curr_remote ]]; then
-    curr_merge_branch=$(git config branch.${branch}.merge | cut -d / -f 3);
+    curr_merge_branch=$(git config branch.${branch}.merge | sed -e "s/refs\/heads\///g");
     ahead=$(git rev-list --left-only --count ${branch}...origin/${curr_merge_branch} 2> /dev/null)
     behind=$(git rev-list --left-only  --count origin/${curr_merge_branch}...${branch} 2> /dev/null)
     if [[ -n $ahead && $ahead != 0 ]]; then
@@ -85,10 +85,10 @@ function parse_git_branch {
   fi
 }
 
-HOST=""
+PREFIX=""
 if [[ -n "$SSH_CLIENT$SSH2_CLIENT$SSH_TTY" ]] ; then
-  HOST=" at \[$YELLOW\]\h\[$RESET\]"
+  PREFIX="\[$RED\]\u\[$RESET\] at \[$YELLOW\]\h\[$RESET\] in "
 fi
 
-export PS1="\[$RED\]\u\[$RESET\]${HOST} in \[$BLUE\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]])\$(parse_git_branch)\n\[$YELLOW\]❯ \[$RESET\]"
+export PS1="${PREFIX}\[$BLUE\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]])\$(parse_git_branch)\n\[$YELLOW\]❯ \[$RESET\]"
 export PS2="\[$YELLOW\]→ \[$RESET\]"

@@ -22,7 +22,7 @@ function precmd() {
         local remote=""
         local curr_remote="$(git config branch.${branch}.remote 2> /dev/null)"
         if [[ -n $curr_remote ]]; then
-            local curr_merge_branch="$(git config branch.${branch}.merge | cut -d / -f 3)"
+            local curr_merge_branch="$(git config branch.${branch}.merge | sed -e "s/refs\/heads\///g")"
             local ahead="$(git rev-list --left-only --count ${branch}...origin/${curr_merge_branch} 2> /dev/null)"
             local behind="$(git rev-list --left-only  --count origin/${curr_merge_branch}...${branch} 2> /dev/null)"
             if [[ -n $ahead && $ahead != 0 ]]; then
@@ -42,11 +42,11 @@ function precmd() {
 }
 
 setprompt() {
-    local hostname=""
+    local prefix=""
     if [[ -n "$SSH_CLIENT$SSH2_CLIENT$SSH_TTY" ]] ; then
-        hostname=" at %{$fg[yellow]%}%m%{$reset_color%}"
+        prefix="%{$fg[red]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in "
     fi
-    PROMPT='%{$fg[red]%}%n%{$reset_color%}${hostname} in %{$fg[blue]%}%~%{$reset_color%}${GIT_PROMPT}'$'\n''%{$fg[yellow]%}❯%{$reset_color%} '
+    PROMPT='${prefix}%{$fg[blue]%}%~%{$reset_color%}${GIT_PROMPT}'$'\n''%{$fg[yellow]%}❯%{$reset_color%} '
     #export PS2="\[$YELLOW\]→ \[$RESET\]"
 }
 
