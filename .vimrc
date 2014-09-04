@@ -172,7 +172,14 @@
 
 " Ignores {
   set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*.log,*/target/*,*/tags/*
-  set wildignore+=*/node_modules/*,*/bower_components/*
+  set wildignore+=*/node_modules/
+  set wildignore+=*/bower_components/*
+  set wildignore+=*/analyze/*
+  set wildignore+=*/.git/*
+  set wildignore+=*/.svn/*
+  set wildignore+=*/.idea/*,*/.idea_modules/*
+  set wildignore+=*/.vagrant/*
+  set wildignore+=*/.target/*
 " }
 
 " Resize splits when the window is resized {
