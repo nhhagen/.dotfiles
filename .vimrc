@@ -104,6 +104,7 @@
   set autoread
   set autowrite
   set hidden
+  set wildmenu            " visual autocomplete for command menu"
   set noshowmode
 " }
 
