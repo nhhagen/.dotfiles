@@ -13,3 +13,5 @@ syn region java5EnumDef start="^\z(\s*\)\%(@[A-Z]\k*\%((\_.\{-})\)\?\_s*\)*\%(\%
 "syn region javaMultipleOneLineCommentFold start="^\z(\s*\(//\)\)" skip="^\z1" end="^\z1\@!" transparent fold
 syn region javaMultiLineComment start="/[*]\{1,}" end="[*]/" keepend transparent fold
 
+syn keyword javaExternal native package
+syn region foldImports start=/\(^\s*\n^import\)\@<= .\+;/ end=+^\s*$+ transparent fold keepend
