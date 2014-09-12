@@ -12,7 +12,7 @@
 [log]
 	date = relative
 [alias]
-	lg = log --graph --decorate --pretty=format:'%C(yellow)%h%Creset - %C(green)%cr%Creset -%C(magenta)%d%Creset %s %C(blue)(%an)%Creset'
+	lg = log --graph --decorate --pretty=format:'%C(yellow)%h%Creset %C(magenta)%d%Creset %s %C(blue)(%an)%Creset %C(green)%cr%Creset'
 	d = difftool
 [github]
 	user = nhhagen
