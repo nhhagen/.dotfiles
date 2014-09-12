@@ -20,7 +20,6 @@ if [ "$SYSTEM_TYPE" == "$OSX" ]; then
         brew install $package
     done
 fi
-exit
 ln -Ffs ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -fs ~/.dotfiles/.vimrc ~/.vimrc
 ln -fs ~/.dotfiles/.vim ~/.vim && rm -f ~/.dotfiles/.vim/.vim
