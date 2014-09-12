@@ -49,6 +49,6 @@ export GREP_OPTIONS='--color=auto'
 
 source $HOME/.zsh_prompt
 
-function gi() { curl http://www.gitignore.io/api/$@ ;}
+function gi() { curl -s https://www.gitignore.io/api/\$@ ;}
 
 function newproject() { curl https://raw.github.com/nhhagen/vagrant-dev-box/master/setup.sh | bash -s $@ ; }
