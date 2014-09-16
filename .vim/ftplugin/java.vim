@@ -19,3 +19,4 @@ let java_highlight_java_lang_ids=1
 let java_minlines = 150
 
 let g:EclimCompletionMethod = 'omnifunc'
+highlight javaLangClass ctermfg=Yellow
