@@ -7,6 +7,9 @@ OSX='Darwin'
 
 if [ "$SYSTEM_TYPE" == "$OSX" ]; then
     packages=(
+        zsh
+        zsh-completions
+        zsh-syntax-highlighting
         vim
         tmux
         git
