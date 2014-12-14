@@ -15,6 +15,7 @@ if [ "$SYSTEM_TYPE" == "$OSX" ]; then
         ack
         reattach-to-user-namespace
         wget
+        the_silver_searcher
     )
     for package in ${packages[*]}; do
         brew install $package

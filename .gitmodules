@@ -13,3 +13,6 @@
 [submodule "tomorrow-theme"]
 	path = tomorrow-theme
 	url = https://github.com/chriskempson/tomorrow-theme.git
+[submodule "LM-Tomorrow-Night"]
+	path = LM-Tomorrow-Night
+	url = git@github.com:gideondk/LM-Tomorrow-Night.git

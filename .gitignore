@@ -49,3 +49,5 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+
+.ropeproject/

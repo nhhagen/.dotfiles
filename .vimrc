@@ -29,7 +29,7 @@
     Plugin 'gmarik/vundle'
   " }
 
-  " UI {
+  " General {
     Plugin 'bling/vim-airline'
     Plugin 'airblade/vim-gitgutter.git'
     Plugin 'nathanaelkane/vim-indent-guides'
@@ -39,6 +39,14 @@
     Plugin 'sickill/vim-monokai.git'
     Plugin 'tomasr/molokai.git'
     Plugin 'kien/ctrlp.vim.git'
+    Plugin 'tpope/vim-fugitive.git'
+    Plugin 'rking/ag.vim'
+    Plugin 'sjl/vitality.vim'
+    Plugin 'editorconfig/editorconfig-vim.git'
+    Plugin 'Raimondi/delimitMate.git'
+    Plugin 'mattn/gist-vim.git'
+    Plugin 'greyblake/vim-preview'
+    Plugin 'mtth/scratch.vim'
   " }
 
   " Completion {
@@ -51,10 +59,22 @@
     Plugin 'jelera/vim-javascript-syntax.git'
     Plugin 'vim-scripts/JavaScript-Indent.git'
     Plugin 'pangloss/vim-javascript'
-    " Plugin 'mxw/vim-jsx'
+    Plugin 'mxw/vim-jsx'
   " }
 
+  " Ruby {
+    Plugin 'vim-ruby/vim-ruby'
+    Plugin 'tpope/vim-bundler'
+    Plugin 'tpope/vim-endwise'
+  " }
+
+  " Python {
+    " Plugin 'hdima/python-syntax'
+    Plugin 'klen/python-mode'
+  "}
+
   " Misc language & syntax support {
+    Plugin 'scrooloose/syntastic.git'
     Plugin 'PProvost/vim-ps1.git'
     Plugin 'othree/html5.vim'
     Plugin 'godlygeek/tabular'
@@ -63,17 +83,10 @@
     Plugin 'saltstack/salt-vim.git'
     Plugin 'evanmiller/nginx-vim-syntax.git'
     Plugin 'derekwyatt/vim-scala'
+    Plugin 'gre/play2vim.git'
   " }
 
-  Plugin 'Raimondi/delimitMate.git'
-  Plugin 'editorconfig/editorconfig-vim.git'
-  Plugin 'gre/play2vim.git'
-  Plugin 'mattn/gist-vim.git'
-  Plugin 'mattn/webapi-vim.git'
-  Plugin 'scrooloose/syntastic.git'
-  Plugin 'tpope/vim-fugitive.git'
-  Plugin 'mileszs/ack.vim'
-  Plugin 'sjl/vitality.vim'
+  "Plugin 'mattn/webapi-vim.git'
   "Plugin 'xolox/vim-misc'
   "Plugin 'xolox/vim-easytags'
 
@@ -115,6 +128,7 @@
   set t_ut=
   colorscheme Tomorrow-Night
   let &colorcolumn="81,".join(range(121,999),",")
+  " autocmd BufEnter * if &diff | set cursorline! | else | set cursorline | endif
   set cursorline
   highlight SignColumn ctermbg=none
   " highlight Comment cterm=italic
@@ -180,6 +194,7 @@
   set wildignore+=*/.idea/*,*/.idea_modules/*
   set wildignore+=*/.vagrant/*
   set wildignore+=*/.target/*
+  set wildignore+=*.pyc
 " }
 
 " Resize splits when the window is resized {
@@ -232,7 +247,14 @@
   au VimEnter * :IndentGuidesEnable
 " }
 
-" Ack {
-  let g:ackhighlight = 1
-  "let g:ackprg =  " -s -H --nocolor --nogroup --column --smart-case --follow"
+" Ag {
+  let g:aghighlight = 1
 " }
+
+" Systastic {
+  let g:syntastic_javascript_checkers = ['jsxhint']
+" }
+
+" Scratch {
+  let g:scratch_insert_autohide = 0
+"}

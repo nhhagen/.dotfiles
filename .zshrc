@@ -19,6 +19,21 @@ if [ -d `brew --prefix`/share/zsh-completions ]; then
     fpath=(`brew --prefix`/share/zsh-completions $fpath)
 fi
 
+#if [ -f `brew --prefix`zsh/site-functions/git-flow-completion.zsh ]; then
+#    source `brew --prefix`zsh/site-functions/git-flow-completion.zsh
+#fi
+
+if [ -f `brew --prefix`/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source `brew --prefix`/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+if [ -f `brew --prefix`/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]; then
+    source `brew --prefix`/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
+    # bind k and j for VI mode
+    bindkey -M vicmd 'k' history-substring-search-up
+    bindkey -M vicmd 'j' history-substring-search-down
+fi
+
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
