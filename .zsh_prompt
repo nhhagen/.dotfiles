@@ -32,9 +32,19 @@ function precmd() {
                 remote="$remote %{$fg[yellow]%}↓$behind%{$reset_color%}"
             fi
         fi
+        local workspace=""
+        if [[ $untracked != 0 || $not_indexed_modified != 0 || $not_indexed_deleted != 0 ]]; then
+            workspace=" %{$fg[red]%}+$untracked ~$not_indexed_modified -$not_indexed_deleted%{$reset_color%}"
+        fi
+
+        local staged=""
+        if [[ $indexed_new != 0 || $indexed_modified != 0 || $indexed_deleted != 0 ]]; then
+            staged=" %{$fg[green]%}+$indexed_new ~$indexed_modified -$indexed_deleted%{$reset_color%}"
+        fi
+
         local result=""
         if [[ -n $branch ]]; then
-            result=" on %{$fg[magenta]%}$branch_prefix $branch%{$reset_color%} %{$fg[red]%}+$untracked ~$not_indexed_modified -$not_indexed_deleted%{$reset_color%} %{$fg[green]%}+$indexed_new ~$indexed_modified -$indexed_deleted%{$reset_color%}$remote"
+            result=" on %{$fg[magenta]%}$branch_prefix $branch%{$reset_color%}$workspace$staged$remote"
         fi
         echo "$result"
     }

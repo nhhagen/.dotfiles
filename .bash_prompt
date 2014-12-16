@@ -80,8 +80,18 @@ function parse_git_branch {
     fi
   fi
 
+  local workspace=""
+  if [[ $untracked != 0 || $not_indexed_modified != 0 || $not_indexed_deleted != 0 ]]; then
+    workspace="  ${RED}+$untracked ~$not_indexed_modified -$not_indexed_deleted${RESET}"
+  fi
+
+  local staged=""
+  if [[ $indexed_new != 0 || $indexed_modified != 0 || $indexed_deleted != 0 ]]; then
+    staged="  ${GREEN}+$indexed_new ~$indexed_modified -$indexed_deleted${RESET}"
+  fi
+
   if [ $branch ]; then
-    echo -e " on $MAGENTA$branch_prefix $branch$RESET $RED+$untracked ~$not_indexed_modified -$not_indexed_deleted$RESET $GREEN+$indexed_new ~$indexed_modified -$indexed_deleted$RESET$remote"
+    echo -e " on $MAGENTA$branch_prefix $branch$RESET$workspace$staged$remote"
   fi
 }
 
