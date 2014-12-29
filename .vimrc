@@ -195,6 +195,8 @@
   set wildignore+=*/.vagrant/*
   set wildignore+=*/.target/*
   set wildignore+=*.pyc
+  set wildignore+=*/build/*
+  set wildignore+=*/dist/*
 " }
 
 " Resize splits when the window is resized {
