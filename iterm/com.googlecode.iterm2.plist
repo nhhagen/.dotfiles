@@ -1162,24 +1162,29 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>302</string>
+		<string>319</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>586 519 214 309 0 0 2560 1418 </string>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1475 215 445 270 0 0 1920 1178 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>827 449 924 485 0 0 2560 1418 </string>
+	<string>503 324 924 485 0 0 1920 1177 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>155 594 592 584 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>561 336 850 426 0 0 2560 1418 </string>
+	<string>993 751 850 426 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>86 987 850 426 0 0 2560 1418 </string>
+	<string>339 79 1210 1076 0 0 1920 1177 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1318,11 +1323,11 @@
 			<key>Ansi 8 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.0</real>
+				<real>0.56940609216690063</real>
 				<key>Green Component</key>
-				<real>0.0</real>
+				<real>0.56940609216690063</real>
 				<key>Red Component</key>
-				<real>0.0</real>
+				<real>0.5574185848236084</real>
 			</dict>
 			<key>Ansi 9 Color</key>
 			<dict>
@@ -1983,9 +1988,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-08-12T16:36:07Z</date>
-	<key>SUSkippedVersion</key>
-	<string>1.0.0.20140629</string>
+	<date>2015-01-05T08:52:55Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2035,6 +2038,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.0</string>
+	<string>2.0.0.20141103</string>
 </dict>
 </plist>
