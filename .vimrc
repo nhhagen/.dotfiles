@@ -36,8 +36,6 @@
     Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
     Plugin 'edkolev/tmuxline.vim'
     Plugin 'luochen1990/rainbow'
-    Plugin 'sickill/vim-monokai.git'
-    Plugin 'tomasr/molokai.git'
     Plugin 'kien/ctrlp.vim.git'
     Plugin 'tpope/vim-fugitive.git'
     Plugin 'rking/ag.vim'
@@ -45,8 +43,10 @@
     Plugin 'editorconfig/editorconfig-vim.git'
     Plugin 'Raimondi/delimitMate.git'
     Plugin 'mattn/gist-vim.git'
+    Plugin 'mattn/webapi-vim.git' " Needed by gist-vim
     Plugin 'greyblake/vim-preview'
     Plugin 'mtth/scratch.vim'
+    Plugin 'nicwest/QQ.vim'
   " }
 
   " Completion {
@@ -57,8 +57,10 @@
   " JavaScript {
     Plugin 'moll/vim-node.git'
     Plugin 'jelera/vim-javascript-syntax.git'
-    Plugin 'vim-scripts/JavaScript-Indent.git'
+    Plugin 'othree/javascript-libraries-syntax.vim'
     Plugin 'pangloss/vim-javascript'
+    " Plugin 'crusoexia/vim-javascript-lib'
+    Plugin 'vim-scripts/JavaScript-Indent.git'
     Plugin 'mxw/vim-jsx'
   " }
 
@@ -69,7 +71,6 @@
   " }
 
   " Python {
-    " Plugin 'hdima/python-syntax'
     Plugin 'klen/python-mode'
   "}
 
@@ -86,7 +87,6 @@
     Plugin 'gre/play2vim.git'
   " }
 
-  "Plugin 'mattn/webapi-vim.git'
   "Plugin 'xolox/vim-misc'
   "Plugin 'xolox/vim-easytags'
 
@@ -101,7 +101,6 @@
 
 " Basics {
   filetype plugin indent on       " load file type plugins + indentation
-  set t_Co=256
   set title
   set noswapfile
   set nobackup
@@ -256,8 +255,15 @@
 
 " Systastic {
   let g:syntastic_javascript_checkers = ['jsxhint']
+  let g:syntastic_check_on_open=1
 " }
 
 " Scratch {
   let g:scratch_insert_autohide = 0
+  let g:scratch_horizontal = 0
+  let g:scratch_height = 50
+"}
+
+" JSX {
+  let g:jsx_ext_required = 0
 "}
