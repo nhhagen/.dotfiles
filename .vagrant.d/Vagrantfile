@@ -1,7 +1,18 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant::Config.run do |config|
-  config.vm.share_folder "v-dotfiles", "/home/vagrant/.dotfiles", File.expand_path("~/.dotfiles")
-  config.vm.provision :shell, :path => File.join(File.dirname(__FILE__), "scripts", "provision")
+Vagrant.configure("2") do |config|
+    # home_dir = File.dirname(__FILE__)
+    config.vm.provider :virtualbox do |virtualbox, overide|
+        # config.vm.synced_folder File.join(home_dir, "salt/roots/"), "/srv/"
+        # config.vm.provision :salt do |salt|
+        #     salt.minion_config = File.join(home_dir, "salt/minion")
+        #     salt.run_highstate = true
+        #     salt.colorize = true
+        #     salt.log_level = 'warning'
+        #     # salt.verbose = true
+        # end
+        # config.vm.synced_folder File.expand_path("~/.dotfiles"), "/home/vagrant/.dotfiles"
+        config.vm.provision :shell, path: File.join(File.dirname(__FILE__), "scripts", "provision")
+    end
 end
