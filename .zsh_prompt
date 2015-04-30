@@ -24,7 +24,7 @@ function precmd() {
         if [[ -n $curr_remote ]]; then
             local curr_merge_branch="$(git config branch.${branch}.merge | sed -e "s/refs\/heads\///g")"
             local ahead="$(git rev-list --left-only --count ${branch}...origin/${curr_merge_branch} 2> /dev/null)"
-            local behind="$(git rev-list --left-only  --count origin/${curr_merge_branch}...${branch} 2> /dev/null)"
+            local behind="$(git rev-list --left-only --count origin/${curr_merge_branch}...${branch} 2> /dev/null)"
             if [[ -n $ahead && $ahead != 0 ]]; then
                 remote="$remote %{$fg[yellow]%}↑$ahead%{$reset_color%}"
             fi
