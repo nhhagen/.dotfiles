@@ -47,11 +47,17 @@
     Plugin 'greyblake/vim-preview'
     Plugin 'mtth/scratch.vim'
     Plugin 'nicwest/QQ.vim'
+    Plugin 'junegunn/limelight.vim'
+    Plugin 'DanielFGray/DistractionFree.vim'
+    Plugin 'tpope/vim-dispatch'
+    " Plugin 'calebsmith/vim-lambdify'
   " }
 
   " Completion {
-    Plugin 'Valloric/YouCompleteMe.git'
-    Plugin 'marijnh/tern_for_vim.git'
+    if has('mac')
+      Plugin 'Valloric/YouCompleteMe.git'
+      Plugin 'marijnh/tern_for_vim.git'
+    endif
   " }
 
   " JavaScript {
@@ -118,8 +124,6 @@
   set hidden
   set wildmenu            " visual autocomplete for command menu"
   set noshowmode
-
-  nmap <C-c> :set invnumber invrelativenumber<CR>
 " }
 
 " Colors & UI {
@@ -267,3 +271,23 @@
 " JSX {
   let g:jsx_ext_required = 0
 "}
+
+" DistractionFree.vim {
+  let g:distraction_free#toggle_limelight = 1
+  let g:distraction_free#toggle_tmux = 1
+  let g:distraction_free#toggle_options = [
+        \ 'cursorline',
+        \ 'colorcolumn',
+        \ 'cursorcolumn',
+        \ 'number',
+        \ 'relativenumber',
+        \ 'list',
+        \ 'ruler',
+        \ 'showtabline',
+        \ 'laststatus',
+        \]
+"}
+
+" Dispatch {
+  command JSTest Dispatch mocha --reporter dot %
+" }
