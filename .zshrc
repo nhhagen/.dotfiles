@@ -1,7 +1,7 @@
 # export TERM=xterm-256color-italic
 export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=$JAVA_HOME/bin:/usr/local/bin:$PATH
-export PATH=/usr/local/share/npm/bin:$PATH
+export PATH=$HOME/.npm-packages/bin:/usr/local/share/npm/bin:$PATH
 export PATH=~/bin:$PATH
 
 # Lines configured by zsh-newuser-install
@@ -63,6 +63,7 @@ export CLICOLOR=1
 export GREP_OPTIONS='--color=auto'
 
 source $HOME/.zsh_prompt
+source $HOME/.alias
 
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 

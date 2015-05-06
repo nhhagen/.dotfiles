@@ -5,6 +5,7 @@ SYSTEM_TYPE=$(uname)
 LINUX='Linux'
 OSX='Darwin'
 
+ln -fs ~/.dotfiles/alias.sh ~/.alias
 ln -Ffs ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -fs ~/.dotfiles/.bash_prompt ~/.bash_prompt
 ln -fs ~/.dotfiles/.tmux.conf ~/.tmux.conf
