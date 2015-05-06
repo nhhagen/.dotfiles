@@ -1182,9 +1182,9 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>155 594 592 584 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>993 751 850 426 0 0 1920 1177 </string>
+	<string>514 729 850 448 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>339 79 1210 1076 0 0 1920 1177 </string>
+	<string>148 313 1046 864 0 0 1920 1177 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1345,11 +1345,11 @@
 			<key>Background Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.12941177189350128</real>
+				<real>0.14901961386203766</real>
 				<key>Green Component</key>
-				<real>0.12156862765550613</real>
+				<real>0.14901961386203766</real>
 				<key>Red Component</key>
-				<real>0.11372549086809158</real>
+				<real>0.14901961386203766</real>
 			</dict>
 			<key>Background Image Is Tiled</key>
 			<false/>
@@ -1988,7 +1988,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-01-05T08:52:55Z</date>
+	<date>2015-05-06T19:51:51Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2038,6 +2038,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.0.0.20141103</string>
+	<string>2.1</string>
 </dict>
 </plist>
