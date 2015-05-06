@@ -42,8 +42,8 @@
     Plugin 'sjl/vitality.vim'
     Plugin 'editorconfig/editorconfig-vim.git'
     Plugin 'Raimondi/delimitMate.git'
-    Plugin 'mattn/gist-vim.git'
     Plugin 'mattn/webapi-vim.git' " Needed by gist-vim
+    Plugin 'mattn/gist-vim.git'
     Plugin 'greyblake/vim-preview'
     Plugin 'mtth/scratch.vim'
     Plugin 'nicwest/QQ.vim'
