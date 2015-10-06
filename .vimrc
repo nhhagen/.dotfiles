@@ -34,9 +34,9 @@
     Plugin 'airblade/vim-gitgutter.git'
     Plugin 'nathanaelkane/vim-indent-guides'
     Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-    Plugin 'edkolev/tmuxline.vim'
+    " Plugin 'edkolev/tmuxline.vim'
     Plugin 'luochen1990/rainbow'
-    Plugin 'kien/ctrlp.vim.git'
+    Plugin 'ctrlpvim/ctrlp.vim'
     Plugin 'tpope/vim-fugitive.git'
     Plugin 'rking/ag.vim'
     Plugin 'sjl/vitality.vim'
@@ -50,6 +50,8 @@
     Plugin 'junegunn/limelight.vim'
     Plugin 'DanielFGray/DistractionFree.vim'
     Plugin 'tpope/vim-dispatch'
+    Plugin 'tpope/vim-surround'
+    Plugin 'tpope/vim-commentary'
     " Plugin 'calebsmith/vim-lambdify'
   " }
 
@@ -68,6 +70,7 @@
     " Plugin 'crusoexia/vim-javascript-lib'
     Plugin 'vim-scripts/JavaScript-Indent.git'
     Plugin 'mxw/vim-jsx'
+    Plugin 'facebook/vim-flow'
   " }
 
   " Ruby {
@@ -77,7 +80,9 @@
   " }
 
   " Python {
-    Plugin 'klen/python-mode'
+    " Plugin 'klen/python-mode'
+    Plugin 'davidhalter/jedi-vim'
+    Plugin 'hdima/python-syntax'
   "}
 
   " Misc language & syntax support {
@@ -91,6 +96,9 @@
     Plugin 'evanmiller/nginx-vim-syntax.git'
     Plugin 'derekwyatt/vim-scala'
     Plugin 'gre/play2vim.git'
+    Plugin 'stephpy/vim-yaml'
+    Plugin 'mustache/vim-mustache-handlebars'
+    Plugin 'digitaltoad/vim-jade'
   " }
 
   "Plugin 'xolox/vim-misc'
@@ -200,6 +208,7 @@
   set wildignore+=*.pyc
   set wildignore+=*/build/*
   set wildignore+=*/dist/*
+  set wildignore+=*/prototype/*
 " }
 
 " Resize splits when the window is resized {
@@ -239,6 +248,8 @@
 " }
 
 " ctrlp {
+  let g:ctrlp_max_files=0
+  let g:ctrlp_max_depth=40
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_extensions = ['tag']
   let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:30'
@@ -258,7 +269,7 @@
 " }
 
 " Systastic {
-  let g:syntastic_javascript_checkers = ['jsxhint']
+  let g:syntastic_javascript_checkers = ['eslint']
   let g:syntastic_check_on_open=1
 " }
 
@@ -289,5 +300,9 @@
 "}
 
 " Dispatch {
-  command JSTest Dispatch mocha --reporter dot %
+  command! JSTest Dispatch mocha --reporter dot %
+" }
+
+" hdima/python-syntax {
+  let python_highlight_all = 1
 " }
