@@ -15,6 +15,7 @@ ln -fs ~/.dotfiles/.subversion/config ~/.subversion/config
 ln -fs ~/.dotfiles/.subversion/merge.sh ~/.subversion/merge.sh
 ln -fs ~/.dotfiles/.colordiffrc ~/.colordiffrc
 ln -fs ~/.dotfiles/.colorsvnrc ~/.colorsvnrc
+ln -fs ~/.dotfiles/eslintrc ~/.eslintrc
 
 
 if [ "$SYSTEM_TYPE" == "$OSX" ]; then
