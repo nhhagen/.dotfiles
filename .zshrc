@@ -8,7 +8,21 @@ export PATH=~/bin:$PATH
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt appendhistory extendedglob nomatch
+HISTIGNOR='top-commands'
+# setopt appendhistory extendedglob nomatch
+# setopt hist_expire_dups_first
+# setopt hist_find_no_dups
+# setopt hist_ignore_all_dups
+# setopt hist_ignore_dups
+# setopt hist_ignore_space
+# setopt hist_no_store
+# setopt hist_reduce_blanks
+# setopt hist_save_no_dups
+# setopt hist_verify
+# setopt inc_append_history
+# setopt no_hist_allow_clobber
+# setopt no_hist_beep
+# setopt share_history
 unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
@@ -27,11 +41,19 @@ if [ -f `brew --prefix`/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
     source `brew --prefix`/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
+if [ -f ~/.zsh/git-flow-completion.zsh ]; then
+    source ~/.zsh/git-flow-completion.zsh
+fi
+
 if [ -f `brew --prefix`/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]; then
     source `brew --prefix`/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
     # bind k and j for VI mode
     bindkey -M vicmd 'k' history-substring-search-up
     bindkey -M vicmd 'j' history-substring-search-down
+fi
+
+if [ -f `brew --prefix ruby`/bin ]; then
+    export PATH=$(brew --prefix ruby)/bin:$PATH
 fi
 
 autoload -Uz compinit
