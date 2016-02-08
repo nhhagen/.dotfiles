@@ -5,20 +5,16 @@ SYSTEM_TYPE=$(uname)
 LINUX='Linux'
 OSX='Darwin'
 
-ln -fs ~/.dotfiles/alias.sh ~/.alias
-ln -Ffs ~/.dotfiles/.gitconfig ~/.gitconfig
-ln -fs ~/.dotfiles/.bash_prompt ~/.bash_prompt
-ln -fs ~/.dotfiles/.tmux.conf ~/.tmux.conf
-ln -fs ~/.dotfiles/.ackrc ~/.ackrc
 mkdir -p ~/.subversion
-ln -fs ~/.dotfiles/.subversion/config ~/.subversion/config
-ln -fs ~/.dotfiles/.subversion/merge.sh ~/.subversion/merge.sh
-ln -fs ~/.dotfiles/.colordiffrc ~/.colordiffrc
-ln -fs ~/.dotfiles/.colorsvnrc ~/.colorsvnrc
-ln -fs ~/.dotfiles/eslintrc ~/.eslintrc
+mkdir -p ~/bin
+
+ln -Ffs ~/.dotfiles/alias.sh ~/.alias
+ln -Ffs ~/.dotfiles/.gitconfig ~/.gitconfig
+ln -Ffs ~/.dotfiles/.bash_prompt ~/.bash_prompt
 
 
 if [ "$SYSTEM_TYPE" == "$OSX" ]; then
+    brew update && brew upgrade --all
     packages=(
         zsh
         zsh-completions
@@ -26,23 +22,49 @@ if [ "$SYSTEM_TYPE" == "$OSX" ]; then
         vim
         tmux
         git
-        git-flow
+        git-flow-avh
         node
         ack
         reattach-to-user-namespace
         wget
         the_silver_searcher
+        battery
     )
     for package in ${packages[*]}; do
         brew install $package
     done
 
-    ln -fs ~/.dotfiles/.vimrc ~/.vimrc
-    ln -fs ~/.dotfiles/.vim ~/.vim && rm -f ~/.dotfiles/.vim/.vim
-    ln -Ffs ~/.dotfiles/.bashrc_mac ~/.bashrc
+    gems=(
+        tmuxinator
+    )
+    for gem in ${gems[*]}; do
+        gem install $gem
+    done
+
+    ln -Ffs ~/.dotfiles/.ackrc ~/.ackrc
+    ln -Ffs ~/.dotfiles/.alias ~/.alias
     ln -Ffs ~/.dotfiles/.bash_profile_mac ~/.bash_profile
-    ln -Ffs ~/.dotfiles/.zshrc ~/.zshrc
+    ln -Ffs ~/.dotfiles/.bash_prompt ~/.bash_prompt
+    ln -Ffs ~/.dotfiles/.bashrc_mac ~/.bashrc
+    ln -Ffs ~/.dotfiles/.colordiffrc ~/.colordiffrc
+    ln -Ffs ~/.dotfiles/.colorsvnrc ~/.colorsvnrc
+    ln -Ffs ~/.dotfiles/.gitconfig ~/.gitconfig
+    ln -Ffs ~/.dotfiles/.subversion/config ~/.subversion/config
+    ln -Ffs ~/.dotfiles/.subversion/merge.sh ~/.subversion/merge.sh
+    ln -Ffs ~/.dotfiles/.tmux.conf ~/.tmux.conf
+    ln -Ffs ~/.dotfiles/.vim ~/.vim && rm -f ~/.dotfiles/.vim/.vim
+    ln -Ffs ~/.dotfiles/.vimrc ~/.vimrc
+    ln -Ffs ~/.dotfiles/.zsh ~/.zsh && rm -f ~/.dotfiles/.zsh/.zsh
     ln -Ffs ~/.dotfiles/.zsh_prompt ~/.zsh_prompt
+    ln -Ffs ~/.dotfiles/.zshrc ~/.zshrc
+    ln -Ffs ~/.dotfiles/alias.sh ~/.alias
+    ln -Ffs ~/.dotfiles/eslintrc ~/.eslintrc
+
+    ln -Ffs ~/.dotfiles/bin/cpu.sh ~/bin/cpu.sh
+    ln -Ffs ~/.dotfiles/bin/git-livelog ~/bin/git-livelog
+    ln -Ffs ~/.dotfiles/bin/git-sync ~/bin/git-sync
+    ln -Ffs ~/.dotfiles/bin/helpers.sh ~/bin/helpers.sh
+    ln -Ffs ~/.dotfiles/bin/wifi.sh ~/bin/wifi.sh
 
     vim +qall
     ROOT=$(pwd)

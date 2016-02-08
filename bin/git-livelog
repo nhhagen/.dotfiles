@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# -*- mode: sh -*-
+# vi: set ft=sh :
+
+while :
+do
+    clear
+    git --no-pager lg  $*
+    sleep 1
+done

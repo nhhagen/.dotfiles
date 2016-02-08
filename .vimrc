@@ -30,12 +30,11 @@
   " }
 
   " General {
-    Plugin 'bling/vim-airline'
+    Plugin 'vim-airline/vim-airline'
     Plugin 'airblade/vim-gitgutter.git'
     Plugin 'nathanaelkane/vim-indent-guides'
     Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
     " Plugin 'edkolev/tmuxline.vim'
-    Plugin 'luochen1990/rainbow'
     Plugin 'ctrlpvim/ctrlp.vim'
     Plugin 'tpope/vim-fugitive.git'
     Plugin 'rking/ag.vim'
@@ -52,7 +51,9 @@
     Plugin 'tpope/vim-dispatch'
     Plugin 'tpope/vim-surround'
     Plugin 'tpope/vim-commentary'
+    Plugin 'roman/golden-ratio'
     " Plugin 'calebsmith/vim-lambdify'
+    Plugin 'tmux-plugins/vim-tmux'
   " }
 
   " Completion {
@@ -65,12 +66,14 @@
   " JavaScript {
     Plugin 'moll/vim-node.git'
     Plugin 'jelera/vim-javascript-syntax.git'
+    " Plugin 'othree/yajs.vim'
+    " Plugin 'isRuslan/vim-es6'
     Plugin 'othree/javascript-libraries-syntax.vim'
     Plugin 'pangloss/vim-javascript'
     " Plugin 'crusoexia/vim-javascript-lib'
     Plugin 'vim-scripts/JavaScript-Indent.git'
     Plugin 'mxw/vim-jsx'
-    Plugin 'facebook/vim-flow'
+    " Plugin 'facebook/vim-flow'
   " }
 
   " Ruby {
@@ -99,10 +102,13 @@
     Plugin 'stephpy/vim-yaml'
     Plugin 'mustache/vim-mustache-handlebars'
     Plugin 'digitaltoad/vim-jade'
+    Plugin 'robbles/logstash.vim'
   " }
 
   "Plugin 'xolox/vim-misc'
   "Plugin 'xolox/vim-easytags'
+  "
+  Plugin 'luochen1990/rainbow'
 
   " Vundle install {
     if iCanHazVundle == 0
@@ -265,7 +271,7 @@
 " }
 
 " Ag {
-  let g:aghighlight = 1
+  let g:ag_highlight = 1
 " }
 
 " Systastic {

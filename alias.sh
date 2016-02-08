@@ -8,6 +8,7 @@ alias top-commands="history | awk '{a[\$2]++ } END{for(i in a){print a[i] \" \" 
 # Git
 alias ga='git add'
 alias gc='git commit -v'
+alias gca='git commit -v --amend'
 alias glg='git lg'
 alias gp='git push'
 alias gpf='git push -f'
