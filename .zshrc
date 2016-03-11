@@ -41,9 +41,9 @@ if [ -d `brew --prefix`/share/zsh-completions ]; then
     fpath=(`brew --prefix`/share/zsh-completions $fpath)
 fi
 
-#if [ -f `brew --prefix`zsh/site-functions/git-flow-completion.zsh ]; then
-#    source `brew --prefix`zsh/site-functions/git-flow-completion.zsh
-#fi
+if [ -f `brew --prefix`zsh/site-functions/git-flow-completion.zsh ]; then
+    source `brew --prefix`zsh/site-functions/git-flow-completion.zsh
+fi
 
 if [ -f `brew --prefix`/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source `brew --prefix`/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
