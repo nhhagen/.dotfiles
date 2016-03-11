@@ -31,6 +31,7 @@
 
   " General {
     Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
     Plugin 'airblade/vim-gitgutter.git'
     Plugin 'nathanaelkane/vim-indent-guides'
     Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
@@ -103,6 +104,7 @@
     Plugin 'mustache/vim-mustache-handlebars'
     Plugin 'digitaltoad/vim-jade'
     Plugin 'robbles/logstash.vim'
+    Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
   " }
 
   "Plugin 'xolox/vim-misc'
