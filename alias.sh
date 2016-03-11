@@ -22,7 +22,7 @@ alias gfrs='git flow release start'
 alias gfrf='git flow release finish'
 
 # Vagrant
-alias vu='Vagrant up dev'
-alias vh='Vagrant halt dev'
-alias vhf='vagrant halt dev -f'
-alias vssh='vagrant ssh dev'
+alias vu='Vagrant up'
+alias vh='Vagrant halt'
+alias vhf='vagrant halt -f'
+alias vssh='vagrant ssh'
