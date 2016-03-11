@@ -4,7 +4,7 @@ HELPDIR=/usr/local/share/zsh/help
 
 # export TERM=xterm-256color-italic
 
-export JAVA_HOME=$(/usr/libexec/java_home)
+# export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=$JAVA_HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/.npm-packages/bin:/usr/local/share/npm/bin:$PATH
 export PATH=~/bin:$PATH
