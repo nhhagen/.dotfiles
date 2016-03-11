@@ -14,8 +14,10 @@ ln -Ffs ~/.dotfiles/.bash_prompt ~/.bash_prompt
 
 
 if [ "$SYSTEM_TYPE" == "$OSX" ]; then
+    brew tap Goles/battery
     brew update && brew upgrade --all
     packages=(
+        cmake
         zsh
         zsh-completions
         zsh-syntax-highlighting
@@ -38,7 +40,7 @@ if [ "$SYSTEM_TYPE" == "$OSX" ]; then
         tmuxinator
     )
     for gem in ${gems[*]}; do
-        gem install $gem
+        sudo gem install $gem
     done
 
     ln -Ffs ~/.dotfiles/.ackrc ~/.ackrc
