@@ -24,12 +24,15 @@ HISTIGNOR='top-commands'
 # setopt hist_reduce_blanks
 # setopt hist_save_no_dups
 # setopt hist_verify
-# setopt inc_append_history
 # setopt no_hist_allow_clobber
 # setopt no_hist_beep
-# setopt share_history
+# Appends every command to the history file once it is executed
+setopt inc_append_history
+# Reloads the history whenever you use it
+setopt share_history
 unsetopt beep
 bindkey -v
+bindkey '^R' history-incremental-search-backward
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '~/.zshrc'
