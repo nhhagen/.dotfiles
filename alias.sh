@@ -26,3 +26,6 @@ alias vu='Vagrant up'
 alias vh='Vagrant halt'
 alias vhf='vagrant halt -f'
 alias vssh='vagrant ssh'
+
+# Tmuxinator
+alias mux='tmuxinator'
