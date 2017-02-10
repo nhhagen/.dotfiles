@@ -30,11 +30,13 @@
   " }
 
   " General {
+    Plugin 'majutsushi/tagbar'
     Plugin 'vim-airline/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
     Plugin 'airblade/vim-gitgutter.git'
     Plugin 'nathanaelkane/vim-indent-guides'
     Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+    Plugin 'chriskempson/base16-vim'
     " Plugin 'edkolev/tmuxline.vim'
     Plugin 'ctrlpvim/ctrlp.vim'
     Plugin 'tpope/vim-fugitive.git'
@@ -44,7 +46,8 @@
     Plugin 'Raimondi/delimitMate.git'
     Plugin 'mattn/webapi-vim.git' " Needed by gist-vim
     Plugin 'mattn/gist-vim.git'
-    Plugin 'greyblake/vim-preview'
+    " Plugin 'greyblake/vim-preview'
+    Plugin 'kannokanno/previm'
     Plugin 'mtth/scratch.vim'
     Plugin 'nicwest/QQ.vim'
     Plugin 'junegunn/limelight.vim'
@@ -55,6 +58,7 @@
     Plugin 'roman/golden-ratio'
     " Plugin 'calebsmith/vim-lambdify'
     Plugin 'tmux-plugins/vim-tmux'
+    Plugin 'duggiefresh/vim-easydir'
   " }
 
   " Completion {
@@ -75,6 +79,7 @@
     Plugin 'vim-scripts/JavaScript-Indent.git'
     Plugin 'mxw/vim-jsx'
     " Plugin 'facebook/vim-flow'
+    Plugin 'jparise/vim-graphql'
   " }
 
   " Ruby {
@@ -86,11 +91,12 @@
   " Python {
     " Plugin 'klen/python-mode'
     Plugin 'davidhalter/jedi-vim'
+    " Plugin 'lambdalisue/vim-pyenv'
     Plugin 'hdima/python-syntax'
   "}
 
   " Misc language & syntax support {
-    Plugin 'scrooloose/syntastic.git'
+    Plugin 'vim-syntastic/syntastic'
     Plugin 'PProvost/vim-ps1.git'
     Plugin 'othree/html5.vim'
     Plugin 'godlygeek/tabular'
@@ -104,7 +110,11 @@
     Plugin 'mustache/vim-mustache-handlebars'
     Plugin 'digitaltoad/vim-jade'
     Plugin 'robbles/logstash.vim'
+    Plugin 'elixir-lang/vim-elixir'
+    Plugin 'vim-scripts/groovy.vim'
+    " Plugin 'vim-scripts/groovyindent'
     Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+    Plugin 'vim-scripts/haproxy'
   " }
 
   "Plugin 'xolox/vim-misc'
@@ -120,6 +130,8 @@
     endif
   " }
 " }
+
+source ~/.vim/includes/functions.vim
 
 " Basics {
   filetype plugin indent on       " load file type plugins + indentation
@@ -145,17 +157,22 @@
 " Colors & UI {
   set t_Co=256
   set t_ut=
-  colorscheme Tomorrow-Night
-  let &colorcolumn="81,".join(range(121,999),",")
+  if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+  endif
+  " let &colorcolumn="81,".join(range(121,999),",")
   " autocmd BufEnter * if &diff | set cursorline! | else | set cursorline | endif
-  set cursorline
-  highlight SignColumn ctermbg=none
+  " set cursorline
+  highlight SignColumn ctermbg=18
+  highlight CursorLineNr ctermfg=16
   " highlight Comment cterm=italic
   " highlight Folded cterm=italic
-  " highlight javaMethodTag ctermfg=222 guifg=#f0c674
   set fillchars+=vert:│ " must have whitespace after the |
   autocmd BufEnter * sign define dummy
   autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
+  set list listchars=tab:\|_,trail:·
+  autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
 " }
 
 " Folding {
@@ -256,6 +273,9 @@
 " }
 
 " ctrlp {
+  let g:ctrlp_working_path_mode = ''
+  let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
   let g:ctrlp_max_files=0
   let g:ctrlp_max_depth=40
   let g:ctrlp_show_hidden = 1
@@ -267,8 +287,8 @@
   let g:indent_guides_auto_colors = 0
   let g:indent_guides_guide_size = 1
   let g:indent_guides_start_level = 2
-  highlight IndentGuidesOdd  ctermbg=236 guibg=#3a3a3a
-  highlight IndentGuidesEven ctermbg=236 guibg=#3a3a3a
+  highlight IndentGuidesOdd  ctermbg=18 guibg=#282a2e
+  highlight IndentGuidesEven ctermbg=18 guibg=#282a2e
   au VimEnter * :IndentGuidesEnable
 " }
 
@@ -277,7 +297,6 @@
 " }
 
 " Systastic {
-  let g:syntastic_javascript_checkers = ['eslint']
   let g:syntastic_check_on_open=1
 " }
 
@@ -314,3 +333,49 @@
 " hdima/python-syntax {
   let python_highlight_all = 1
 " }
+
+" kannokanno/previm {
+  let g:previm_open_cmd = 'open -a Safari'
+"}
+
+" Tagbar }
+  let g:tagbar_type_groovy = {
+      \ 'ctagstype' : 'groovy',
+      \ 'kinds'     : [
+          \ 'p:package:1',
+          \ 'c:classes',
+          \ 'i:interfaces',
+          \ 't:traits',
+          \ 'e:enums',
+          \ 'm:methods',
+          \ 'f:fields:1'
+      \ ]
+  \ }
+" }
+
+" Netrw {
+  let g:netrw_banner=0
+  let g:netrw_browse_split=4
+  let g:netrw_altv=1
+  let g:netrw_liststyle=3
+"}
+
+" lambdalisue/vim-pyenv {
+""  if jedi#init_python()
+""    function! s:jedi_auto_force_py_version() abort
+""      let major_version = pyenv#python#get_internal_major_version()
+""      call jedi#force_py_version(major_version)
+""    endfunction
+""    augroup vim-pyenv-custom-augroup
+""      autocmd! *
+""      autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+""      autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
+""    augroup END
+""  endif
+""
+""  autocmd BufEnter *.py PyenvActivate
+" }
+
+autocmd BufEnter .babelrc set filetype=json
+autocmd BufEnter Jenkinsfile set filetype=groovy
+autocmd BufRead,BufNewFile haproxy* set ft=haproxy

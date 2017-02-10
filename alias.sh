@@ -10,6 +10,7 @@ alias ga='git add'
 alias gc='git commit -v'
 alias gca='git commit -v --amend'
 alias glg='git lg'
+alias glga='git lga'
 alias gp='git push'
 alias gpf='git push -f'
 alias gpr='git pull --rebase'
@@ -29,3 +30,6 @@ alias vssh='vagrant ssh'
 
 # Tmuxinator
 alias mux='tmuxinator'
+
+# The silver searcher
+alias ag='ag --path-to-agignore ~/.agignore'

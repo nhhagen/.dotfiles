@@ -71,8 +71,8 @@ print_status() {
         GRAPH="⚡"
     else
         if hash spark 2>/dev/null; then
-			sparks=$(spark 0 ${CPU_PCT} 100)
-			GRAPH=${sparks:1:1}
+            sparks=$(spark 0 ${CPU_PCT} 100)
+            GRAPH=${sparks:1:1}
         else
             ascii=1
         fi

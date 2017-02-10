@@ -41,8 +41,8 @@ if [ -d `brew --prefix`/share/zsh-completions ]; then
     fpath=(`brew --prefix`/share/zsh-completions $fpath)
 fi
 
-if [ -f `brew --prefix`zsh/site-functions/git-flow-completion.zsh ]; then
-    source `brew --prefix`zsh/site-functions/git-flow-completion.zsh
+if [ -f `brew --prefix`/share/zsh/site-functions/git-flow-completion.zsh ]; then
+    source `brew --prefix`/share/zsh/site-functions/git-flow-completion.zsh
 fi
 
 if [ -f `brew --prefix`/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
@@ -92,9 +92,23 @@ export CLICOLOR=1
 # Tell grep to highlight matches
 export GREP_OPTIONS='--color=auto'
 
+export EVENT_NOKQUEUE=1
+
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
 source $HOME/.zsh_prompt
 source $HOME/.alias
 
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
 function newproject() { curl https://raw.github.com/nhhagen/vagrant-dev-box/master/setup.sh | bash -s $@ ; }
+
+# The next line updates PATH for the Google Cloud SDK.
+source $HOME/google-cloud-sdk/path.zsh.inc
+
+# The next line enables shell command completion for gcloud.
+source $HOME/google-cloud-sdk/completion.zsh.inc

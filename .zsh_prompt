@@ -5,59 +5,104 @@
 # vi: set ft=zsh :
 
 local GIT_PROMPT=""
+local VIRTUAL_ENV_PROMPT=""
+
+git_prompt() {
+    local branch_prefix="\ue0a0"
+    local branch="$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')" || return
+    local git_status_clean="$(git status --porcelain 2> /dev/null)"
+    local indexed_modified="$(echo -e "$git_status_clean" | grep "^M" | wc -l | awk '{print $1}')"
+    local not_indexed_modified="$(echo -e "$git_status_clean" | grep "^.M" | wc -l | awk '{print $1}')"
+    local indexed_new="$(echo -e "$git_status_clean" | grep "^A" | wc -l | awk '{print $1}')"
+    local not_indexed_new="$(echo -e "$git_status_clean" | grep "^.A" | wc -l | awk '{print $1}')"
+    local indexed_deleted="$(echo -e "$git_status_clean" | grep "^D" | wc -l | awk '{print $1}')"
+    local not_indexed_deleted="$(echo -e "$git_status_clean" | grep "^.D" | wc -l | awk '{print $1}')"
+    local untracked="$(echo -e "$git_status_clean" | grep "^??" | wc -l | awk '{print $1}')"
+
+    local remote
+    remote=()
+    local curr_remote="$(git config branch.${branch}.remote 2> /dev/null)"
+    if [[ -n $curr_remote ]]; then
+        local curr_merge_branch="$(git config branch.${branch}.merge | sed -e "s/refs\/heads\///g")"
+        local ahead="$(git rev-list --left-only --count ${branch}...origin/${curr_merge_branch} 2> /dev/null)"
+        local behind="$(git rev-list --left-only --count origin/${curr_merge_branch}...${branch} 2> /dev/null)"
+        if [[ $ahead != 0 ]]; then
+            remote+="↑$ahead"
+        fi
+        if [[ $behind != 0 ]]; then
+            remote+="↓$behind"
+        fi
+    fi
+
+    remote=${(j: :)remote}
+    if [[ -n $remote ]]; then
+        remote=" %{$fg[yellow]%}$remote%{$reset_color%}"
+    fi
+
+    local workspace=$(status $untracked $not_indexed_modified $not_indexed_deleted "red")
+    local staged=$(status $indexed_new $indexed_modified $indexed_deleted "green")
+
+    local result=""
+    if [[ -n $branch ]]; then
+        result=" %{$fg[magenta]%}$branch_prefix $branch%{$reset_color%}$workspace$staged$remote"
+    fi
+    echo "$result"
+}
+
+virtualenv_info() {
+    # Get Virtual Env
+    local venv=""
+    if [[ "$(pyenv version-name)" != "system" ]]; then
+        venv=" %{$fg[cyan]%}($(pyenv version-name): $(python -V 2>&1))%{$reset_color%}"
+    fi
+    echo "$venv"
+}
+
+status() {
+    new=$1
+    modified=$2
+    deleted=$3
+    color=$4
+
+    local result
+    result=()
+    if [[ $new != 0 ]]; then
+        result+="+$new"
+    fi
+
+    if [[ $modified != 0 ]]; then
+        result+="~$modified"
+    fi
+
+    if [[ $deleted != 0 ]]; then
+        result+="-$deleted"
+    fi
+
+    result=${(j: :)result}
+    if [[ -n $result ]]; then
+        result=" %{$fg[$color]%}$result%{$reset_color%}"
+    fi
+    echo "$result"
+}
 
 function precmd() {
-    git_prompt() {
-        local branch_prefix="\ue0a0"
-        local branch="$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')" || return
-        local git_status_clean="$(git status --porcelain 2> /dev/null)"
-        local indexed_modified="$(echo -e "$git_status_clean" | grep "^M" | wc -l | awk '{print $1}')"
-        local not_indexed_modified="$(echo -e "$git_status_clean" | grep "^.M" | wc -l | awk '{print $1}')"
-        local indexed_new="$(echo -e "$git_status_clean" | grep "^A" | wc -l | awk '{print $1}')"
-        local not_indexed_new="$(echo -e "$git_status_clean" | grep "^.A" | wc -l | awk '{print $1}')"
-        local indexed_deleted="$(echo -e "$git_status_clean" | grep "^D" | wc -l | awk '{print $1}')"
-        local not_indexed_deleted="$(echo -e "$git_status_clean" | grep "^.D" | wc -l | awk '{print $1}')"
-        local untracked="$(echo -e "$git_status_clean" | grep "^??" | wc -l | awk '{print $1}')"
-
-        local remote=""
-        local curr_remote="$(git config branch.${branch}.remote 2> /dev/null)"
-        if [[ -n $curr_remote ]]; then
-            local curr_merge_branch="$(git config branch.${branch}.merge | sed -e "s/refs\/heads\///g")"
-            local ahead="$(git rev-list --left-only --count ${branch}...origin/${curr_merge_branch} 2> /dev/null)"
-            local behind="$(git rev-list --left-only --count origin/${curr_merge_branch}...${branch} 2> /dev/null)"
-            if [[ -n $ahead && $ahead != 0 ]]; then
-                remote="$remote %{$fg[yellow]%}↑$ahead%{$reset_color%}"
-            fi
-            if [[ -n $behind && $behind != 0 ]]; then
-                remote="$remote %{$fg[yellow]%}↓$behind%{$reset_color%}"
-            fi
-        fi
-        local workspace=""
-        if [[ $untracked != 0 || $not_indexed_modified != 0 || $not_indexed_deleted != 0 ]]; then
-            workspace=" %{$fg[red]%}+$untracked ~$not_indexed_modified -$not_indexed_deleted%{$reset_color%}"
-        fi
-
-        local staged=""
-        if [[ $indexed_new != 0 || $indexed_modified != 0 || $indexed_deleted != 0 ]]; then
-            staged=" %{$fg[green]%}+$indexed_new ~$indexed_modified -$indexed_deleted%{$reset_color%}"
-        fi
-
-        local result=""
-        if [[ -n $branch ]]; then
-            result=" on %{$fg[magenta]%}$branch_prefix $branch%{$reset_color%}$workspace$staged$remote"
-        fi
-        echo "$result"
-    }
+    VIRTUAL_ENV_PROMPT="$(virtualenv_info)"
     GIT_PROMPT="$(git_prompt)"
 }
 
 setprompt() {
     local prefix=""
     if [[ -n "$SSH_CLIENT$SSH2_CLIENT$SSH_TTY" ]] ; then
-        prefix="%{$fg[red]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in "
+        prefix="%{$fg[red]%}%n%{$reset_color%} @ %{$fg[yellow]%}%m%{$reset_color%} → "
     fi
-    PROMPT='${prefix}%{$fg[blue]%}%~%{$reset_color%}${GIT_PROMPT}'$'\n''%{$fg[yellow]%}❯%{$reset_color%} '
-    #export PS2="\[$YELLOW\]→ \[$RESET\]"
+    # ❯
+    PROMPT='${prefix}%{$fg[blue]%}%~%{$reset_color%}${GIT_PROMPT}${VIRTUAL_ENV_PROMPT}'$'\n''%{$fg[yellow]%}❯%{$reset_color%} '
+    # PROMPT2="%{$fg[yellow]%}%_ →%{$reset_color%} "
+    PROMPT2="%{$fg[yellow]%}%_ ❯%{$reset_color%} "
+    PROMPT3="%{$fg[yellow]%}?#%{$reset_color%} "
+    PROMPT3="%{$fg[yellow]%}+%N:%i% ❯{$reset_color%} "
 }
 
+# disable the default virtualenv prompt change
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 setprompt

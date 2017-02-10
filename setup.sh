@@ -61,6 +61,8 @@ if [ "$SYSTEM_TYPE" == "$OSX" ]; then
     ln -Ffs ~/.dotfiles/.zshrc ~/.zshrc
     ln -Ffs ~/.dotfiles/alias.sh ~/.alias
     ln -Ffs ~/.dotfiles/eslintrc ~/.eslintrc
+    ln -Ffs ~/.dotfiles/ctags ~/.ctags
+    ln -Ffs ~/.dotfiles/agignore ~/.agignore
 
     ln -Ffs ~/.dotfiles/bin/cpu.sh ~/bin/cpu.sh
     ln -Ffs ~/.dotfiles/bin/git-livelog ~/bin/git-livelog

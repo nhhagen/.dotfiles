@@ -81,8 +81,8 @@ print_status() {
         GRAPH="⚡"
     else
         if hash spark 2>/dev/null; then
-			sparks=$(spark 0 ${quality} 100)
-			GRAPH=${sparks:1:1}
+            sparks=$(spark 0 ${quality} 100)
+            GRAPH=${sparks:1:1}
         else
             ascii=1
         fi
@@ -105,7 +105,7 @@ print_status() {
 if ((output_tmux)); then
   printf "%s%s %s%s" "$COLOR" "[$quality%]" "$GRAPH" "#[default]"
 else
-  printf "\e[0;%sm%s %s \e[m\n"  "$COLOR" "[$quality%]"  "$GRAPH"
+  printf "\e[0;%sm%s %s\e[m\n"  "$COLOR" "[$quality%]" "$GRAPH"
 fi
 
 }
