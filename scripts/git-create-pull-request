@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+branch=${1}
+master="master"
+
+echo "Creating pull request ${branch} from ${master}"
+
+git checkout $master
+git pull --rebase
+git checkout -b $branch
+git push --set-upstream origin $branch

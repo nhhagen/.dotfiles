@@ -14,119 +14,114 @@
 " Plugin management {
   filetype off
 
-  " Vundle install {
-    let iCanHazVundle=1
-    let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-    if !filereadable(vundle_readme)
-      echo 'Installing Vundle..'
-      echo ''
-      silent !mkdir -p ~/.vim/bundle
-      silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-      let iCanHazVundle=0
+  " vim-plug install {
+    let vimPlugInstalled = 1
+    if empty(glob('~/.vim/autoload/plug.vim'))
+      silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+      let vimPlugInstalled = 1
     endif
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
-    Plugin 'gmarik/vundle'
+    call plug#begin('~/.vim/plugged')
   " }
 
+
   " General {
-    Plugin 'majutsushi/tagbar'
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'vim-airline/vim-airline-themes'
-    Plugin 'airblade/vim-gitgutter.git'
-    Plugin 'nathanaelkane/vim-indent-guides'
-    Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-    Plugin 'chriskempson/base16-vim'
-    " Plugin 'edkolev/tmuxline.vim'
-    Plugin 'ctrlpvim/ctrlp.vim'
-    Plugin 'tpope/vim-fugitive.git'
-    Plugin 'rking/ag.vim'
-    Plugin 'sjl/vitality.vim'
-    Plugin 'editorconfig/editorconfig-vim.git'
-    Plugin 'Raimondi/delimitMate.git'
-    Plugin 'mattn/webapi-vim.git' " Needed by gist-vim
-    Plugin 'mattn/gist-vim.git'
-    " Plugin 'greyblake/vim-preview'
-    Plugin 'kannokanno/previm'
-    Plugin 'mtth/scratch.vim'
-    Plugin 'nicwest/QQ.vim'
-    Plugin 'junegunn/limelight.vim'
-    Plugin 'DanielFGray/DistractionFree.vim'
-    Plugin 'tpope/vim-dispatch'
-    Plugin 'tpope/vim-surround'
-    Plugin 'tpope/vim-commentary'
-    Plugin 'roman/golden-ratio'
-    " Plugin 'calebsmith/vim-lambdify'
-    Plugin 'tmux-plugins/vim-tmux'
-    Plugin 'duggiefresh/vim-easydir'
+    Plug 'majutsushi/tagbar'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'nathanaelkane/vim-indent-guides'
+    " Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+    Plug 'chriskempson/base16-vim'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'tpope/vim-fugitive'
+    Plug 'mileszs/ack.vim'
+    Plug 'sjl/vitality.vim'
+    Plug 'editorconfig/editorconfig-vim'
+    Plug 'Raimondi/delimitMate'
+    Plug 'mattn/webapi-vim' " Needed by gist-vim
+    Plug 'mattn/gist-vim'
+    " Plug 'greyblake/vim-preview'
+    Plug 'kannokanno/previm'
+    Plug 'mtth/scratch.vim'
+    Plug 'nicwest/QQ.vim'
+    Plug 'junegunn/limelight.vim'
+    Plug 'DanielFGray/DistractionFree.vim'
+    Plug 'tpope/vim-dispatch'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-commentary'
+    Plug 'roman/golden-ratio'
+    " Plug 'calebsmith/vim-lambdify'
+    Plug 'tmux-plugins/vim-tmux'
+    Plug 'duggiefresh/vim-easydir'
   " }
 
   " Completion {
     if has('mac')
-      Plugin 'Valloric/YouCompleteMe.git'
-      Plugin 'marijnh/tern_for_vim.git'
+      Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+      Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --js-completer' }
     endif
   " }
 
   " JavaScript {
-    Plugin 'moll/vim-node.git'
-    Plugin 'jelera/vim-javascript-syntax.git'
-    " Plugin 'othree/yajs.vim'
-    " Plugin 'isRuslan/vim-es6'
-    Plugin 'othree/javascript-libraries-syntax.vim'
-    Plugin 'pangloss/vim-javascript'
-    " Plugin 'crusoexia/vim-javascript-lib'
-    Plugin 'vim-scripts/JavaScript-Indent.git'
-    Plugin 'mxw/vim-jsx'
-    " Plugin 'facebook/vim-flow'
-    Plugin 'jparise/vim-graphql'
+    Plug 'moll/vim-node'
+    " Plug 'pangloss/vim-javascript'
+    Plug 'jelera/vim-javascript-syntax'
+    " Plug 'othree/javascript-libraries-syntax.vim'
+    Plug 'vim-scripts/JavaScript-Indent'
+    Plug 'mxw/vim-jsx'
+    " Plug 'facebook/vim-flow'
+    " Plug 'jparise/vim-graphql'
   " }
 
   " Ruby {
-    Plugin 'vim-ruby/vim-ruby'
-    Plugin 'tpope/vim-bundler'
-    Plugin 'tpope/vim-endwise'
+    Plug 'vim-ruby/vim-ruby'
+    Plug 'tpope/vim-bundler'
+    Plug 'tpope/vim-endwise'
   " }
 
   " Python {
-    " Plugin 'klen/python-mode'
-    Plugin 'davidhalter/jedi-vim'
-    " Plugin 'lambdalisue/vim-pyenv'
-    Plugin 'hdima/python-syntax'
+    Plug 'lambdalisue/vim-pyenv', { 'for': ['python', 'python3'] }
+    " Plug 'klen/python-mode'
+    " Plug 'davidhalter/jedi-vim'
+    Plug 'hdima/python-syntax'
   "}
 
   " Misc language & syntax support {
-    Plugin 'vim-syntastic/syntastic'
-    Plugin 'PProvost/vim-ps1.git'
-    Plugin 'othree/html5.vim'
-    Plugin 'godlygeek/tabular'
-    Plugin 'plasticboy/vim-markdown'
-    Plugin 'rodjek/vim-puppet.git'
-    Plugin 'saltstack/salt-vim.git'
-    Plugin 'evanmiller/nginx-vim-syntax.git'
-    Plugin 'derekwyatt/vim-scala'
-    Plugin 'gre/play2vim.git'
-    Plugin 'stephpy/vim-yaml'
-    Plugin 'mustache/vim-mustache-handlebars'
-    Plugin 'digitaltoad/vim-jade'
-    Plugin 'robbles/logstash.vim'
-    Plugin 'elixir-lang/vim-elixir'
-    Plugin 'vim-scripts/groovy.vim'
-    " Plugin 'vim-scripts/groovyindent'
-    Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
-    Plugin 'vim-scripts/haproxy'
+    Plug 'w0rp/ale'
+    " Plug 'vim-syntastic/syntastic'
+    Plug 'PProvost/vim-ps1'
+    Plug 'othree/html5.vim'
+    Plug 'godlygeek/tabular'
+    Plug 'plasticboy/vim-markdown'
+    Plug 'rodjek/vim-puppet'
+    Plug 'saltstack/salt-vim'
+    Plug 'chr4/nginx.vim'
+    Plug 'derekwyatt/vim-scala'
+    Plug 'gre/play2vim'
+    Plug 'stephpy/vim-yaml'
+    Plug 'mustache/vim-mustache-handlebars'
+    Plug 'digitaltoad/vim-jade'
+    Plug 'robbles/logstash.vim'
+    Plug 'elixir-lang/vim-elixir'
+    Plug 'vim-scripts/groovy.vim'
+    " Plug 'vim-scripts/groovyindent'
+    Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+    Plug 'vim-scripts/haproxy'
+    Plug 'hashivim/vim-terraform'
   " }
 
-  "Plugin 'xolox/vim-misc'
-  "Plugin 'xolox/vim-easytags'
-  "
-  Plugin 'luochen1990/rainbow'
+  " Plug 'xolox/vim-misc'
+  " Plug 'xolox/vim-easytags'
+  " Plug 'luochen1990/rainbow'
 
-  " Vundle install {
-    if iCanHazVundle == 0
-      echo 'Installing Plugins, please ignore key map error messages'
+  " vim-plug install {
+    call plug#end()
+    if vimPlugInstalled == 0
+      echo 'Installing plugins'
       echo ''
-      :PluginInstall
+      :PlugInstall --sync
     endif
   " }
 " }
@@ -165,7 +160,7 @@ source ~/.vim/includes/functions.vim
   " autocmd BufEnter * if &diff | set cursorline! | else | set cursorline | endif
   " set cursorline
   highlight SignColumn ctermbg=18
-  highlight CursorLineNr ctermfg=16
+  highlight CursorLineNr ctermfg=9
   " highlight Comment cterm=italic
   " highlight Folded cterm=italic
   set fillchars+=vert:│ " must have whitespace after the |
@@ -173,6 +168,9 @@ source ~/.vim/includes/functions.vim
   autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
   set list listchars=tab:\|_,trail:·
   autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+  autocmd Syntax * highlight halfSpace ctermbg=9
+  autocmd Syntax * syntax match halfSpace " "
 " }
 
 " Folding {
@@ -209,6 +207,8 @@ source ~/.vim/includes/functions.vim
 " Airline {
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
+  let g:airline_theme='base16'
+
 " }
 
 " YouCompleteMe {
@@ -234,6 +234,7 @@ source ~/.vim/includes/functions.vim
   set wildignore+=*/build/*
   set wildignore+=*/dist/*
   set wildignore+=*/prototype/*
+  set wildignore+=*/.m2/*
 " }
 
 " Resize splits when the window is resized {
@@ -256,7 +257,7 @@ source ~/.vim/includes/functions.vim
   inoremap  <Right> <NOP>
 " }
 
-" System clipboard support {
+" System clipboard support
   set clipboard=unnamed
 " }
 
@@ -292,10 +293,6 @@ source ~/.vim/includes/functions.vim
   au VimEnter * :IndentGuidesEnable
 " }
 
-" Ag {
-  let g:ag_highlight = 1
-" }
-
 " Systastic {
   let g:syntastic_check_on_open=1
 " }
@@ -326,10 +323,6 @@ source ~/.vim/includes/functions.vim
         \]
 "}
 
-" Dispatch {
-  command! JSTest Dispatch mocha --reporter dot %
-" }
-
 " hdima/python-syntax {
   let python_highlight_all = 1
 " }
@@ -338,21 +331,6 @@ source ~/.vim/includes/functions.vim
   let g:previm_open_cmd = 'open -a Safari'
 "}
 
-" Tagbar }
-  let g:tagbar_type_groovy = {
-      \ 'ctagstype' : 'groovy',
-      \ 'kinds'     : [
-          \ 'p:package:1',
-          \ 'c:classes',
-          \ 'i:interfaces',
-          \ 't:traits',
-          \ 'e:enums',
-          \ 'm:methods',
-          \ 'f:fields:1'
-      \ ]
-  \ }
-" }
-
 " Netrw {
   let g:netrw_banner=0
   let g:netrw_browse_split=4
@@ -360,22 +338,21 @@ source ~/.vim/includes/functions.vim
   let g:netrw_liststyle=3
 "}
 
-" lambdalisue/vim-pyenv {
-""  if jedi#init_python()
-""    function! s:jedi_auto_force_py_version() abort
-""      let major_version = pyenv#python#get_internal_major_version()
-""      call jedi#force_py_version(major_version)
-""    endfunction
-""    augroup vim-pyenv-custom-augroup
-""      autocmd! *
-""      autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
-""      autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
-""    augroup END
-""  endif
-""
-""  autocmd BufEnter *.py PyenvActivate
+" airblade/vim-gitgutter.git {
+  let g:gitgutter_sign_added = '┋'
+  let g:gitgutter_sign_modified = '┋'
+  let g:gitgutter_sign_removed = '┋'
+  let g:gitgutter_sign_removed_first_line = '┋'
+  let g:gitgutter_sign_modified_removed = '┋'
+"}
+
+" hashivim/vim-terraform {
+  let g:terraform_align=1
+  let g:terraform_fmt_on_save=1
 " }
 
-autocmd BufEnter .babelrc set filetype=json
-autocmd BufEnter Jenkinsfile set filetype=groovy
-autocmd BufRead,BufNewFile haproxy* set ft=haproxy
+autocmd BufEnter,BufRead,BufNewFile .babelrc set filetype=json
+autocmd BufEnter,BufRead,BufNewFile Jenkinsfile set filetype=groovy
+autocmd BufEnter,BufRead,BufNewFile haproxy*.cfg set filetype=haproxy
+autocmd BufEnter,BufRead,BufNewFile *.md setlocal spell
+autocmd Filetype gitcommit setlocal spell

@@ -7,9 +7,10 @@
 Session.vim
 .netrwhist
 *~
-.vim/bundle
-.vim/plugin/eclim.vim
-.vim/eclim
+vim/bundle
+vim/plugged
+vim/plugin/eclim.vim
+vim/eclim
 
 
 ### OSX ###

@@ -2,12 +2,19 @@ unalias run-help
 autoload run-help
 HELPDIR=/usr/local/share/zsh/help
 
+export LANGUAGE=C
+
+GPG_TTY=$(tty)
+export GPG_TTY
+
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
 # export TERM=xterm-256color-italic
 
 # export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=$JAVA_HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/.npm-packages/bin:/usr/local/share/npm/bin:$PATH
-export PATH=~/bin:$PATH
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -94,11 +101,10 @@ export GREP_OPTIONS='--color=auto'
 
 export EVENT_NOKQUEUE=1
 
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+if which goenv > /dev/null; then eval "$(goenv init -)"; fi
 
 source $HOME/.zsh_prompt
 source $HOME/.alias
@@ -107,8 +113,37 @@ function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
 function newproject() { curl https://raw.github.com/nhhagen/vagrant-dev-box/master/setup.sh | bash -s $@ ; }
 
+export CLOUDSDK_PYTHON=python
+
 # The next line updates PATH for the Google Cloud SDK.
 source $HOME/google-cloud-sdk/path.zsh.inc
 
 # The next line enables shell command completion for gcloud.
 source $HOME/google-cloud-sdk/completion.zsh.inc
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# place this after nvm initialization!
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use >/dev/null 2>&1
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    # echo "Reverting to nvm default version"
+    nvm use default >/dev/null 2>&1
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+export PATH=~/bin:~/scripts:$PATH

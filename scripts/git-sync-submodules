@@ -1,0 +1,67 @@
+
+#!/usr/bin/env bash
+
+# -*- mode: sh -*-
+# vi: set ft=sh :
+
+PREVIOUS_MESSAGE=""
+
+function git_notify {
+    NAME=$(basename $(pwd))
+    TITLE="New commits available"
+    ICON=~/Downloads/Git-Icon-1788C.png
+    GROUP="git:$(pwd)"
+
+    branch_prefix="\ue0a0"
+    branch=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+
+    git submodule foreach git fetch origin master
+
+    git_status_clean=$(git status --porcelain 2> /dev/null)
+    indexed_modified=$(echo -e "$git_status_clean" | grep "^M" | wc -l | awk '{print $1}')
+    not_indexed_modified=$(echo -e "$git_status_clean" | grep "^.M" | wc -l | awk '{print $1}')
+    indexed_new=$(echo -e "$git_status_clean" | grep "^A" | wc -l | awk '{print $1}')
+    not_indexed_new=$(echo -e "$git_status_clean" | grep "^.A" | wc -l | awk '{print $1}')
+    indexed_deleted=$(echo -e "$git_status_clean" | grep "^D" | wc -l | awk '{print $1}')
+    not_indexed_deleted=$(echo -e "$git_status_clean" | grep "^.D" | wc -l | awk '{print $1}')
+    untracked=$(echo -e "$git_status_clean" | grep "^??" | wc -l |awk '{print $1}')
+
+    remote=""
+    curr_remote=$(git config branch.${branch}.remote 2> /dev/null)
+    if [[ -n $curr_remote ]]; then
+        remote_repo=$(git config remote.${curr_remote}.url)
+        remote_repo=${remote_repo#*://}
+        remote_repo=${remote_repo#*git@}
+        remote_repo=${remote_repo%.git}
+        curr_merge_branch=$(git config branch.${branch}.merge | sed -e "s/refs\/heads\///g");
+        ahead=$(git rev-list --left-only --count ${branch}...origin/${curr_merge_branch} 2> /dev/null)
+        behind=$(git rev-list --left-only  --count origin/${curr_merge_branch}...${branch} 2> /dev/null)
+
+        if [[ -n $behind && $behind != 0 ]]; then
+            plural="commits are"
+            if [[ $behind -eq 1 ]]; then
+                plural="commit is"
+            fi
+
+            MESSAGE="${behind} ${plural} available to pull into \"${branch}\""
+            if [[ $MESSAGE != $PREVIOUS_MESSAGE ]]; then
+                echo $TITLE
+                echo $remote_repo
+                echo $MESSAGE
+                PREVIOUS_MESSAGE=$MESSAGE
+                terminal-notifier -title "${TITLE}" -subtitle "${remote_repo}" -message "${MESSAGE}" -group "$GROUP"
+            fi
+        fi
+    fi
+}
+
+function loop {
+    while :
+    do
+        git_notify
+        sleep 60
+    done
+}
+
+loop
+

@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+
+pushd () {
+    command pushd "$@" > /dev/null
+}
+
+popd () {
+    command popd "$@" > /dev/null
+}
+
+BOLD="\033[1m"
+RESET="\033[m"
+
+BLACK="\033[0;30"
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[0;33m"
+BLUE="\033[0;34m"
+MAGENTA="\033[0;35m"
+CYAN="\033[0;36m"
+WHITE="\033[0;37m"
+
+BRIGHT_BLACK="\033[0;90"
+BRIGHT_RED="\033[0;91m"
+BRIGHT_GREEN="\033[0;92m"
+BRIGHT_YELLOW="\033[0;93m"
+BRIGHT_BLUE="\033[0;94m"
+BRIGHT_MAGENTA="\033[0;95m"
+BRIGHT_CYAN="\033[0;96m"
+BRIGHT_WHITE="\033[0;97m"
+
+BOLD_BLACK="\033[1;30"
+BOLD_RED="\033[1;31m"
+BOLD_GREEN="\033[1;32m"
+BOLD_YELLOW="\033[1;33m"
+BOLD_BLUE="\033[1;34m"
+BOLD_MAGENTA="\033[1;35m"
+BOLD_CYAN="\033[1;36m"
+BOLD_WHITE="\033[1;37m"
+
+#export BLACK
+#export RED
+#export GREEN
+#export YELLOW
+#export BLUE
+#export MAGENTA
+#export CYAN
+#export WHITE
+#export BOLD
+#export RESET
+#
+#export BOLD_BLACK
+#export BOLD_RED
+#export BOLD_GREEN
+#export BOLD_YELLOW
+#export BOLD_BLUE
+#export BOLD_MAGENTA
+#export BOLD_CYAN
+#export BOLD_WHITE
+
+function parse_git_branch {
+  branch=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+  git_status_clean=$(git status --porcelain 2> /dev/null)
+  indexed_modified=$(echo -e "$git_status_clean" | grep "^M" | wc -l | awk '{print $1}')
+  not_indexed_modified=$(echo -e "$git_status_clean" | grep "^.M" | wc -l | awk '{print $1}')
+  indexed_new=$(echo -e "$git_status_clean" | grep "^A" | wc -l | awk '{print $1}')
+  not_indexed_new=$(echo -e "$git_status_clean" | grep "^.A" | wc -l | awk '{print $1}')
+  indexed_deleted=$(echo -e "$git_status_clean" | grep "^D" | wc -l | awk '{print $1}')
+  not_indexed_deleted=$(echo -e "$git_status_clean" | grep "^.D" | wc -l | awk '{print $1}')
+  untracked=$(echo -e "$git_status_clean" | grep "^??" | wc -l |awk '{print $1}')
+
+  remote=""
+  curr_remote=$(git config branch.${branch}.remote 2> /dev/null)
+  if [[ -n $curr_remote ]]; then
+    curr_merge_branch=$(git config branch.${branch}.merge | sed -e "s/refs\/heads\///g");
+    ahead=$(git rev-list --left-only --count ${branch}...origin/${curr_merge_branch} 2> /dev/null)
+    behind=$(git rev-list --left-only  --count origin/${curr_merge_branch}...${branch} 2> /dev/null)
+    if [[ -n $ahead && $ahead != 0 ]]; then
+      remote="$remote ${YELLOW}↑$ahead${RESET}"
+    fi
+    if [[ -n $behind && $behind != 0 ]]; then
+      remote="$remote ${YELLOW}↓$behind${RESET}"
+    fi
+  fi
+
+  local workspace=""
+  if [[ $untracked != 0 || $not_indexed_modified != 0 || $not_indexed_deleted != 0 ]]; then
+    workspace=" ${RED}+$untracked ~$not_indexed_modified -$not_indexed_deleted${RESET}"
+  fi
+
+  local staged=""
+  if [[ $indexed_new != 0 || $indexed_modified != 0 || $indexed_deleted != 0 ]]; then
+    staged=" ${GREEN}+$indexed_new ~$indexed_modified -$indexed_deleted${RESET}"
+  fi
+
+  if [ $branch ]; then
+    echo -e " on $MAGENTA$branch$RESET$workspace$staged$remote"
+  fi
+}
+
+base=${1:-.}
+
+repos=$(ls -d -- ${base}/*/)
+
+echo -e "Fetching:\n"
+for repo in ${repos[*]}; do
+    pushd "$repo"
+    if [ -d ".git" ]; then
+        echo -e "$(basename $repo)"
+        status=$(git fetch)
+    fi
+    popd
+done
+
+echo -e "\nStatus:\n"
+for repo in ${repos[*]}; do
+    pushd "$repo"
+    if [ -d ".git" ]; then
+        repo_status=$(parse_git_branch)
+        echo -e "$(basename $repo)$repo_status"
+    fi
+    popd
+done

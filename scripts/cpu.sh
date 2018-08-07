@@ -32,14 +32,17 @@ setDefaults() {
 setDefaults
 
 cpu_usage() {
-    CPU_PCT="`ps -A -o %cpu | awk '{s+=$1} END {print s}'`"
-    LC_ALL=C printf -v CPU_PCT "%.0f" "$CPU_PCT"
+    #CPU_PCT="`ps -A -o %cpu | awk '{s+=$1} END {print s}'`"
+    #LC_ALL=C printf -v CPU_PCT "%.0f" "$CPU_PCT"
+    #iostat -c 2 disk0 | tail -n 1 | awk '{usage=100-$6} END {printf("%5.1f%%", usage)}'
+    CPU_PCT=$(iostat -c 2 disk0 | tail -n 1 | awk '{usage=100-$6} END {print usage}')
+    LC_ALL=C printf -v CPU_PCT "%.0f%" "$CPU_PCT"
 }
 
 
 # Apply the correct color to the battery status prompt
 apply_colors() {
-    # Green
+    # Red
     if [[ $CPU_PCT -ge 75 ]]; then
         if ((output_tmux)); then
             COLOR="#[fg=$warn_color]"
@@ -47,7 +50,7 @@ apply_colors() {
             COLOR=$warn_color
         fi
 
-        # Yellow
+    # Yellow
     elif [[ $CPU_PCT -ge 25 ]] && [[ $CPU_PCT -lt 75 ]]; then
         if ((output_tmux)); then
             COLOR="#[fg=$middle_color]"
@@ -55,7 +58,7 @@ apply_colors() {
             COLOR=$middle_color
         fi
 
-        # Red
+    # Green
     elif [[ $CPU_PCT -lt 25 ]]; then
         if ((output_tmux)); then
             COLOR="#[fg=$good_color]"
@@ -66,22 +69,17 @@ apply_colors() {
 }
 
 print_status() {
-# Print the battery status
-    if ((BATT_CONNECTED)); then
-        GRAPH="⚡"
+    if hash spark 2>/dev/null; then
+        sparks=$(spark 0 ${CPU_PCT} 100)
+        GRAPH=${sparks:1:1}
     else
-        if hash spark 2>/dev/null; then
-            sparks=$(spark 0 ${CPU_PCT} 100)
-            GRAPH=${sparks:1:1}
-        else
-            ascii=1
-        fi
+        ascii=1
     fi
 
     if ((ascii)); then
         barlength=${#ascii_bar}
 
-        # Divides BATTTERY_STATUS by 10 to get a decimal number; i.e 7.6
+        # Divides CPU_PCT by 10 to get a decimal number; i.e 7.6
         n=$(echo "scale = 1; $CPU_PCT / 10" | bc)
 
         # Round the number to the nearest whole number
