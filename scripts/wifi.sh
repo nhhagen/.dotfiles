@@ -33,6 +33,7 @@ setDefaults
 
 wifi_strength() {
     dBm="`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | grep CtlRSSI | sed -e 's/^.*: //g'`"
+    dBm=${dBm:--100}
 
     # dBm to Quality:
     if [ $dBm -le -100 ]
@@ -76,16 +77,12 @@ apply_colors() {
 }
 
 print_status() {
-# Print the battery status
-    if ((BATT_CONNECTED)); then
-        GRAPH="⚡"
+    # Print the wifi status
+    if hash spark 2>/dev/null; then
+        sparks=$(spark 0 ${quality} 100)
+        GRAPH=${sparks:1:1}
     else
-        if hash spark 2>/dev/null; then
-            sparks=$(spark 0 ${quality} 100)
-            GRAPH=${sparks:1:1}
-        else
-            ascii=1
-        fi
+        ascii=1
     fi
 
     if ((ascii)); then
@@ -101,12 +98,14 @@ print_status() {
         GRAPH=$(printf "[%-${barlength}s]" "${ascii_bar:0:rounded_n}")
     fi
 
+    network=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}')
+    speed=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | grep 'lastTxRate' | sed -e 's/.*: \(.*\)/\1/')
 
-if ((output_tmux)); then
-  printf "%s%s %s%s" "$COLOR" "[$quality%]" "$GRAPH" "#[default]"
-else
-  printf "\e[0;%sm%s %s\e[m\n"  "$COLOR" "[$quality%]" "$GRAPH"
-fi
+    if ((output_tmux)); then
+      printf "%s: %s[%s Mbit/s %s%%] %s %s" "${network:-N/A}" "$COLOR" "${speed:-N/A}" "${quality:-N/A}" "$GRAPH" "#[default]"
+    else
+      printf "%s: \e[0;%sm[%s Mbit/s %s%%] %s\e[m\n" "${network:-N/A}" "$COLOR" "${speed:-N/A}" "${quality:-N/A}" "$GRAPH"
+    fi
 
 }
 

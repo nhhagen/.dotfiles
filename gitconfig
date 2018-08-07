@@ -1,0 +1,49 @@
+[user]
+	name = Niels Henrik Hagen
+	email = nhhagen@gmail.com
+	signingkey = 786F7BDDD850DE40
+[color]
+	ui = auto
+	ui = true
+[core]
+	autocrlf = input
+	editor = vim
+[pull]
+	rebase = true
+[push]
+	default = simple
+[log]
+	date = relative
+[alias]
+	lg = log --date-order --graph --decorate --pretty=format:'%C(yellow)%h%Creset %G? %C(magenta)%d%Creset %s %C(blue)(%an)%Creset %C(green)%cr%Creset'
+	lga = log --all --date-order --graph --decorate --pretty=format:'%C(yellow)%h%Creset %G? %C(magenta)%d%Creset %s %C(blue)(%an)%Creset %C(green)%cr%Creset'
+	d = difftool
+	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+	new-feature = !sh -c 'git checkout -b feature/$1' -
+	new-bugfix = !sh -c 'git checkout -b bugfix/$1' -
+[github]
+	user = nhhagen
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[fetch]
+	prune = true
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
+[gitflow "feature.finish"]
+	keepremote = true
+[gitflow "release.finish"]
+	keepremote = true
+[gitflow "hotfix.finish"]
+	keepremote = true
+[gitflow "bugfix.finish"]
+	keepremote = true
+[gitflow "support.finish"]
+	keepremote = true

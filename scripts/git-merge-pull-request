@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+branch=${1:-$current_branch}
+master="master"
+
+echo "Merging pull request ${branch} into ${master}"
+
+git checkout $master
+git pull --rebase
+git merge --ff-only $branch
+git push
+git branch -d $branch
+git push origin :$branch

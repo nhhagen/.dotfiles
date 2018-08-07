@@ -14,7 +14,7 @@ if [ -f `brew --prefix`/etc/profile.d/colorsvn-env.sh ]; then
 fi
 
 export PATH=/Library/Frameworks/Mono.framework/Versions/3.0.6/bin:$PATH
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/scripts:$PATH
 
 export GIT_PS1_SHOWSTASHSTATE=true
 export GIT_PS1_SHOWDIRTYSTATE=true
@@ -34,3 +34,4 @@ export GREP_OPTIONS='--color=auto'
 function gi() { curl -s https://www.gitignore.io/api/$@ ;}
 
 function newproject() { curl https://raw.github.com/nhhagen/vagrant-dev-box/master/setup.sh | bash -s $@ ; }
+[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn

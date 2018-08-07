@@ -1,0 +1,4 @@
+color cursor default color19
+color title-blur default color19
+color title-focus default color19 bold
+set line-graphics = utf-8
