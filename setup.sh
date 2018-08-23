@@ -16,32 +16,30 @@ ln -Ffs ~/.dotfiles/scripts ~/scripts && rm -rf ~/.dotfiles/scripts/scripts
 if [ "$SYSTEM_TYPE" == "$OSX" ]; then
     brew tap Goles/battery
     brew update && brew upgrade --all
-    packages=(
-        ack
-        battery
-        cmake
-        docker
-        docker-machine
-        git
-        git-flow-avh
-        git-standup
-        node
-        pyenv
-        pyenv-virtualenv
-        reattach-to-user-namespace
-        spark
-        the_silver_searcher
-        tig
-        tmux
-        tree
-        wget
-        zsh
-        zsh-completions
+    brew install \
+        ack\
+        battery\
+        cmake\
+        docker\
+        docker-machine\
+        git\
+        git-flow-avh\
+        git-standup\
+        gpg\
+        node\
+        pyenv\
+        pyenv-virtualenv\
+        reattach-to-user-namespace\
+        spark\
+        the_silver_searcher\
+        tig\
+        tmux\
+        tree\
+        vim\
+        wget\
+        zsh\
+        zsh-completions\
         zsh-syntax-highlighting
-    )
-    for package in ${packages[*]}; do
-        brew install $package
-    done
 
     gems=(
         tmuxinator
