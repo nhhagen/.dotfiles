@@ -7,10 +7,11 @@
 local GIT_PROMPT=""
 local VIRTUAL_ENV_PROMPT=""
 local NODE_ENV_PROMPT=""
+local VAULTED_PROMPT=""
 
 git_prompt() {
     local branch_prefix="%B%b"
-    local branch="$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')" || return
+    local branch="$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')" || return
     local git_status_clean="$(git status --porcelain 2> /dev/null)"
     local indexed_modified="$(echo -e "$git_status_clean" | grep "^M" | wc -l | awk '{print $1}')"
     local not_indexed_modified="$(echo -e "$git_status_clean" | grep "^.M" | wc -l | awk '{print $1}')"
@@ -94,10 +95,20 @@ status() {
     echo "$result"
 }
 
+function vaulted_prompt() {
+    vault=""
+    result="$(vaulted ls | grep active | sed -E 's/(.*) \(active\)/\1/')"
+    if [[ -n $result ]]; then
+        vault="%{$fg[red]%} ${result}%{$reset_color%} "
+    fi
+    echo "${vault}"
+}
+
 function precmd() {
     VIRTUAL_ENV_PROMPT="$(virtualenv_info)"
     NODE_ENV_PROMPT="$(nvm_info)"
     GIT_PROMPT="$(git_prompt)"
+    VAULTED_PROMPT="$(vaulted_prompt)"
 }
 
 setprompt() {
@@ -108,7 +119,7 @@ setprompt() {
     # ❯
     # %~
     p='%(5~|%-1~/…/%3~|%4~)'
-    PROMPT='${prefix}%{$fg[blue]%}${p}%{$reset_color%}${GIT_PROMPT}${VIRTUAL_ENV_PROMPT}${NODE_ENV_PROMPT}'$'\n''%{$fg[yellow]%}❯%{$reset_color%} '
+    PROMPT='${VAULTED_PROMPT}${prefix}%{$fg[blue]%}${p}%{$reset_color%}${GIT_PROMPT}${VIRTUAL_ENV_PROMPT}${NODE_ENV_PROMPT}'$'\n''%{$fg[yellow]%}❯%{$reset_color%} '
     # PROMPT2="%{$fg[yellow]%}%_ →%{$reset_color%} "
     PROMPT2="%{$fg[yellow]%}%_ ❯%{$reset_color%} "
     PROMPT3="%{$fg[yellow]%}?#%{$reset_color%} "

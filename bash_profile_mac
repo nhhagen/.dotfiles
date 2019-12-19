@@ -35,3 +35,7 @@ function gi() { curl -s https://www.gitignore.io/api/$@ ;}
 
 function newproject() { curl https://raw.github.com/nhhagen/vagrant-dev-box/master/setup.sh | bash -s $@ ; }
 [[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/niels.hagen/.sdkman"
+[[ -s "/Users/niels.hagen/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/niels.hagen/.sdkman/bin/sdkman-init.sh"

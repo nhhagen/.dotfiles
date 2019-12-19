@@ -1,8 +1,9 @@
+export LANGUAGE=C
+export LC_ALL=en_US.UTF-8
+
 unalias run-help
 autoload run-help
 HELPDIR=/usr/local/share/zsh/help
-
-export LANGUAGE=C
 
 GPG_TTY=$(tty)
 export GPG_TTY
@@ -13,7 +14,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 # export TERM=xterm-256color-italic
 
 # export JAVA_HOME=$(/usr/libexec/java_home)
-export PATH=$JAVA_HOME/bin:/usr/local/bin:$PATH
+# export PATH=$JAVA_HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/.npm-packages/bin:/usr/local/share/npm/bin:$PATH
 
 # Lines configured by zsh-newuser-install
@@ -48,16 +49,13 @@ if [ -d `brew --prefix`/share/zsh-completions ]; then
     fpath=(`brew --prefix`/share/zsh-completions $fpath)
 fi
 
-if [ -f `brew --prefix`/share/zsh/site-functions/git-flow-completion.zsh ]; then
-    source `brew --prefix`/share/zsh/site-functions/git-flow-completion.zsh
-fi
+
+# if [ -f ~/.zsh/git-flow-completion.zsh ]; then
+#     source ~/.zsh/git-flow-completion.zsh
+# fi
 
 if [ -f `brew --prefix`/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source `brew --prefix`/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
-if [ -f ~/.zsh/git-flow-completion.zsh ]; then
-    source ~/.zsh/git-flow-completion.zsh
 fi
 
 if [ -f `brew --prefix`/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]; then
@@ -101,6 +99,8 @@ export GREP_OPTIONS='--color=auto'
 
 export EVENT_NOKQUEUE=1
 
+export CLOUDSDK_PYTHON=$(which python)
+
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
@@ -111,16 +111,13 @@ source $HOME/.alias
 
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
-function newproject() { curl https://raw.github.com/nhhagen/vagrant-dev-box/master/setup.sh | bash -s $@ ; }
+export PATH=~/bin:~/scripts:$PATH
 
-export CLOUDSDK_PYTHON=python
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/niels.hagen/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
-# The next line updates PATH for the Google Cloud SDK.
-source $HOME/google-cloud-sdk/path.zsh.inc
-
-# The next line enables shell command completion for gcloud.
-source $HOME/google-cloud-sdk/completion.zsh.inc
-
+# Node version manager
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -137,13 +134,19 @@ load-nvmrc() {
     if [ "$nvmrc_node_version" = "N/A" ]; then
       nvm install
     elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use >/dev/null 2>&1
+      nvm use
     fi
   elif [ "$node_version" != "$(nvm version default)" ]; then
-    # echo "Reverting to nvm default version"
-    nvm use default >/dev/null 2>&1
+    echo "Reverting to nvm default version"
+    nvm use default
   fi
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
-export PATH=~/bin:~/scripts:$PATH
+
+# Google Cloud SDK
+export GCLOUD_SDK_DIR="/Users/niels.hagen/.google-cloud-sdk"
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$GCLOUD_SDK_DIR/path.zsh.inc" ]; then source "$GCLOUD_SDK_DIR/path.zsh.inc"; fi
+# The next line enables shell command completion for gcloud.
+if [ -f "$GCLOUD_SDK_DIR/completion.zsh.inc" ]; then source "$GCLOUD_SDK_DIR/completion.zsh.inc"; fi

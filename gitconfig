@@ -8,6 +8,7 @@
 [core]
 	autocrlf = input
 	editor = vim
+	excludesfile = /Users/niels.hagen/.gitignore_global
 [pull]
 	rebase = true
 [push]
@@ -21,6 +22,10 @@
 	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
 	new-feature = !sh -c 'git checkout -b feature/$1' -
 	new-bugfix = !sh -c 'git checkout -b bugfix/$1' -
+	create-pr = create-branch
+	update-pr = update-branch
+	merge-pr = merge-branch
+	delete-pr = delete-branch
 [github]
 	user = nhhagen
 [diff]
