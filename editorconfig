@@ -4,12 +4,16 @@
 root = true
 
 [*]
-end_of_line = lf
-insert_final_newline = false
 charset = utf-8
-indent_style = space
+end_of_line = lf
 indent_size = 4
+indent_style = space
+insert_final_newline = false
+max_line_length = 79
 trim_trailing_whitespace = true
+
+[Makefile]
+indent_style = tab
 
 # JavaScript
 [*.{js,jsx}]
@@ -38,3 +42,11 @@ indent_size = 2
 # .babelrc
 [.babelrc]
 indent_size = 2
+
+# Terraform
+[*.tf]
+indent_size = 2
+insert_final_newline = true
+
+[.gitconfig]
+indent_style = tab

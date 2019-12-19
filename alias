@@ -1,6 +1,8 @@
 # -*- mode: zsh -*-
 # vi: set ft=sh :
 
+alias vim=nvim
+
 alias ccat='pygmentize -g'
 
 # List the largest files/directory in directory
@@ -33,6 +35,7 @@ alias vhf='vagrant halt -f'
 alias vssh='vagrant ssh'
 
 # Tmuxinator
+alias tmuxinator='/usr/local/opt/ruby/bin/ruby $(dirname $(/usr/local/opt/ruby/bin/gem which tmuxinator))/../bin/tmuxinator'
 alias mux='tmuxinator'
 
 # The silver searcher
@@ -44,3 +47,6 @@ alias pip-update-all='pip list --outdated --format=freeze | grep -v '^\-e' | cut
 
 #tig
 alias tig='tig --show-signature'
+
+alias make='gmake'
+# alias make='gmake -j 4'

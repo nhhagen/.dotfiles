@@ -7,8 +7,9 @@ OSX='Darwin'
 
 mkdir -p ~/.subversion
 mkdir -p ~/bin
+mkdir -p ~/scripts
 
-ln -Ffs ~/.dotfiles/alias.sh ~/.alias
+ln -Ffs ~/.dotfiles/alias ~/.alias
 ln -Ffs ~/.dotfiles/gitconfig ~/.gitconfig
 ln -Ffs ~/.dotfiles/bash_prompt ~/.bash_prompt
 ln -Ffs ~/.dotfiles/scripts ~/scripts && rm -rf ~/.dotfiles/scripts/scripts

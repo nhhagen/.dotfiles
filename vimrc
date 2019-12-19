@@ -33,7 +33,12 @@
     Plug 'airblade/vim-gitgutter'
     Plug 'nathanaelkane/vim-indent-guides'
     " Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-    Plug 'chriskempson/base16-vim'
+    " function FixupBase16(info)
+    "     !sed -i '/Base16hi/\! s/a:\(attr\|guisp\)/l:\1/g' ~/.vim/plugged/base16-vim/colors/*.vim
+    " endfunction
+    " Plug 'chriskempson/base16-vim', { 'do': function('FixupBase16') }
+    " Plug 'chriskempson/base16-vim'
+    Plug 'danielwe/base16-vim'
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'tpope/vim-fugitive'
     Plug 'mileszs/ack.vim'
@@ -60,8 +65,9 @@
   " Completion {
     if has('mac')
       Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-      Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --js-completer' }
+      " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --js-completer' }
     endif
+    Plug 'lifepillar/vim-mucomplete'
   " }
 
   " JavaScript {
@@ -84,34 +90,35 @@
   " Python {
     Plug 'lambdalisue/vim-pyenv', { 'for': ['python', 'python3'] }
     " Plug 'klen/python-mode'
-    " Plug 'davidhalter/jedi-vim'
+    Plug 'davidhalter/jedi-vim'
     Plug 'hdima/python-syntax'
   "}
 
   " Misc language & syntax support {
     Plug 'w0rp/ale'
     " Plug 'vim-syntastic/syntastic'
-    Plug 'PProvost/vim-ps1'
-    Plug 'othree/html5.vim'
+    " Plug 'PProvost/vim-ps1'
+    " Plug 'othree/html5.vim'
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
-    Plug 'rodjek/vim-puppet'
+    " Plug 'rodjek/vim-puppet'
     Plug 'saltstack/salt-vim'
     Plug 'chr4/nginx.vim'
-    Plug 'derekwyatt/vim-scala'
-    Plug 'gre/play2vim'
+    " Plug 'derekwyatt/vim-scala'
+    " Plug 'gre/play2vim'
     Plug 'stephpy/vim-yaml'
-    Plug 'mustache/vim-mustache-handlebars'
-    Plug 'digitaltoad/vim-jade'
-    Plug 'robbles/logstash.vim'
-    Plug 'elixir-lang/vim-elixir'
+    " Plug 'mustache/vim-mustache-handlebars'
+    " Plug 'digitaltoad/vim-jade'
+    " Plug 'robbles/logstash.vim'
+    " Plug 'elixir-lang/vim-elixir'
     Plug 'vim-scripts/groovy.vim'
     " Plug 'vim-scripts/groovyindent'
     Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
     Plug 'vim-scripts/haproxy'
     Plug 'hashivim/vim-terraform'
   " }
-
+  Plug 'udalov/kotlin-vim'
+  Plug 'artur-shaik/vim-javacomplete2'
   " Plug 'xolox/vim-misc'
   " Plug 'xolox/vim-easytags'
   " Plug 'luochen1990/rainbow'
@@ -147,6 +154,11 @@ source ~/.vim/includes/functions.vim
   set hidden
   set wildmenu            " visual autocomplete for command menu"
   set noshowmode
+" }
+
+
+" Spell {
+  :set spellfile=~/.vim/spell/custom.utf-8.add
 " }
 
 " Colors & UI {
@@ -208,16 +220,29 @@ source ~/.vim/includes/functions.vim
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
   let g:airline_theme='base16'
-
+  let g:airline_left_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_alt_sep = ''
 " }
 
 " YouCompleteMe {
-  let g:ycm_add_preview_to_completeopt = 1
-  let g:ycm_autoclose_preview_window_after_completion = 1
-  let g:ycm_collect_identifiers_from_comments_and_strings = 1
-  let g:ycm_collect_identifiers_from_tags_files = 1
-  let g:ycm_seed_identifiers_with_syntax = 1
-  let g:ycm_complete_in_comments = 1
+"  let g:ycm_add_preview_to_completeopt = 1
+"  let g:ycm_autoclose_preview_window_after_completion = 1
+"  let g:ycm_collect_identifiers_from_comments_and_strings = 1
+"  let g:ycm_collect_identifiers_from_tags_files = 1
+"  let g:ycm_seed_identifiers_with_syntax = 1
+"  let g:ycm_complete_in_comments = 1
+" }
+
+" MUcomplete {
+  set completeopt-=preview
+  set completeopt+=longest,menuone,noselect
+  let g:jedi#popup_on_dot = 0  " It may be 1 as well
+  set shortmess+=c   " Shut off completion messages
+  set belloff+=ctrlg " If Vim beeps during completion
+  let g:mucomplete#delayed_completion = 1
+
 " }
 
 " Ignores {
@@ -328,7 +353,8 @@ source ~/.vim/includes/functions.vim
 " }
 
 " kannokanno/previm {
-  let g:previm_open_cmd = 'open -a Safari'
+  " let g:previm_open_cmd = 'open -a Safari'
+  let g:previm_open_cmd = "open -a 'Google Chrome'"
 "}
 
 " Netrw {
@@ -348,7 +374,7 @@ source ~/.vim/includes/functions.vim
 
 " hashivim/vim-terraform {
   let g:terraform_align=1
-  let g:terraform_fmt_on_save=1
+  let g:terraform_fmt_on_save=0
 " }
 
 autocmd BufEnter,BufRead,BufNewFile .babelrc set filetype=json
@@ -356,3 +382,18 @@ autocmd BufEnter,BufRead,BufNewFile Jenkinsfile set filetype=groovy
 autocmd BufEnter,BufRead,BufNewFile haproxy*.cfg set filetype=haproxy
 autocmd BufEnter,BufRead,BufNewFile *.md setlocal spell
 autocmd Filetype gitcommit setlocal spell
+
+if jedi#init_python()
+  function! s:jedi_auto_force_py_version() abort
+    let g:jedi#force_py_version = pyenv#python#get_internal_major_version()
+  endfunction
+  augroup vim-pyenv-custom-augroup
+    autocmd! *
+    autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+    autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
+  augroup END
+endif
+
+" artur-shaik/vim-javacomplete2 {
+  autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" }

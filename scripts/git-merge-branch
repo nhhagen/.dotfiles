@@ -12,5 +12,4 @@ git checkout $master
 git pull --rebase
 git merge --ff-only $branch
 git push
-git branch -d $branch
-git push origin :$branch
+git delete-branch $branch
