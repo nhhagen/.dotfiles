@@ -4,6 +4,7 @@ DOTFILES_DIR := $(PWD)
 DOTFILES := $(shell ls | grep -v -E ".*\.sh$$|\..*$$|Makefile$$|LICENSE$$|.*\.md$$|LM-Tomorrow-Night$$|Meslo-Font$$|Smyck-Color-Scheme$$|powerline-fontpatcher$$")
 PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
 
+BREW := /usr/local/bin/brew
 BREW_PACKAGES := ack\
 	battery\
 	docker-machine\
@@ -31,19 +32,19 @@ GEMS := tmuxinator
 
 install: $(BREW_PACKAGES) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile
 
-brew: |/usr/local/bin/brew
-/usr/local/bin/brew:
+brew: |$(BREW)
+$(BREW):
 	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 brew-update: brew
-	brew update
+	$(BREW) update
 
 brew-tap: brew
-	brew tap Goles/battery
+	$(BREW) tap Goles/battery
 
 brew-install: $(BREW_PACKAGES)
 $(BREW_PACKAGES): brew-update brew-tap Makefile
-	brew install $@
+	$(BREW) install $@
 
 gem-install: $(GEMS)
 $(GEMS): $(BREW_PACKAGES) Makefile
