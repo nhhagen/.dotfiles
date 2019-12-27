@@ -1,10 +1,7 @@
-# dotfiles
+# .dotfiles
 
-To install run:
+Only tested on macOS
 
-    sh setup.sh
-
-To update run:
-
-    sh update.sh
-
+```sh
+make install
+```
