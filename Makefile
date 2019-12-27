@@ -32,7 +32,7 @@ GEMS := tmuxinator
 
 install: $(BREW_PACKAGES) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk
 
-brew: |$(BREW)
+brew: |$(BREW) xcode
 $(BREW):
 	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
