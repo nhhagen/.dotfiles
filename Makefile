@@ -28,9 +28,11 @@ BREW_PACKAGES := ack\
 	zsh-syntax-highlighting \
 	zsh
 
+BREW_PACKAGES_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_PACKAGES))
+
 GEMS := tmuxinator
 
-install: $(BREW_PACKAGES) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk
+install: $(BREW_PACKAGES_PATHS) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk
 
 brew: |$(BREW) xcode
 $(BREW):
@@ -42,12 +44,12 @@ brew-update: brew
 brew-tap: brew
 	$(BREW) tap Goles/battery
 
-brew-install: $(BREW_PACKAGES)
-$(BREW_PACKAGES): brew-update brew-tap Makefile
-	$(BREW) list $@ &>/dev/null || $(BREW) install $@
+brew-install: |$(BREW_PACKAGES_PATHS)
+$(BREW_PACKAGES_PATHS): |$(BREW)
+	$(BREW) install $(patsubst .%,%,$(notdir $@))
 
 gem-install: $(GEMS)
-$(GEMS): $(BREW_PACKAGES) Makefile
+$(GEMS): |$(BREW_PACKAGES_PATHS)
 	sudo gem install $@
 
 dotfiles: |$(PREDEF_DOTFILES)
