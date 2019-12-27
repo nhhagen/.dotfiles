@@ -12,7 +12,7 @@ BREW_PACKAGES := ack\
 	git-flow-avh\
 	git-standup\
 	git\
-	gpg\
+	gnupg\
 	make\
 	pyenv-virtualenv\
 	pyenv\
