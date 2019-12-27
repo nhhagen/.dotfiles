@@ -44,7 +44,7 @@ brew-tap: brew
 
 brew-install: $(BREW_PACKAGES)
 $(BREW_PACKAGES): brew-update brew-tap Makefile
-	$(BREW) install $@
+	$(BREW) list $@ &>/dev/null || $(BREW) install $@
 
 gem-install: $(GEMS)
 $(GEMS): $(BREW_PACKAGES) Makefile
