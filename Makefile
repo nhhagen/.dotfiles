@@ -63,7 +63,7 @@ $(HOME)/bin:
 	mkdir -p $@
 
 bash_profile: $(HOME)/.bash_profile
-$(HOME)/.bash_profile: $(DOTFILES)
+$(HOME)/.bash_profile: |$(HOME)/.bash_profile_mac
 	ln -Fsv $(HOME)/.bash_profile_mac $@
 
 xcode: |/Library/Developer/CommandLineTools
