@@ -30,7 +30,7 @@ BREW_PACKAGES := ack\
 
 GEMS := tmuxinator
 
-install: $(BREW_PACKAGES) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile
+install: $(BREW_PACKAGES) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk
 
 brew: |$(BREW)
 $(BREW):
@@ -69,3 +69,10 @@ $(HOME)/.bash_profile: $(DOTFILES)
 xcode: |/Library/Developer/CommandLineTools
 /Library/Developer/CommandLineTools:
 	xcode-select --install
+
+google-cloud-sdk: |$(HOME)/.google-cloud-sdk
+$(HOME)/.google-cloud-sdk:
+	curl https://sdk.cloud.google.com > google-cloud-install.sh
+	bash google-cloud-install.sh --disable-prompts
+	mv $(HOME)/google-cloud-sdk $(HOME)/.google-cloud-sdk
+	rm google-cloud-install.sh
