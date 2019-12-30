@@ -156,7 +156,6 @@ source ~/.vim/includes/functions.vim
   set noshowmode
 " }
 
-
 " Spell {
   :set spellfile=~/.vim/spell/custom.utf-8.add
 " }
