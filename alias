@@ -35,7 +35,6 @@ alias vhf='vagrant halt -f'
 alias vssh='vagrant ssh'
 
 # Tmuxinator
-alias tmuxinator='/usr/local/opt/ruby/bin/ruby $(dirname $(/usr/local/opt/ruby/bin/gem which tmuxinator))/../bin/tmuxinator'
 alias mux='tmuxinator'
 
 # The silver searcher

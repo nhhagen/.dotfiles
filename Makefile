@@ -21,6 +21,7 @@ BREW_PACKAGES := ack\
 	the_silver_searcher\
 	tig\
 	tmux\
+	tmuxinator \
 	tree\
 	vim\
 	wget\
@@ -30,7 +31,7 @@ BREW_PACKAGES := ack\
 
 BREW_PACKAGES_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_PACKAGES))
 
-GEMS := tmuxinator
+GEMS :=
 
 install: $(BREW_PACKAGES_PATHS) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk
 
