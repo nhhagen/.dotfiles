@@ -211,6 +211,10 @@ source ~/.vim/includes/functions.vim
   " nmap <C-w> :bd<CR> need to find a new key
 " }
 
+" { Terminal
+  :tnoremap <Esc> <C-\><C-n>
+" }
+
 " Delimate {
   let delimitMate_expand_cr = 1
 " }
