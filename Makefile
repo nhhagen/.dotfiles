@@ -14,6 +14,7 @@ BREW_PACKAGES := ack\
 	git\
 	gnupg\
 	make\
+	neovim \
 	pyenv-virtualenv\
 	pyenv\
 	reattach-to-user-namespace\
