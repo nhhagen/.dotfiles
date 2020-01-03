@@ -34,7 +34,7 @@ BREW_PACKAGES_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_PACKAGES))
 
 GEMS :=
 
-install: $(BREW_PACKAGES_PATHS) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk
+install: $(BREW_PACKAGES_PATHS) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman
 
 brew: |$(BREW) xcode
 $(BREW):
@@ -80,3 +80,7 @@ $(HOME)/.google-cloud-sdk:
 	bash google-cloud-install.sh --disable-prompts
 	mv $(HOME)/google-cloud-sdk $(HOME)/.google-cloud-sdk
 	rm google-cloud-install.sh
+
+sdkman: |$(HOME)/.sdkman
+$(HOME)/.sdkman:
+	curl -s "https://get.sdkman.io" | bash
