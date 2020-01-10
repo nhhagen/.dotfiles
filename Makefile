@@ -7,6 +7,7 @@ PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
 BREW := /usr/local/bin/brew
 BREW_PACKAGES := ack\
 	battery\
+	cookiecutter \
 	docker-machine\
 	docker\
 	git-flow-avh\
