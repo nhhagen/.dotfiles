@@ -1,4 +1,4 @@
-.PHONY: install brew brew-tap brew-install dotfiles xcode hello brew-update
+.PHONY: install brew brew-tap brew-install dotfiles xcode hello brew-update terraform
 
 DOTFILES_DIR := $(PWD)
 DOTFILES := $(shell ls | grep -v -E ".*\.sh$$|\..*$$|Makefile$$|LICENSE$$|.*\.md$$|LM-Tomorrow-Night$$|Meslo-Font$$|Smyck-Color-Scheme$$|powerline-fontpatcher$$")
@@ -35,7 +35,7 @@ BREW_PACKAGES_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_PACKAGES))
 
 GEMS :=
 
-install: $(BREW_PACKAGES_PATHS) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman
+install: $(BREW_PACKAGES_PATHS) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman terraform
 
 brew: |$(BREW) xcode
 $(BREW):
@@ -85,3 +85,10 @@ $(HOME)/.google-cloud-sdk:
 sdkman: |$(HOME)/.sdkman
 $(HOME)/.sdkman:
 	curl -s "https://get.sdkman.io" | bash
+
+terraform: $(HOME)/bin/terraform
+$(HOME)/bin/terraform: |$(HOME)/bin
+	curl "https://releases.hashicorp.com/terraform/0.12.20/terraform_0.12.20_darwin_amd64.zip" > terraform.zip
+	unzip terraform.zip -d $(HOME)/bin/
+	rm terraform.zip
+
