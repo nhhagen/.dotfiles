@@ -14,6 +14,7 @@ BREW_PACKAGES := ack\
 	git-standup\
 	git\
 	gnupg\
+	httpie \
 	make\
 	neovim \
 	pyenv-virtualenv\
