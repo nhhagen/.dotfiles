@@ -45,6 +45,10 @@ bindkey '^R' history-incremental-search-backward
 # The following lines were added by compinstall
 zstyle :compinstall filename '~/.zshrc'
 
+if [ -d `brew --prefix` ]; then
+    export PATH="`brew --prefix`/sbin:$PATH"
+fi
+
 if [ -d `brew --prefix`/share/zsh-completions ]; then
     fpath=(`brew --prefix`/share/zsh-completions $fpath)
 fi
