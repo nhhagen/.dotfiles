@@ -103,7 +103,11 @@ export GREP_OPTIONS='--color=auto'
 
 export EVENT_NOKQUEUE=1
 
-export CLOUDSDK_PYTHON=$(which python)
+if [ -f `brew --prefix`/bin/python3 ]; then
+    export CLOUDSDK_PYTHON=`brew --prefix`/bin/python3
+else;
+    export CLOUDSDK_PYTHON=$(which python)
+fi
 
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
