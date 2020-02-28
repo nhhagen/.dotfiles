@@ -40,7 +40,8 @@ BREW_CASKS := \
 	1password \
 	google-backup-and-sync \
 	keybase \
-	slack
+	slack \
+	virtualbox
 
 BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
