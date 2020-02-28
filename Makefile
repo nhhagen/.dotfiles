@@ -39,7 +39,8 @@ BREW_PACKAGES_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_PACKAGES))
 BREW_CASKS := \
 	1password \
 	google-backup-and-sync \
-	keybase
+	keybase \
+	slack
 
 BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
