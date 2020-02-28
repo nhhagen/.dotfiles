@@ -36,6 +36,10 @@ BREW_PACKAGES := \
 
 BREW_PACKAGES_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_PACKAGES))
 
+BREW_CASKS :=
+
+BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
+
 GEMS :=
 
 install: $(BREW_PACKAGES_PATHS) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman terraform
@@ -50,9 +54,12 @@ brew-update: brew
 brew-tap: brew
 	$(BREW) tap Goles/battery
 
-brew-install: |$(BREW_PACKAGES_PATHS)
+brew-install: |$(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS)
 $(BREW_PACKAGES_PATHS): |$(BREW)
 	$(BREW) install $(patsubst .%,%,$(notdir $@))
+
+$(BREW_CASKS_PATHS): |$(BREW)
+	$(BREW) cask install $(patsubst .%,%,$(notdir $@))
 
 gem-install: $(GEMS)
 $(GEMS): |$(BREW_PACKAGES_PATHS)
