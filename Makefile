@@ -37,7 +37,8 @@ BREW_PACKAGES := \
 BREW_PACKAGES_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_PACKAGES))
 
 BREW_CASKS := \
-	1password
+	1password \
+	keybase
 
 BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
