@@ -47,7 +47,7 @@ BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
 GEMS :=
 
-install: $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman
+install: $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman
 
 brew: |$(BREW) xcode
 $(BREW):
@@ -100,3 +100,14 @@ $(HOME)/.google-cloud-sdk:
 sdkman: |$(HOME)/.sdkman
 $(HOME)/.sdkman:
 	curl -s "https://get.sdkman.io" | bash
+
+base16-shell: |$(HOME)/.config/base16-shell
+$(HOME)/.config/base16-shell:
+	mkdir $@
+	(set -e; \
+	cd $@; \
+	git init; \
+	git remote add origin https://github.com/chriskempson/base16-shell.git; \
+	git fetch origin; \
+	git checkout -b master --track origin/master; \
+	git reset origin/master)
