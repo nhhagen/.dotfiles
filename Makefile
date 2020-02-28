@@ -45,7 +45,7 @@ BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
 GEMS :=
 
-install: $(BREW_PACKAGES_PATHS) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman
+install: $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman
 
 brew: |$(BREW) xcode
 $(BREW):
