@@ -5,7 +5,8 @@ DOTFILES := $(shell ls | grep -v -E ".*\.sh$$|\..*$$|Makefile$$|LICENSE$$|.*\.md
 PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
 
 BREW := /usr/local/bin/brew
-BREW_PACKAGES := ack\
+BREW_PACKAGES := \
+	ack \
 	battery\
 	cookiecutter \
 	docker-machine\
