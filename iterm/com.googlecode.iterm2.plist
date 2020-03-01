@@ -311,6 +311,8 @@
 	<false/>
 	<key>FsTabDelay</key>
 	<real>1</real>
+	<key>HapticFeedbackForEsc</key>
+	<false/>
 	<key>HiddenAFRStrokeThickness</key>
 	<real>0.0</real>
 	<key>HiddenAdvancedFontRendering</key>
@@ -352,11 +354,11 @@
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/.dotfiles/base16-iterm2/itermcolors</string>
+	<string>~/.base16-prompt-toolkit/.git</string>
 	<key>NSNavLastUserSetHideExtensionButtonState</key>
 	<true/>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{712, 448}</string>
+	<string>{799, 448}</string>
 	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -402,14 +404,16 @@
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1530 217 917 337 0 0 2560 1417 </string>
+	<key>NSWindow Frame NSNavPanelAutosaveName</key>
+	<string>880 744 799 448 0 0 2560 1440 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>1410 768 620 392 0 0 3440 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>398 1002 918 423 0 0 3440 1440 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>407 381 970 617 0 0 1920 1177 </string>
+	<string>732 575 970 617 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>471 241 970 617 0 0 1920 1177 </string>
+	<string>788 568 850 392 0 0 2560 1417 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1049,7 +1053,7 @@
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>InputMonoForPowerline-Regular 12</string>
+			<string>Menlo-Regular 11</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
@@ -2222,11 +2226,11 @@
 			<key>Name</key>
 			<string>Presentation</string>
 			<key>Non Ascii Font</key>
-			<string>InputMonoForPowerline-Regular 12</string>
+			<string>Menlo-Regular 11</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>InputMonoForPowerline-Regular 12</string>
+			<string>InputMono-Regular 11</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -2395,6 +2399,8 @@
 			<false/>
 			<key>Use Italic Font</key>
 			<true/>
+			<key>Use Non-ASCII Font</key>
+			<false/>
 			<key>Vertical Spacing</key>
 			<real>1</real>
 			<key>Visual Bell</key>
@@ -2419,14 +2425,20 @@
 		<string>3.3.5beta3</string>
 		<string>3.3.9beta1</string>
 		<string>3.3.7beta4</string>
+		<string>3.3.10beta1</string>
 		<string>3.3.8beta1</string>
+	</array>
+	<key>NoSyncBFPRecents</key>
+	<array>
+		<string>Menlo</string>
+		<string>Input Mono</string>
 	</array>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
 		<string>{{0, 0}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{399, 902}</string>
+		<string>{398, 903}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
@@ -2437,7 +2449,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>1D30690B-0464-494C-A800-FF94F9B62073</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>118</integer>
+	<integer>133</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>575365194.07139695</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -3234,7 +3246,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-02-16T21:27:15Z</date>
+	<date>2020-03-01T18:35:17Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -3250,6 +3262,8 @@
 	<key>ShowPaneTitles</key>
 	<true/>
 	<key>SmartPlacement</key>
+	<false/>
+	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.40000000596046448</real>
@@ -3277,6 +3291,8 @@
 	<true/>
 	<key>UseLionStyleFullscreen</key>
 	<true/>
+	<key>VisualIndicatorForEsc</key>
+	<false/>
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
 	<key>WebKitStandardFont</key>
@@ -3292,6 +3308,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.3.9beta1</string>
+	<string>3.3.10beta1</string>
 </dict>
 </plist>
