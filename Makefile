@@ -40,6 +40,7 @@ BREW_CASKS := \
 	1password \
 	google-backup-and-sync \
 	google-chrome \
+	iterm2 \
 	keybase \
 	slack \
 	virtualbox
