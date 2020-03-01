@@ -1,4 +1,4 @@
-.PHONY: install brew brew-tap brew-install dotfiles xcode hello brew-update
+.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell
 
 DOTFILES_DIR := $(PWD)
 DOTFILES := $(shell ls | grep -v -E ".*\.sh$$|\..*$$|Makefile$$|LICENSE$$|.*\.md$$|LM-Tomorrow-Night$$|Meslo-Font$$|Smyck-Color-Scheme$$|powerline-fontpatcher$$")
@@ -49,17 +49,18 @@ GEMS :=
 
 install: $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman
 
-brew: |$(BREW) xcode
-$(BREW):
+brew: $(BREW)
+$(BREW): |/Library/Developer/CommandLineTools
 	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-brew-update: brew
+brew-update: |$(BREW)
 	$(BREW) update
 
-brew-tap: brew
+brew-tap: |$(BREW)
 	$(BREW) tap Goles/battery
 
 brew-install: |$(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS)
+
 $(BREW_PACKAGES_PATHS): |$(BREW)
 	$(BREW) install $(patsubst .%,%,$(notdir $@))
 
