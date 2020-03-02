@@ -1,7 +1,7 @@
 .PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font
 
 DOTFILES_DIR := $(PWD)
-DOTFILES := $(shell ls | grep -v -E ".*\.sh$$|\..*$$|Makefile$$|LICENSE$$|.*\.md$$|LM-Tomorrow-Night$$|Meslo-Font$$|Smyck-Color-Scheme$$|powerline-fontpatcher$$")
+DOTFILES := $(shell ls src)
 PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
 
 BREW := /usr/local/bin/brew
@@ -75,11 +75,11 @@ $(GEMS): |$(BREW_PACKAGES_PATHS)
 
 dotfiles: |$(PREDEF_DOTFILES)
 $(PREDEF_DOTFILES):
-	ln -Fsv $(PWD)/$(patsubst .%,%,$(notdir $@)) $@
+	ln -Fsv $(PWD)/src/$(patsubst .%,%,$(notdir $@)) $@
 
 scripts: $(HOME)/scripts
 $(HOME)/scripts:
-	ln -Fsv $(PWD)/$(patsubst .%,%,$(notdir $@)) $@
+	ln -Fsv $(PWD)/src/$(patsubst .%,%,$(notdir $@)) $@
 
 bin: $(HOME)/bin
 $(HOME)/bin:
