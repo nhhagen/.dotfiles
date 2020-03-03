@@ -49,7 +49,7 @@ BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
 GEMS :=
 
-install: $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman input-font
+install: brew-tap $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman input-font
 
 brew: $(BREW)
 $(BREW): |/Library/Developer/CommandLineTools
