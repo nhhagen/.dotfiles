@@ -18,6 +18,7 @@ BREW_PACKAGES := \
 	httpie \
 	make\
 	neovim \
+	node \
 	nvm \
 	pyenv-virtualenv\
 	pyenv\
