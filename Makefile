@@ -4,6 +4,8 @@ DOTFILES_DIR := $(PWD)
 DOTFILES := $(shell ls src)
 PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
 
+DOT_CONFIG := $(HOME)/.config
+
 BREW := /usr/local/bin/brew
 BREW_PACKAGES := \
 	ack \
@@ -108,7 +110,7 @@ $(HOME)/.sdkman:
 	curl -s "https://get.sdkman.io" | bash
 
 base16-shell: |$(HOME)/.config/base16-shell
-$(HOME)/.config/base16-shell:
+$(HOME)/.config/base16-shell: |$(DOT_CONFIG)
 	mkdir -p $@
 	(set -e; \
 	cd $@; \
@@ -125,3 +127,6 @@ $(HOME)/Library/Fonts/Input_Fonts:
 	unzip tmp/Input-Font.zip -d tmp
 	mv tmp/Input_Fonts $(HOME)/Library/Fonts
 	rm -rf tmp
+
+$(DOT_CONFIG):
+	mkdir -p $@
