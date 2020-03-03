@@ -67,7 +67,7 @@ $(BREW_PACKAGES_PATHS): |$(BREW)
 	$(BREW) install $(patsubst .%,%,$(notdir $@))
 
 $(BREW_CASKS_PATHS): |$(BREW)
-	$(BREW) cask install $(patsubst .%,%,$(notdir $@))
+	$(BREW) cask install -f $(patsubst .%,%,$(notdir $@))
 
 gem-install: $(GEMS)
 $(GEMS): |$(BREW_PACKAGES_PATHS)
