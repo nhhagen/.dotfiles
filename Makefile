@@ -106,7 +106,7 @@ $(HOME)/.sdkman:
 
 base16-shell: |$(HOME)/.config/base16-shell
 $(HOME)/.config/base16-shell:
-	mkdir $@
+	mkdir -p $@
 	(set -e; \
 	cd $@; \
 	git init; \
