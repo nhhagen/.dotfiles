@@ -1,4 +1,4 @@
-.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config nvm node
+.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config nvm node neovim
 
 DOTFILES_DIR := $(PWD)
 DOTFILES := $(shell ls src)
@@ -19,7 +19,6 @@ BREW_PACKAGES := \
 	gnupg\
 	httpie \
 	make\
-	neovim \
 	node \
 	pyenv-virtualenv\
 	pyenv\
@@ -53,7 +52,23 @@ BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
 GEMS :=
 
-install: brew-tap $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font node
+PYENV_DIR := $(HOME)/.pyenv
+PYENV_VERSIONS := $(PYENV_DIR)/versions
+PYTHON_2_MINOR := 2.7
+PYTHON_3_MINOR := 3.8
+
+PYTHON_2 := $(PYTHON_2_MINOR).17
+PYTHON_3 := $(PYTHON_3_MINOR).1
+
+PYTHON_2_DIR := $(PYENV_VERSIONS)/$(PYTHON_2)
+PYTHON_3_DIR := $(PYENV_VERSIONS)/$(PYTHON_3)
+
+PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR)
+
+PYTHON_2_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim2/lib/python$(PYTHON_2_MINOR)/site-packages/neovim
+PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/site-packages/neovim
+
+install: brew-tap $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font node
 
 brew: $(BREW)
 $(BREW): |/Library/Developer/CommandLineTools
@@ -140,6 +155,30 @@ $(HOME)/.nvm:
 node: |$(HOME)/.nvm/alias/default
 $(HOME)/.nvm/alias/default: |$(HOME)/.nvm
 	source $(HOME)/.nvm/nvm.sh && nvm alias default system
+
+neovim: /usr/local/Cellar/neovim
+/usr/local/Cellar/neovim: $(PYTHON_2_NEOVIM_LIB) $(PYTHON_3_NEOVIM_LIB) $(HOME)/.vimrc_background | $(BREW)
+	$(BREW) install neovim
+
+$(HOME)/.vimrc_background: |$(HOME)/.config/base16-shell
+	base16_material
+
+$(PYTHON_DIRS):
+	pyenv install $(notdir $@)
+
+$(PYENV_VERSIONS)/neovim2: $(PYTHON_2_DIR)
+	pyenv virtualenv $(PYTHON_2) $(notdir $@)
+
+$(PYENV_VERSIONS)/neovim3: $(PYTHON_3_DIR)
+	pyenv virtualenv $(PYTHON_3) $(notdir $@)
+
+$(PYTHON_2_NEOVIM_LIB): $(PYENV_VERSIONS)/neovim2
+	PATH="$(PYENV_VERSIONS)/neovim2/bin:$$PATH" pip install --upgrade pip
+	PATH="$(PYENV_VERSIONS)/neovim2/bin:$$PATH" pip install neovim
+
+$(PYTHON_3_NEOVIM_LIB): $(PYENV_VERSIONS)/neovim3
+	PATH="$(PYENV_VERSIONS)/neovim3/bin:$$PATH" pip install --upgrade pip
+	PATH="$(PYENV_VERSIONS)/neovim3/bin:$$PATH" pip install neovim
 
 $(DOT_CONFIG):
 	mkdir -p $@
