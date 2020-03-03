@@ -1,4 +1,4 @@
-.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config
+.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config nvm
 
 DOTFILES_DIR := $(PWD)
 DOTFILES := $(shell ls src)
@@ -21,7 +21,6 @@ BREW_PACKAGES := \
 	make\
 	neovim \
 	node \
-	nvm \
 	pyenv-virtualenv\
 	pyenv\
 	reattach-to-user-namespace\
@@ -54,7 +53,7 @@ BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
 GEMS :=
 
-install: brew-tap $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim xcode scripts bin bash_profile google-cloud-sdk sdkman input-font
+install: brew-tap $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font
 
 brew: $(BREW)
 $(BREW): |/Library/Developer/CommandLineTools
@@ -126,11 +125,16 @@ $(HOME)/.config/base16-shell: |$(DOT_CONFIG)
 
 input-font: $(HOME)/Library/Fonts/Input_Fonts
 $(HOME)/Library/Fonts/Input_Fonts:
+	mkdir -p $@
 	mkdir -p tmp
 	curl "https://input.fontbureau.com/build/?fontSelection=whole&a=0&g=0&i=0&l=0&zero=0&asterisk=0&braces=0&preset=default&line-height=1.2&accept=I+do&email=" > tmp/Input-Font.zip
 	unzip tmp/Input-Font.zip -d tmp
 	mv tmp/Input_Fonts $(HOME)/Library/Fonts
 	rm -rf tmp
+
+nvm: |$(HOME)/.nvm
+$(HOME)/.nvm:
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 
 $(DOT_CONFIG):
 	mkdir -p $@
