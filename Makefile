@@ -1,4 +1,4 @@
-.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config nvm
+.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config nvm node
 
 DOTFILES_DIR := $(PWD)
 DOTFILES := $(shell ls src)
@@ -53,7 +53,7 @@ BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
 GEMS :=
 
-install: brew-tap $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font
+install: brew-tap $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font node
 
 brew: $(BREW)
 $(BREW): |/Library/Developer/CommandLineTools
@@ -135,6 +135,11 @@ $(HOME)/Library/Fonts/Input_Fonts:
 nvm: |$(HOME)/.nvm
 $(HOME)/.nvm:
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+	source $(HOME)/.nvm/nvm.sh && nvm alias default system
+
+node: |$(HOME)/.nvm/alias/default
+$(HOME)/.nvm/alias/default: |$(HOME)/.nvm
+	source $(HOME)/.nvm/nvm.sh && nvm alias default system
 
 $(DOT_CONFIG):
 	mkdir -p $@
