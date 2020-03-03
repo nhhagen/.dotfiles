@@ -29,6 +29,7 @@ BREW_PACKAGES := \
 	tmux\
 	tmuxinator \
 	tree\
+	vaulted \
 	vim\
 	wget\
 	zsh-completions\
