@@ -1,4 +1,4 @@
-.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font
+.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config
 
 DOTFILES_DIR := $(PWD)
 DOTFILES := $(shell ls src)
@@ -54,7 +54,7 @@ BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
 GEMS :=
 
-install: brew-tap $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell $(PREDEF_DOTFILES) xcode scripts bin bash_profile google-cloud-sdk sdkman input-font
+install: brew-tap $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim xcode scripts bin bash_profile google-cloud-sdk sdkman input-font
 
 brew: $(BREW)
 $(BREW): |/Library/Developer/CommandLineTools
@@ -93,6 +93,10 @@ $(HOME)/bin:
 bash_profile: $(HOME)/.bash_profile
 $(HOME)/.bash_profile: |$(HOME)/.bash_profile_mac
 	ln -Fsv $(HOME)/.bash_profile_mac $@
+
+nvim-config: $(DOT_CONFIG)/nvim
+$(DOT_CONFIG)/nvim: |$(DOT_CONFIG)
+	ln -Fsv $(PWD)/src/$(patsubst .%,%,$(notdir $@)) $@
 
 xcode: |/Library/Developer/CommandLineTools
 /Library/Developer/CommandLineTools:
