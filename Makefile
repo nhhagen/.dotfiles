@@ -68,7 +68,7 @@ PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR)
 PYTHON_2_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim2/lib/python$(PYTHON_2_MINOR)/site-packages/neovim
 PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/site-packages/neovim
 
-install: brew-tap $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font node
+install: /usr/local/Homebrew/Library/Taps/goles/homebrew-battery $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font node
 
 brew: $(BREW)
 $(BREW): |/Library/Developer/CommandLineTools
@@ -77,7 +77,7 @@ $(BREW): |/Library/Developer/CommandLineTools
 brew-update: |$(BREW)
 	$(BREW) update
 
-brew-tap: |$(BREW)
+/usr/local/Homebrew/Library/Taps/goles/homebrew-battery: |$(BREW)
 	$(BREW) tap Goles/battery
 
 brew-install: |$(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS)
