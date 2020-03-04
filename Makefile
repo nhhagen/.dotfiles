@@ -1,4 +1,4 @@
-.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config nvm node neovim
+.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config nvm node neovim dock-config
 
 DOTFILES_DIR := $(PWD)
 DOTFILES := $(shell ls src)
@@ -68,7 +68,13 @@ PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR)
 PYTHON_2_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim2/lib/python$(PYTHON_2_MINOR)/site-packages/neovim
 PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/site-packages/neovim
 
-install: /usr/local/Homebrew/Library/Taps/goles/homebrew-battery $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font node
+install: dock-config /usr/local/Homebrew/Library/Taps/goles/homebrew-battery $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font node
+
+dock-config:
+	defaults write com.apple.dock static-only -bool TRUE
+	defaults write com.apple.dock showhidden -bool TRUE
+	defaults write com.apple.dock tilesize -integer 32
+	killall Dock
 
 brew: $(BREW)
 $(BREW): |/Library/Developer/CommandLineTools
