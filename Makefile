@@ -140,11 +140,11 @@ $(HOME)/.config/base16-shell: |$(DOT_CONFIG)
 
 input-font: $(HOME)/Library/Fonts/Input_Fonts
 $(HOME)/Library/Fonts/Input_Fonts:
-	mkdir -p $@
+	mkdir -p $(dir $@)
 	mkdir -p tmp
 	curl "https://input.fontbureau.com/build/?fontSelection=whole&a=0&g=0&i=0&l=0&zero=0&asterisk=0&braces=0&preset=default&line-height=1.2&accept=I+do&email=" > tmp/Input-Font.zip
 	unzip tmp/Input-Font.zip -d tmp
-	mv tmp/Input_Fonts $(HOME)/Library/Fonts
+	mv tmp/Input_Fonts $(dir $@)
 	rm -rf tmp
 
 nvm: |$(HOME)/.nvm
