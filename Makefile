@@ -1,4 +1,4 @@
-.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config nvm node neovim dock-config
+.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config nvm node neovim script-config
 
 ROOT_DIR := $(PWD)
 SCRIPTS := $(ROOT_DIR)/scripts
@@ -52,6 +52,8 @@ BREW_CASKS := \
 
 BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
+SCRIPT_CONFIGS_STAMPS := $(patsubst %.sh,$(STAMPS)/%.stamp,$(wildcard scripts/*.sh))
+
 GEMS :=
 
 PYENV_DIR := $(HOME)/.pyenv
@@ -70,10 +72,13 @@ PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR)
 PYTHON_2_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim2/lib/python$(PYTHON_2_MINOR)/site-packages/neovim
 PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/site-packages/neovim
 
-install: dock-config $(HOME)/code /usr/local/Homebrew/Library/Taps/goles/homebrew-battery $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font node
+tmp:
+	echo $(PREDEF_SCRIPT_CONFIGS)
 
-dock-config: $(STAMPS)/dock-config.stamp
-$(STAMPS)/dock-config.stamp: $(SCRIPTS)/dock-config.sh |$(STAMPS)
+install: script-config $(HOME)/code /usr/local/Homebrew/Library/Taps/goles/homebrew-battery $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font node
+
+script-config: $(SCRIPT_CONFIGS_STAMPS)
+$(STAMPS)/scripts/%.stamp: $(SCRIPTS)/%.sh |$(STAMPS)/scripts
 	$<
 	touch $@
 
@@ -194,4 +199,7 @@ $(DOT_CONFIG):
 	mkdir -p $@
 
 $(STAMPS):
+	mkdir -p $@
+
+$(STAMPS)/scripts:
 	mkdir -p $@
