@@ -3,6 +3,9 @@
 ROOT_DIR := $(PWD)
 SCRIPTS := $(ROOT_DIR)/scripts
 STAMPS := $(ROOT_DIR)/.stamps
+
+DIRS := $(HOME)/code $(DOT_CONFIG) $(STAMPS) $(STAMPS)/scripts
+
 DOTFILES := $(shell ls src)
 PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
 
@@ -192,14 +195,5 @@ $(PYTHON_3_NEOVIM_LIB): $(PYENV_VERSIONS)/neovim3
 	PATH="$(PYENV_VERSIONS)/neovim3/bin:$$PATH" pip install --upgrade pip
 	PATH="$(PYENV_VERSIONS)/neovim3/bin:$$PATH" pip install neovim
 
-$(HOME)/code:
-	mkdir -p $@
-
-$(DOT_CONFIG):
-	mkdir -p $@
-
-$(STAMPS):
-	mkdir -p $@
-
-$(STAMPS)/scripts:
+$(DIRS):
 	mkdir -p $@
