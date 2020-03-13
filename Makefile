@@ -1,15 +1,17 @@
 .PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config nvm node neovim script-config
 
 ROOT_DIR := $(PWD)
+
 SCRIPTS := $(ROOT_DIR)/scripts
 STAMPS := $(ROOT_DIR)/.stamps
+
+DOT_CONFIG := $(HOME)/.config
+BIN := $(HOME)/bin
 
 DIRS := $(HOME)/code $(DOT_CONFIG) $(STAMPS) $(STAMPS)/scripts
 
 DOTFILES := $(shell ls src)
 PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
-
-DOT_CONFIG := $(HOME)/.config
 
 BREW := /usr/local/bin/brew
 BREW_PACKAGES := \
@@ -78,7 +80,7 @@ PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/sit
 tmp:
 	echo $(PREDEF_SCRIPT_CONFIGS)
 
-install: script-config $(HOME)/code /usr/local/Homebrew/Library/Taps/goles/homebrew-battery $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts bin bash_profile google-cloud-sdk sdkman input-font node
+install: script-config $(HOME)/code /usr/local/Homebrew/Library/Taps/goles/homebrew-battery $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node
 
 script-config: $(SCRIPT_CONFIGS_STAMPS)
 $(STAMPS)/scripts/%.stamp: $(SCRIPTS)/%.sh |$(STAMPS)/scripts
@@ -114,10 +116,6 @@ $(PREDEF_DOTFILES):
 scripts: $(HOME)/scripts
 $(HOME)/scripts:
 	ln -Fsv $(PWD)/src/$(patsubst .%,%,$(notdir $@)) $@
-
-bin: $(HOME)/bin
-$(HOME)/bin:
-	mkdir -p $@
 
 bash_profile: $(HOME)/.bash_profile
 $(HOME)/.bash_profile: |$(HOME)/.bash_profile_mac
