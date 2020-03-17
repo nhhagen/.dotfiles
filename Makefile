@@ -53,6 +53,7 @@ BREW_CASKS := \
 	iterm2 \
 	keybase \
 	slack \
+	spotify \
 	virtualbox
 
 BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
