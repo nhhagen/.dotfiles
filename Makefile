@@ -62,6 +62,8 @@ SCRIPT_CONFIGS_STAMPS := $(patsubst %.sh,$(STAMPS)/%.stamp,$(wildcard scripts/*.
 
 GEMS :=
 
+PYENV_BIN := /usr/local/bin/pyenv
+PYENV_VIRTUALENV_BIN := /usr/local/bin/pyenv-virtualenv
 PYENV_DIR := $(HOME)/.pyenv
 PYENV_VERSIONS := $(PYENV_DIR)/versions
 PYTHON_2_MINOR := 2.7
@@ -177,14 +179,17 @@ neovim: /usr/local/Cellar/neovim
 $(HOME)/.vimrc_background: |$(HOME)/.config/base16-shell
 	base16_material
 
-$(PYTHON_DIRS):
-	pyenv install $(notdir $@)
+$(PYENV_BIN): /usr/local/Cellar/pyenv
+$(PYENV_VIRTUALENV_BIN): /usr/local/Cellar/pyenv-virtualenv
 
-$(PYENV_VERSIONS)/neovim2: $(PYTHON_2_DIR)
-	pyenv virtualenv $(PYTHON_2) $(notdir $@)
+$(PYTHON_DIRS): |$(PYENV_BIN)
+	$(PYENV_BIN) install $(notdir $@)
 
-$(PYENV_VERSIONS)/neovim3: $(PYTHON_3_DIR)
-	pyenv virtualenv $(PYTHON_3) $(notdir $@)
+$(PYENV_VERSIONS)/neovim2: $(PYTHON_2_DIR) |$(PYENV_BIN) $(PYENV_VIRTUALENV_BIN)
+	$(PYENV_BIN) virtualenv $(PYTHON_2) $(notdir $@)
+
+$(PYENV_VERSIONS)/neovim3: $(PYTHON_3_DIR) |$(PYENV_BIN) $(PYENV_VIRTUALENV_BIN)
+	$(PYENV_BIN) virtualenv $(PYTHON_3) $(notdir $@)
 
 $(PYTHON_2_NEOVIM_LIB): $(PYENV_VERSIONS)/neovim2
 	PATH="$(PYENV_VERSIONS)/neovim2/bin:$$PATH" pip install --upgrade pip
