@@ -14,7 +14,7 @@ DOTFILES := $(shell ls src)
 PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
 
 BREW := /usr/local/bin/brew
-BREW_PACKAGES := \
+BREW_FORMULAS := \
 	ack \
 	battery\
 	cookiecutter \
@@ -44,7 +44,7 @@ BREW_PACKAGES := \
 	zsh-syntax-highlighting \
 	zsh
 
-BREW_PACKAGES_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_PACKAGES))
+BREW_FORMULAS_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_FORMULAS))
 
 BREW_CASKS := \
 	1password \
@@ -83,7 +83,7 @@ PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/sit
 tmp:
 	echo $(PREDEF_SCRIPT_CONFIGS)
 
-install: script-config $(HOME)/code /usr/local/Homebrew/Library/Taps/goles/homebrew-battery $(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node
+install: script-config $(HOME)/code /usr/local/Homebrew/Library/Taps/goles/homebrew-battery $(BREW_FORMULAS_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node
 
 script-config: $(SCRIPT_CONFIGS_STAMPS)
 $(STAMPS)/scripts/%.stamp: $(SCRIPTS)/%.sh |$(STAMPS)/scripts
@@ -100,16 +100,16 @@ brew-update: |$(BREW)
 /usr/local/Homebrew/Library/Taps/goles/homebrew-battery: |$(BREW)
 	$(BREW) tap Goles/battery
 
-brew-install: |$(BREW_PACKAGES_PATHS) $(BREW_CASKS_PATHS)
+brew-install: |$(BREW_FORMULAS_PATHS) $(BREW_CASKS_PATHS)
 
-$(BREW_PACKAGES_PATHS): |$(BREW)
+$(BREW_FORMULAS_PATHS): |$(BREW)
 	$(BREW) install $(patsubst .%,%,$(notdir $@))
 
 $(BREW_CASKS_PATHS): |$(BREW)
 	$(BREW) cask install -f $(patsubst .%,%,$(notdir $@))
 
 gem-install: $(GEMS)
-$(GEMS): |$(BREW_PACKAGES_PATHS)
+$(GEMS): |$(BREW_FORMULAS_PATHS)
 	sudo gem install $@
 
 dotfiles: |$(PREDEF_DOTFILES)
