@@ -16,8 +16,10 @@ PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
 BREW_TAPS_PATH := /usr/local/Homebrew/Library/Taps
 
 BREW_TAPS := \
-	$(BREW_TAPS_PATH)/goles/homebrew-battery \
-	$(BREW_TAPS_PATH)/teamookla/homebrew-speedtest
+	goles/homebrew-battery \
+	teamookla/homebrew-speedtest
+
+PREDEF_BREW_TAPS := $(addprefix $(BREW_TAPS_PATH)/,$(BREW_TAPS))
 
 BREW := /usr/local/bin/brew
 BREW_FORMULAS := \
@@ -90,7 +92,7 @@ PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/sit
 tmp:
 	echo $(PREDEF_SCRIPT_CONFIGS)
 
-install: script-config $(HOME)/code $(BREW_TAPS) $(BREW_FORMULAS_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node
+install: script-config $(HOME)/code $(PREDEF_BREW_TAPS) $(BREW_FORMULAS_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node
 
 script-config: $(SCRIPT_CONFIGS_STAMPS)
 $(STAMPS)/scripts/%.stamp: $(SCRIPTS)/%.sh |$(STAMPS)/scripts
@@ -104,15 +106,12 @@ $(BREW): |/Library/Developer/CommandLineTools
 brew-update: |$(BREW)
 	$(BREW) update
 
-$(BREW_TAPS_PATH)/goles/homebrew-battery: |$(BREW)
-	$(BREW) tap Goles/battery
-
-$(BREW_TAPS_PATH)/teamookla/homebrew-speedtest: |$(BREW)
-	$(BREW) tap teamookla/speedtest
+$(PREDEF_BREW_TAPS):
+	$(BREW) tap $(shell echo $@ | sed -e "s|$(BREW_TAPS_PATH)/\(.*\)/homebrew-\(.*\)|\1/\2|")
 
 brew-install: |$(BREW_FORMULAS_PATHS) $(BREW_CASKS_PATHS)
 
-$(BREW_FORMULAS_PATHS): |$(BREW) $(BREW_TAPS)
+$(BREW_FORMULAS_PATHS): |$(BREW) $(PREDEF_BREW_TAPS)
 	$(BREW) install $(patsubst .%,%,$(notdir $@))
 
 $(BREW_CASKS_PATHS): |$(BREW)
