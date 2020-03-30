@@ -13,15 +13,15 @@ DIRS := $(HOME)/code $(DOT_CONFIG) $(STAMPS) $(STAMPS)/scripts
 DOTFILES := $(shell ls src)
 PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
 
-BREW_TAPS_PATH := /usr/local/Homebrew/Library/Taps
+BREW := /usr/local/bin/brew
 
 BREW_TAPS := \
 	goles/homebrew-battery \
 	teamookla/homebrew-speedtest
 
+BREW_TAPS_PATH := /usr/local/Homebrew/Library/Taps
 PREDEF_BREW_TAPS := $(addprefix $(BREW_TAPS_PATH)/,$(BREW_TAPS))
 
-BREW := /usr/local/bin/brew
 BREW_FORMULAS := \
 	ack \
 	battery \
