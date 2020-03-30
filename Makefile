@@ -24,34 +24,34 @@ PREDEF_BREW_TAPS := $(addprefix $(BREW_TAPS_PATH)/,$(BREW_TAPS))
 BREW := /usr/local/bin/brew
 BREW_FORMULAS := \
 	ack \
-	battery\
+	battery \
 	cookiecutter \
-	docker-machine\
-	docker\
-	git-flow-avh\
-	git-standup\
-	git\
-	gnupg\
+	docker \
+	docker-machine \
+	git \
+	git-flow-avh \
+	git-standup \
+	gnupg \
 	httpie \
-	make\
+	make \
 	node \
-	pyenv-virtualenv\
-	pyenv\
-	reattach-to-user-namespace\
-	spark\
+	pyenv \
+	pyenv-virtualenv \
+	reattach-to-user-namespace \
+	spark \
 	speedtest \
-	the_silver_searcher\
 	terraform \
-	tig\
-	tmux\
+	the_silver_searcher \
+	tig \
+	tmux \
 	tmuxinator \
-	tree\
+	tree \
 	vaulted \
-	vim\
-	wget\
-	zsh-completions\
-	zsh-syntax-highlighting \
-	zsh
+	vim \
+	wget \
+	zsh \
+	zsh-completions \
+	zsh-syntax-highlighting
 
 BREW_FORMULAS_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_FORMULAS))
 
