@@ -182,9 +182,6 @@ neovim: /usr/local/Cellar/neovim
 /usr/local/Cellar/neovim: $(PYTHON_2_NEOVIM_LIB) $(PYTHON_3_NEOVIM_LIB) $(HOME)/.vimrc_background | $(BREW)
 	$(BREW) install neovim
 
-$(HOME)/.vimrc_background: |$(HOME)/.config/base16-shell
-	base16_material
-
 $(PYENV_BIN): /usr/local/Cellar/pyenv
 $(PYENV_VIRTUALENV_BIN): /usr/local/Cellar/pyenv-virtualenv
 
