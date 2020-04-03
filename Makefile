@@ -103,7 +103,7 @@ $(BREW): |/Library/Developer/CommandLineTools
 brew-update: |$(BREW)
 	$(BREW) update
 
-$(PREDEF_BREW_TAPS):
+$(PREDEF_BREW_TAPS): |$(BREW)
 	$(BREW) tap $(shell echo $@ | sed -e "s|$(BREW_TAPS_PATH)/\(.*\)/homebrew-\(.*\)|\1/\2|")
 
 brew-install: |$(BREW_FORMULAS_PATHS) $(BREW_CASKS_PATHS)
