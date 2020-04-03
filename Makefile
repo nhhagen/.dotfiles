@@ -8,7 +8,7 @@ STAMPS := $(ROOT_DIR)/.stamps
 DOT_CONFIG := $(HOME)/.config
 BIN := $(HOME)/bin
 
-DIRS := $(HOME)/code $(DOT_CONFIG) $(STAMPS) $(STAMPS)/scripts
+DIRS := $(HOME)/code $(BIN) $(DOT_CONFIG) $(STAMPS) $(STAMPS)/scripts
 
 DOTFILES := $(shell ls src)
 PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
