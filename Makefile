@@ -33,6 +33,7 @@ BREW_FORMULAS := \
 	git-standup \
 	gnupg \
 	httpie \
+	jq \
 	make \
 	node \
 	pyenv \
