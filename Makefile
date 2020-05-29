@@ -16,6 +16,7 @@ PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
 BREW := /usr/local/bin/brew
 
 BREW_TAPS := \
+	github/homebrew-gh \
 	goles/homebrew-battery \
 	teamookla/homebrew-speedtest
 
@@ -31,6 +32,7 @@ BREW_FORMULAS := \
 	git \
 	git-flow-avh \
 	git-standup \
+	gh \
 	gnupg \
 	httpie \
 	jq \
