@@ -155,6 +155,7 @@ source ~/.vim/includes/functions.vim
   set hidden
   set wildmenu            " visual autocomplete for command menu"
   set noshowmode
+  set mouse=a " Add mouse support
 " }
 
 " Spell {
