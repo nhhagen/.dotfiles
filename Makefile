@@ -60,6 +60,7 @@ BREW_FORMULAS_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_FORMULAS))
 
 BREW_CASKS := \
 	1password \
+	fanny \
 	google-backup-and-sync \
 	google-chrome \
 	iterm2 \
