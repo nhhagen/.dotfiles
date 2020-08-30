@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+
+echo "Amending commit"
+
+git status
+
+echo -e "\nChanges"
+
+git diff --cached
+
+git commit --amend --no-edit
