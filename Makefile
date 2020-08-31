@@ -116,7 +116,7 @@ $(BREW_FORMULAS_PATHS): |$(BREW) $(PREDEF_BREW_TAPS)
 	$(BREW) install $(patsubst .%,%,$(notdir $@))
 
 $(BREW_CASKS_PATHS): |$(BREW)
-	$(BREW) cask install -f $(patsubst .%,%,$(notdir $@))
+	$(BREW) cask install $(patsubst .%,%,$(notdir $@))
 
 gem-install: $(GEMS)
 $(GEMS): |$(BREW_FORMULAS_PATHS)
