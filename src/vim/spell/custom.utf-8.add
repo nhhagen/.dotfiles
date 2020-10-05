@@ -41,3 +41,7 @@ UUID
 GUID
 Git
 SSH
+Kibana
+Elasticsearch
+Minikube
+Kubernetes
