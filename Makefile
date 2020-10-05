@@ -25,15 +25,19 @@ PREDEF_BREW_TAPS := $(addprefix $(BREW_TAPS_PATH)/,$(BREW_TAPS))
 
 BREW_FORMULAS := \
 	ack \
+	bat \
 	battery \
 	cookiecutter \
 	docker \
 	docker-machine \
+	fd \
+	fzf \
+	gh \
 	git \
 	git-flow-avh \
 	git-standup \
-	gh \
 	gnupg \
+	gource \
 	httpie \
 	jq \
 	make \
@@ -41,6 +45,7 @@ BREW_FORMULAS := \
 	pyenv \
 	pyenv-virtualenv \
 	reattach-to-user-namespace \
+	ripgrep \
 	spark \
 	speedtest \
 	terraform \
@@ -57,7 +62,7 @@ BREW_FORMULAS := \
 	zsh-syntax-highlighting
 
 BREW_FORMULAS_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_FORMULAS))
-
+UNIVERSAL_CTAGS := /usr/local/Homebrew/Library/Taps/universal-ctags/homebrew-universal-ctags
 BREW_CASKS := \
 	1password \
 	fanny \
@@ -93,7 +98,7 @@ PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR)
 PYTHON_2_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim2/lib/python$(PYTHON_2_MINOR)/site-packages/neovim
 PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/site-packages/neovim
 
-install: $(HOME)/code $(PREDEF_BREW_TAPS) $(BREW_FORMULAS_PATHS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell /usr/local/Cellar/neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node script-config
+install: $(HOME)/code $(PREDEF_BREW_TAPS) $(BREW_FORMULAS_PATHS) $(UNIVERSAL_CTAGS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell /usr/local/Cellar/neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node script-config /Applications/Camera\ Settings.app
 
 script-config: $(SCRIPT_CONFIGS_STAMPS)
 $(STAMPS)/scripts/%.stamp: $(SCRIPTS)/%.sh |$(STAMPS)/scripts
@@ -110,10 +115,13 @@ brew-update: |$(BREW)
 $(PREDEF_BREW_TAPS): |$(BREW)
 	$(BREW) tap $(shell echo $@ | sed -e "s|$(BREW_TAPS_PATH)/\(.*\)/homebrew-\(.*\)|\1/\2|")
 
-brew-install: |$(BREW_FORMULAS_PATHS) $(BREW_CASKS_PATHS)
+brew-install: |$(BREW_FORMULAS_PATHS) $(UNIVERSAL_CTAGS) $(BREW_CASKS_PATHS)
 
 $(BREW_FORMULAS_PATHS): |$(BREW) $(PREDEF_BREW_TAPS)
 	$(BREW) install $(patsubst .%,%,$(notdir $@))
+
+$(UNIVERSAL_CTAGS):
+	$(BREW) install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 $(BREW_CASKS_PATHS): |$(BREW)
 	$(BREW) cask install $(patsubst .%,%,$(notdir $@))
@@ -204,6 +212,14 @@ $(PYTHON_2_NEOVIM_LIB): $(PYENV_VERSIONS)/neovim2
 $(PYTHON_3_NEOVIM_LIB): $(PYENV_VERSIONS)/neovim3
 	PATH="$(PYENV_VERSIONS)/neovim3/bin:$$PATH" pip install --upgrade pip
 	PATH="$(PYENV_VERSIONS)/neovim3/bin:$$PATH" pip install neovim
+
+cammera-settings: /Applications/Camera\ Settings.app
+/Applications/Camera\ Settings.app:
+	curl https://download01.logi.com/web/ftp/pub/techsupport/cameras/Webcams/LogiCameraSettings_3.0.12.pkg -o LogiCameraSettings_3.0.12.pkg
+	sudo installer -pkg LogiCameraSettings_3.0.12.pkg -target /
+	rm LogiCameraSettings_3.0.12.pkg
+	sudo chown ${USER}:staff "$@"
+	chmod 755 "$@"
 
 $(DIRS):
 	mkdir -p $@

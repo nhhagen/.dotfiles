@@ -73,6 +73,11 @@ if [ -f `brew --prefix ruby`/bin ]; then
     export PATH=$(brew --prefix ruby)/bin:$PATH
 fi
 
+if [ -f `brew --prefix fzf` ]; then
+    source `brew --prefix fzf`/shell/completion.zsh
+    source `brew --prefix fzf`/shell/key-bindings.zsh
+fi
+
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
