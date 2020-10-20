@@ -95,6 +95,7 @@
     " Plug 'klen/python-mode'
     Plug 'davidhalter/jedi-vim'
     Plug 'hdima/python-syntax'
+    Plug 'Glench/Vim-Jinja2-Syntax'
   "}
 
   " Misc language & syntax support {
