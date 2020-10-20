@@ -66,6 +66,7 @@ UNIVERSAL_CTAGS := /usr/local/Homebrew/Library/Taps/universal-ctags/homebrew-uni
 BREW_CASKS := \
 	1password \
 	fanny \
+	firefox \
 	google-backup-and-sync \
 	google-chrome \
 	iterm2 \
