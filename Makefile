@@ -42,8 +42,6 @@ BREW_FORMULAS := \
 	jq \
 	make \
 	node \
-	pyenv \
-	pyenv-virtualenv \
 	reattach-to-user-namespace \
 	ripgrep \
 	spark \
@@ -81,15 +79,14 @@ SCRIPT_CONFIGS_STAMPS := $(patsubst %.sh,$(STAMPS)/%.stamp,$(wildcard scripts/*.
 
 GEMS :=
 
-PYENV_BIN := /usr/local/bin/pyenv
-PYENV_VIRTUALENV_BIN := /usr/local/bin/pyenv-virtualenv
 PYENV_DIR := $(HOME)/.pyenv
+PYENV := $(PYENV_DIR)/bin/pyenv
 PYENV_VERSIONS := $(PYENV_DIR)/versions
 PYTHON_2_MINOR := 2.7
-PYTHON_3_MINOR := 3.8
+PYTHON_3_MINOR := 3.9
 
 PYTHON_2 := $(PYTHON_2_MINOR).17
-PYTHON_3 := $(PYTHON_3_MINOR).1
+PYTHON_3 := $(PYTHON_3_MINOR).0
 
 PYTHON_2_DIR := $(PYENV_VERSIONS)/$(PYTHON_2)
 PYTHON_3_DIR := $(PYENV_VERSIONS)/$(PYTHON_3)
@@ -99,7 +96,7 @@ PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR)
 PYTHON_2_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim2/lib/python$(PYTHON_2_MINOR)/site-packages/neovim
 PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/site-packages/neovim
 
-install: $(HOME)/code $(PREDEF_BREW_TAPS) $(BREW_FORMULAS_PATHS) $(UNIVERSAL_CTAGS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell /usr/local/Cellar/neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node script-config /Applications/Camera\ Settings.app
+install: $(HOME)/code $(PREDEF_BREW_TAPS) $(BREW_FORMULAS_PATHS) $(UNIVERSAL_CTAGS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell /usr/local/Cellar/neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node script-config /Applications/Camera\ Settings.app $(PYENV)
 
 script-config: $(SCRIPT_CONFIGS_STAMPS)
 $(STAMPS)/scripts/%.stamp: $(SCRIPTS)/%.sh |$(STAMPS)/scripts
@@ -194,17 +191,18 @@ $(HOME)/.nvm/alias/default: |$(HOME)/.nvm
 /usr/local/Cellar/neovim: $(PYTHON_2_NEOVIM_LIB) $(PYTHON_3_NEOVIM_LIB) $(HOME)/.vimrc_background | $(BREW)
 	$(BREW) install neovim
 
-$(PYENV_BIN): /usr/local/Cellar/pyenv
-$(PYENV_VIRTUALENV_BIN): /usr/local/Cellar/pyenv-virtualenv
+pyenv: $(PYENV)
+$(PYENV): /usr/bin/curl
+	curl https://pyenv.run | bash
 
-$(PYTHON_DIRS): |$(PYENV_BIN)
-	$(PYENV_BIN) install $(notdir $@)
+$(PYTHON_DIRS): |$(PYENV)
+	$(PYENV) install $(notdir $@)
 
-$(PYENV_VERSIONS)/neovim2: $(PYTHON_2_DIR) |$(PYENV_BIN) $(PYENV_VIRTUALENV_BIN)
-	$(PYENV_BIN) virtualenv $(PYTHON_2) $(notdir $@)
+$(PYENV_VERSIONS)/neovim2: $(PYTHON_2_DIR) |$(PYENV)
+	$(PYENV) virtualenv $(PYTHON_2) $(notdir $@)
 
-$(PYENV_VERSIONS)/neovim3: $(PYTHON_3_DIR) |$(PYENV_BIN) $(PYENV_VIRTUALENV_BIN)
-	$(PYENV_BIN) virtualenv $(PYTHON_3) $(notdir $@)
+$(PYENV_VERSIONS)/neovim3: $(PYTHON_3_DIR) |$(PYENV)
+	$(PYENV) virtualenv $(PYTHON_3) $(notdir $@)
 
 $(PYTHON_2_NEOVIM_LIB): $(PYENV_VERSIONS)/neovim2
 	PATH="$(PYENV_VERSIONS)/neovim2/bin:$$PATH" pip install --upgrade pip
