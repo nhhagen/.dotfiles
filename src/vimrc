@@ -319,7 +319,7 @@ source ~/.vim/includes/functions.vim
 "" }
 
 " airblade/vim-rooter
-let g:rooter_patterns = ['.git']
+let g:rooter_patterns = ['.git', 'Makefile', 'setup.py', 'setup.cfg']
 
 " This is the default extra key bindings
 let g:fzf_action = {
