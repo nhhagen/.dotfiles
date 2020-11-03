@@ -108,18 +108,20 @@ export GREP_OPTIONS='--color=auto'
 
 export EVENT_NOKQUEUE=1
 
-if [ -f `brew --prefix`/bin/python3 ]; then
-    export CLOUDSDK_PYTHON=`brew --prefix`/bin/python3
-else;
-    export CLOUDSDK_PYTHON=$(which python)
-fi
-
 export LDFLAGS="-L/usr/local/opt/openssl/lib"
 export CPPFLAGS="-I/usr/local/opt/openssl/include"
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+
+export CLOUDSDK_PYTHON
+
+if [ -f `pyenv prefix gcp-sdk`/bin/python ]; then
+    export CLOUDSDK_PYTHON=`pyenv prefix gcp-sdk`/bin/python
+fi
+
 
 if which goenv > /dev/null; then eval "$(goenv init -)"; fi
 
