@@ -94,7 +94,7 @@
     Plug 'lambdalisue/vim-pyenv', { 'for': ['python', 'python3'] }
     " Plug 'klen/python-mode'
     Plug 'davidhalter/jedi-vim'
-    Plug 'hdima/python-syntax'
+    Plug 'vim-python/python-syntax'
     Plug 'Glench/Vim-Jinja2-Syntax'
   "}
 
@@ -430,7 +430,8 @@ command! -bang -nargs=* GGrep
 "}
 
 " hdima/python-syntax {
-  let python_highlight_all = 1
+  let g:python_highlight_all = 1
+  let g:python_highlight_builtins = 1
 " }
 
 " kannokanno/previm {
