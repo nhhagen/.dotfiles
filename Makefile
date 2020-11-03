@@ -87,11 +87,13 @@ PYTHON_3_MINOR := 3.9
 
 PYTHON_2 := $(PYTHON_2_MINOR).17
 PYTHON_3 := $(PYTHON_3_MINOR).0
+GCP_SDK_PYTHON := 3.8.6
 
 PYTHON_2_DIR := $(PYENV_VERSIONS)/$(PYTHON_2)
 PYTHON_3_DIR := $(PYENV_VERSIONS)/$(PYTHON_3)
+GCP_SDK_PYTHON_DIR := $(PYENV_VERSIONS)/$(GCP_SDK_PYTHON)
 
-PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR)
+PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR) $(GCP_SDK_PYTHON_DIR)
 
 PYTHON_2_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim2/lib/python$(PYTHON_2_MINOR)/site-packages/neovim
 PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/site-packages/neovim
@@ -148,10 +150,13 @@ xcode: |/Library/Developer/CommandLineTools
 /Library/Developer/CommandLineTools:
 	xcode-select --install
 
+$(PYENV_VERSIONS)/gcp-sdk: $(GCP_SDK_PYTHON_DIR) |$(PYENV)
+	$(PYENV) virtualenv -f $(GCP_SDK_PYTHON) $(notdir $@)
+
 google-cloud-sdk: |$(HOME)/.google-cloud-sdk
-$(HOME)/.google-cloud-sdk:
+$(HOME)/.google-cloud-sdk: $(PYENV_VERSIONS)/gcp-sdk
 	curl https://sdk.cloud.google.com > google-cloud-install.sh
-	bash google-cloud-install.sh --disable-prompts
+	CLOUDSDK_PYTHON=`$(PYENV) prefix gcp-sdk`/bin/python bash google-cloud-install.sh --disable-prompts
 	mv $(HOME)/google-cloud-sdk $(HOME)/.google-cloud-sdk
 	rm google-cloud-install.sh
 
