@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+branch=${1:-$current_branch}
+base="master"
+echo "Squashing all commits on ${branch} into one"
+
+messages=$(git log --pretty=format:"%B%n" ${base} HEAD)
+
+git checkout ${base}
+git pull --rebase
+git checkout ${branch}
+git reset --soft ${base}
+git commit --message="${messages}" --edit
+git push --force
