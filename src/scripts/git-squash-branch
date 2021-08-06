@@ -4,10 +4,12 @@ set -e
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 branch=${1:-$current_branch}
-base="master"
+remote_base=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
+base=${2:-${remote_base}}
+
 echo "Squashing all commits on ${branch} into one"
 
-messages=$(git log --pretty=format:"%B%n" ${base} HEAD)
+messages=$(git log --pretty=format:"%B%n" HEAD ^${base} )
 
 git checkout ${base}
 git pull --rebase

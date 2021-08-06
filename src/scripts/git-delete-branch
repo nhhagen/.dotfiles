@@ -4,10 +4,11 @@ set -e
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 branch=${1:-$current_branch}
-base="master"
+remote_base=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
+base=${2:-${remote_base}}
 
 echo "Deleting ${branch}"
 
 git checkout $base
-git branch -d $branch
+git branch -D $branch
 git push origin :$branch

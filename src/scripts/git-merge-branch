@@ -4,11 +4,12 @@ set -e
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 branch=${1:-$current_branch}
-master="master"
+remote_base=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
+base=${2:-${remote_base}}
 
-echo "Merging pull request ${branch} into ${master}"
+echo "Merging pull request ${branch} into ${base}"
 
-git checkout $master
+git checkout $base
 git pull --rebase
 git merge --ff-only $branch
 git push
