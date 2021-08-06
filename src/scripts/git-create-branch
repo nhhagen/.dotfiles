@@ -4,11 +4,12 @@ set -e
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 branch=${1}
-master="master"
+remote_base=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
+base=${2:${remote_base}}
 
-echo "Creating pull request ${branch} from ${master}"
+echo "Creating pull request ${branch} from ${base}"
 
-git checkout $master
+git checkout $base
 git pull --rebase
 git checkout -b $branch
 git push --set-upstream origin $branch

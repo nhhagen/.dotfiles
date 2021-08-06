@@ -4,12 +4,13 @@ set -e
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 branch=${1:-$current_branch}
-master="master"
+remote_base=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
+base=${2:-${remote_base}}
 
-echo "Updating pull request ${branch} from ${master}"
+echo "Updating pull request ${branch} from ${base}"
 
-git checkout $master
+git checkout $base
 git pull --rebase
 git checkout $branch
-git rebase master
+git rebase $base
 git push --force
