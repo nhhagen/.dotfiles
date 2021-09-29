@@ -92,6 +92,7 @@
 
   " Python {
     Plug 'lambdalisue/vim-pyenv', { 'for': ['python', 'python3'] }
+    Plug 'rafi/vim-venom', { 'for': 'python' }
     " Plug 'klen/python-mode'
     Plug 'davidhalter/jedi-vim'
     Plug 'vim-python/python-syntax'
@@ -99,7 +100,7 @@
   "}
 
   " Misc language & syntax support {
-    Plug 'w0rp/ale'
+    Plug 'dense-analysis/ale'
     " Plug 'vim-syntastic/syntastic'
     " Plug 'PProvost/vim-ps1'
     " Plug 'othree/html5.vim'
@@ -108,9 +109,11 @@
     " Plug 'rodjek/vim-puppet'
     Plug 'saltstack/salt-vim'
     Plug 'chr4/nginx.vim'
+    Plug 'cespare/vim-toml'
     " Plug 'derekwyatt/vim-scala'
     " Plug 'gre/play2vim'
-    Plug 'stephpy/vim-yaml'
+    " Plug 'stephpy/vim-yaml'
+    " Plug 'vim-yaml-folds'
     " Plug 'mustache/vim-mustache-handlebars'
     " Plug 'digitaltoad/vim-jade'
     " Plug 'robbles/logstash.vim'
@@ -180,6 +183,7 @@ source ~/.vim/includes/functions.vim
   highlight CursorLineNr ctermfg=9
   " highlight Comment cterm=italic
   " highlight Folded cterm=italic
+  highlight SpellBad ctermfg=15
   set fillchars+=vert:│ " must have whitespace after the |
   autocmd BufEnter * sign define dummy
   autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
@@ -457,6 +461,28 @@ command! -bang -nargs=* GGrep
 " hashivim/vim-terraform {
   let g:terraform_align=1
   let g:terraform_fmt_on_save=0
+" }
+
+
+" w0rp/ale {
+  let g:ale_echo_msg_format = '[%severity%: %linter%: %code%] %s'
+  highlight ALEErrorSign ctermbg=18 ctermfg=1
+  highlight ALEWarningSign ctermbg=18 ctermfg=3
+  let g:ale_sign_error = '✘'
+  let g:ale_sign_warning = '⚠'
+  let g:airline#extensions#ale#enabled = 1
+  " let g:ale_lint_on_text_changed = 'never'
+" }
+
+" rafi/vim-venom {
+  let g:venom_use_tools = 1
+  let g:venom_tools = {
+  \ 'poetry': 'poetry env info -p'
+  \ }
+  " Jedi: Set environment from PATH
+  autocmd User VenomActivated,VenomDeactivated
+    \ silent! execute 'JediUseEnvironment ' .
+    \   exepath('python' . (has('win32') ? '.exe' : ''))
 " }
 
 autocmd BufEnter,BufRead,BufNewFile .babelrc set filetype=json
