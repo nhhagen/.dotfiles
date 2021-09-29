@@ -2,4 +2,5 @@
 set -e
 set -x
 
-defaults write -g CGFontRenderingFontSmoothingDisabled -bool false
+defaults -currentHost write -globalDomain CGFontRenderingFontSmoothingDisabled -bool false
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 1

@@ -52,3 +52,5 @@
 	keepremote = true
 [gitflow "support.finish"]
 	keepremote = true
+[init]
+	defaultBranch = main

@@ -39,3 +39,5 @@ function newproject() { curl https://raw.github.com/nhhagen/vagrant-dev-box/mast
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/niels.hagen/.sdkman"
 [[ -s "/Users/niels.hagen/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/niels.hagen/.sdkman/bin/sdkman-init.sh"
+
+export PATH="$HOME/.poetry/bin:$PATH"

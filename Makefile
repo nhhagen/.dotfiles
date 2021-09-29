@@ -18,6 +18,7 @@ BREW := /usr/local/bin/brew
 BREW_TAPS := \
 	github/homebrew-gh \
 	goles/homebrew-battery \
+	homebrew/homebrew-cask-fonts \
 	teamookla/homebrew-speedtest
 
 BREW_TAPS_PATH := /usr/local/Homebrew/Library/Taps
@@ -28,8 +29,10 @@ BREW_FORMULAS := \
 	azure-cli \
 	bat \
 	battery \
+	cmake \
 	cookiecutter \
 	docker \
+	docker-compose \
 	docker-machine \
 	fd \
 	fzf \
@@ -40,11 +43,15 @@ BREW_FORMULAS := \
 	gnupg \
 	gource \
 	httpie \
+	icu4c \
 	jq \
 	make \
+	mysql-client \
 	node \
+	pkg-config \
 	reattach-to-user-namespace \
 	ripgrep \
+	ruby \
 	spark \
 	speedtest \
 	terraform \
@@ -56,6 +63,9 @@ BREW_FORMULAS := \
 	vaulted \
 	vim \
 	wget \
+	write-good \
+	yamllint \
+	yq \
 	zsh \
 	zsh-completions \
 	zsh-syntax-highlighting
@@ -64,8 +74,10 @@ BREW_FORMULAS_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_FORMULAS))
 UNIVERSAL_CTAGS := /usr/local/Homebrew/Library/Taps/universal-ctags/homebrew-universal-ctags
 BREW_CASKS := \
 	1password \
+	avibrazil-rdm \
 	fanny \
 	firefox \
+	font-inter \
 	google-backup-and-sync \
 	google-chrome \
 	iterm2 \
@@ -78,7 +90,8 @@ BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
 SCRIPT_CONFIGS_STAMPS := $(patsubst %.sh,$(STAMPS)/%.stamp,$(wildcard scripts/*.sh))
 
-GEMS :=
+GEMS := \
+	github-linguist
 
 PYENV_DIR := $(HOME)/.pyenv
 PYENV := $(PYENV_DIR)/bin/pyenv
@@ -99,7 +112,7 @@ PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR) $(GCP_SDK_PYTHON_DIR)
 PYTHON_2_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim2/lib/python$(PYTHON_2_MINOR)/site-packages/neovim
 PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/site-packages/neovim
 
-install: $(HOME)/code $(PREDEF_BREW_TAPS) $(BREW_FORMULAS_PATHS) $(UNIVERSAL_CTAGS) $(BREW_CASKS_PATHS) $(GEMS) base16-shell /usr/local/Cellar/neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node script-config /Applications/Camera\ Settings.app $(PYENV)
+install: $(HOME)/code $(PREDEF_BREW_TAPS) $(BREW_FORMULAS_PATHS) $(UNIVERSAL_CTAGS) $(BREW_CASKS_PATHS) base16-shell /usr/local/Cellar/neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node script-config /Applications/Camera\ Settings.app $(PYENV) $(GEMS)
 
 script-config: $(SCRIPT_CONFIGS_STAMPS)
 $(STAMPS)/scripts/%.stamp: $(SCRIPTS)/%.sh |$(STAMPS)/scripts
@@ -125,7 +138,7 @@ $(UNIVERSAL_CTAGS):
 	$(BREW) install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 $(BREW_CASKS_PATHS): |$(BREW)
-	$(BREW) cask install $(patsubst .%,%,$(notdir $@))
+	$(BREW) install $(patsubst .%,%,$(notdir $@))
 
 gem-install: $(GEMS)
 $(GEMS): |$(BREW_FORMULAS_PATHS)
