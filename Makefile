@@ -78,7 +78,8 @@ BREW_CASKS := \
 	fanny \
 	firefox \
 	font-inter \
-	google-backup-and-sync \
+	font-input \
+	google-drive \
 	google-chrome \
 	iterm2 \
 	keybase \
@@ -90,8 +91,8 @@ BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
 
 SCRIPT_CONFIGS_STAMPS := $(patsubst %.sh,$(STAMPS)/%.stamp,$(wildcard scripts/*.sh))
 
-GEMS := \
-	github-linguist
+GEMS := # \
+	# github-linguist
 
 PYENV_DIR := $(HOME)/.pyenv
 PYENV := $(PYENV_DIR)/bin/pyenv
@@ -112,7 +113,7 @@ PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR) $(GCP_SDK_PYTHON_DIR)
 PYTHON_2_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim2/lib/python$(PYTHON_2_MINOR)/site-packages/neovim
 PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/site-packages/neovim
 
-install: $(HOME)/code $(PREDEF_BREW_TAPS) $(BREW_FORMULAS_PATHS) $(UNIVERSAL_CTAGS) $(BREW_CASKS_PATHS) base16-shell /usr/local/Cellar/neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman input-font node script-config /Applications/Camera\ Settings.app $(PYENV) $(GEMS)
+install: $(HOME)/code $(PREDEF_BREW_TAPS) $(BREW_FORMULAS_PATHS) $(UNIVERSAL_CTAGS) $(BREW_CASKS_PATHS) base16-shell /usr/local/Cellar/neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman node script-config /Applications/Camera\ Settings.app $(PYENV) $(GEMS)
 
 script-config: $(SCRIPT_CONFIGS_STAMPS)
 $(STAMPS)/scripts/%.stamp: $(SCRIPTS)/%.sh |$(STAMPS)/scripts
@@ -189,14 +190,14 @@ $(HOME)/.config/base16-shell: |$(DOT_CONFIG)
 	git checkout -b master --track origin/master; \
 	git reset origin/master)
 
-input-font: $(HOME)/Library/Fonts/Input_Fonts
-$(HOME)/Library/Fonts/Input_Fonts:
-	mkdir -p $(dir $@)
-	mkdir -p tmp
-	curl "https://input.fontbureau.com/build/?fontSelection=whole&a=0&g=0&i=0&l=0&zero=0&asterisk=0&braces=0&preset=default&line-height=1.2&accept=I+do&email=" > tmp/Input-Font.zip
-	unzip tmp/Input-Font.zip -d tmp
-	mv tmp/Input_Fonts $(dir $@)
-	rm -rf tmp
+# input-font: $(HOME)/Library/Fonts/Input_Fonts
+# $(HOME)/Library/Fonts/Input_Fonts:
+# 	mkdir -p $(dir $@)
+# 	mkdir -p tmp
+# 	curl "https://input.fontbureau.com/build/?fontSelection=whole&a=0&g=0&i=0&l=0&zero=0&asterisk=0&braces=0&preset=default&line-height=1.2&accept=I+do&email=" > tmp/Input-Font.zip
+# 	unzip tmp/Input-Font.zip -d tmp
+# 	mv tmp/Input_Fonts $(dir $@)
+# 	rm -rf tmp
 
 nvm: |$(HOME)/.nvm
 $(HOME)/.nvm:
