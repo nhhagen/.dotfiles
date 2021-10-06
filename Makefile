@@ -1,4 +1,3 @@
-.PHONY: install brew brew-update brew-tap brew-install dotfiles xcode brew-update base16-shell input-font nvim-config nvm node neovim script-config
 
 ROOT_DIR := $(PWD)
 
@@ -242,3 +241,22 @@ cammera-settings: /Applications/Camera\ Settings.app
 
 $(DIRS):
 	mkdir -p $@
+
+
+.PHONY: \
+	base16-shell \
+	brew \
+	brew-install \
+	brew-tap \
+	brew-update \
+	brew-update \
+	dirs \
+	dotfiles \
+	input-font \
+	install \
+	neovim \
+	node \
+	nvim-config \
+	nvm \
+	script-config \
+	xcode
