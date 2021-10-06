@@ -239,6 +239,7 @@ cammera-settings: /Applications/Camera\ Settings.app
 	sudo chown ${USER}:staff "$@"
 	chmod 755 "$@"
 
+dirs: $(DIRS)
 $(DIRS):
 	mkdir -p $@
 
