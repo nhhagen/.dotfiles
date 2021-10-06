@@ -207,7 +207,7 @@ node: |$(HOME)/.nvm/alias/default
 $(HOME)/.nvm/alias/default: |$(HOME)/.nvm
 	source $(HOME)/.nvm/nvm.sh && nvm alias default system
 
-/usr/local/Cellar/neovim: $(PYTHON_2_NEOVIM_LIB) $(PYTHON_3_NEOVIM_LIB) $(HOME)/.vimrc_background | $(BREW)
+/usr/local/Cellar/neovim: $(PYTHON_2_NEOVIM_LIB) $(PYTHON_3_NEOVIM_LIB) | $(HOME)/.vimrc_background $(BREW)
 	$(BREW) install neovim
 
 pyenv: $(PYENV)
