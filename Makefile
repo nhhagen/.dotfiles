@@ -45,6 +45,7 @@ BREW_FORMULAS := \
 	icu4c \
 	jq \
 	make \
+	minikube \
 	mysql-client \
 	node \
 	pkg-config \
