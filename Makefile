@@ -8,9 +8,21 @@ DOT_CONFIG := $(HOME)/.config
 BIN := $(HOME)/bin
 
 DIRS := $(HOME)/code $(HOME)/code/personal $(HOME)/code/work $(BIN) $(DOT_CONFIG) $(STAMPS) $(STAMPS)/scripts
-
 DOTFILES := $(shell ls src)
 PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
+
+
+ifeq ($(shell uname -p),arm)
+BREW_PATH := /opt/homebrew
+else
+BREW_PATH := /usr/local/homebrew
+endif
+
+BREW := $(BREW_PATH)/bin/brew
+
+BREW_CELLAR := $(BREW_PATH)/Cellar/
+BREW_CASK_ROOM := $(BREW_PATH)/Caskroom/
+BREW_TAPS_PATH := $(BREW_PATH)/Library/Taps
 
 BREW := /usr/local/bin/brew
 
@@ -20,7 +32,6 @@ BREW_TAPS := \
 	homebrew/homebrew-cask-fonts \
 	teamookla/homebrew-speedtest
 
-BREW_TAPS_PATH := /usr/local/Homebrew/Library/Taps
 PREDEF_BREW_TAPS := $(addprefix $(BREW_TAPS_PATH)/,$(BREW_TAPS))
 
 BREW_FORMULAS := \
@@ -70,7 +81,7 @@ BREW_FORMULAS := \
 	zsh-completions \
 	zsh-syntax-highlighting
 
-BREW_FORMULAS_PATHS := $(addprefix /usr/local/Cellar/,$(BREW_FORMULAS))
+BREW_FORMULAS_PATHS := $(addprefix $(BREW_CELLAR),$(BREW_FORMULAS))
 UNIVERSAL_CTAGS := /usr/local/Homebrew/Library/Taps/universal-ctags/homebrew-universal-ctags
 BREW_CASKS := \
 	1password \
@@ -87,7 +98,7 @@ BREW_CASKS := \
 	spotify \
 	virtualbox
 
-BREW_CASKS_PATHS := $(addprefix /usr/local/Caskroom/,$(BREW_CASKS))
+BREW_CASKS_PATHS := $(addprefix $(BREW_CASK_ROOM),$(BREW_CASKS))
 
 SCRIPT_CONFIGS_STAMPS := $(patsubst %.sh,$(STAMPS)/%.stamp,$(wildcard scripts/*.sh))
 
