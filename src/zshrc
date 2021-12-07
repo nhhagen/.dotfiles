@@ -179,3 +179,9 @@ command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export PATH="$HOME/.poetry/bin:$PATH"
+
+export GOPATH="$HOME/.go"
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+
+export PATH="$HOME/.tfenv/bin:$PATH"

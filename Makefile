@@ -1,5 +1,7 @@
-
 ROOT_DIR := $(PWD)
+
+OS := $(shell uname)
+ARCH := $(shell uname -m)
 
 SCRIPTS := $(ROOT_DIR)/scripts
 STAMPS := $(ROOT_DIR)/.stamps
@@ -124,7 +126,32 @@ PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR) $(GCP_SDK_PYTHON_DIR)
 PYTHON_2_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim2/lib/python$(PYTHON_2_MINOR)/site-packages/neovim
 PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/site-packages/neovim
 
-install: $(HOME)/code $(PREDEF_BREW_TAPS) $(BREW_FORMULAS_PATHS) $(UNIVERSAL_CTAGS) $(BREW_CASKS_PATHS) base16-shell /usr/local/Cellar/neovim $(PREDEF_DOTFILES) $(DOT_CONFIG)/nvim nvm xcode scripts $(HOME)/bin bash_profile google-cloud-sdk sdkman node script-config /Applications/Camera\ Settings.app $(PYENV) $(GEMS)
+install: \
+	$(HOME)/code \
+	$(PREDEF_BREW_TAPS) \
+	$(BREW_FORMULAS_PATHS) \
+	$(UNIVERSAL_CTAGS) \
+	$(BREW_CASKS_PATHS) \
+	base16-shell \
+	/usr/local/Cellar/neovim \
+	$(PREDEF_DOTFILES) \
+	$(DOT_CONFIG)/nvim \
+	nvm \
+	xcode \
+	scripts \
+	$(HOME)/bin \
+	bash_profile \
+	google-cloud-sdk \
+	sdkman \
+	node \
+	script-config \
+	/Applications/Camera\ Settings.app \
+	$(PYENV) \
+	$(HOME)/.goenv \
+	$(HOME)/.tfenv \
+	$(HOME)/.poetry \
+	$(HOME)/.docker/cli-plugins/docker-lock \
+	$(GEMS)
 
 script-config: $(SCRIPT_CONFIGS_STAMPS)
 $(STAMPS)/scripts/%.stamp: $(SCRIPTS)/%.sh |$(STAMPS)/scripts
@@ -223,7 +250,7 @@ $(HOME)/.nvm/alias/default: |$(HOME)/.nvm
 	$(BREW) install neovim
 
 pyenv: $(PYENV)
-$(PYENV): /usr/bin/curl
+$(PYENV): |/usr/bin/curl
 	curl https://pyenv.run | bash
 
 $(PYTHON_DIRS): |$(PYENV)
@@ -250,6 +277,28 @@ cammera-settings: /Applications/Camera\ Settings.app
 	rm LogiCameraSettings_3.0.12.pkg
 	sudo chown ${USER}:staff "$@"
 	chmod 755 "$@"
+
+goenv: $(HOME)/.goenv
+$(HOME)/.goenv: |$(BREW_CELLAR)git $(HOME)/.zshrc
+	git clone https://github.com/syndbg/goenv.git $@
+
+tfenv: $(HOME)/.tfenv
+$(HOME)/.tfenv: |$(BREW_CELLAR)git $(HOME)/.zshrc
+	git clone https://github.com/tfutils/tfenv.git $@
+
+$(PYENV_VERSIONS)/poetry: $(PYTHON_3_DIR) |$(PYENV)
+	$(PYENV) virtualenv $(PYTHON_3) $(notdir $@)
+
+poetry: $(HOME)/.poetry
+$(HOME)/.poetry: $(PYENV_VERSIONS)/poetry
+	PATH="$(PYENV_VERSIONS)/poetry/bin:$$PATH" curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+
+DOCKER_LOCK_VERSION := 0.8.10
+docker-lock: $(HOME)/.docker/cli-plugins/docker-lock
+$(HOME)/.docker/cli-plugins/docker-lock:
+	mkdir -p "$(HOME)/.docker/cli-plugins"
+	curl -fsSL "https://github.com/safe-waters/docker-lock/releases/download/v$(DOCKER_LOCK_VERSION)/docker-lock_$(DOCKER_LOCK_VERSION)_$(OS)_$(ARCH).tar.gz" | tar -xz -C "$(HOME)/.docker/cli-plugins" "docker-lock"
+	chmod +x "$(HOME)/.docker/cli-plugins/docker-lock"
 
 dirs: $(DIRS)
 $(DIRS):
