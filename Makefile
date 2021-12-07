@@ -26,8 +26,6 @@ BREW_CELLAR := $(BREW_PATH)/Cellar/
 BREW_CASK_ROOM := $(BREW_PATH)/Caskroom/
 BREW_TAPS_PATH := $(BREW_PATH)/Library/Taps
 
-BREW := /usr/local/bin/brew
-
 BREW_TAPS := \
 	github/homebrew-gh \
 	goles/homebrew-battery \
@@ -160,7 +158,7 @@ $(STAMPS)/scripts/%.stamp: $(SCRIPTS)/%.sh |$(STAMPS)/scripts
 
 brew: $(BREW)
 $(BREW): |/Library/Developer/CommandLineTools
-	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew-update: |$(BREW)
 	$(BREW) update
