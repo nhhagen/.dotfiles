@@ -1,8 +1,8 @@
-require('nvim-treesitter.configs').setup({
+require("nvim-treesitter.configs").setup({
   auto_install = true,
   highlight = {
     enable = true,
-    disable = { 'NvimTree', 'yaml' },
+    disable = { "NvimTree", "yaml" },
     additional_vim_regex_highlighting = true,
   },
   indent = {
@@ -17,8 +17,8 @@ require('nvim-treesitter.configs').setup({
         ["af"] = "@function.outer",
         ["ic"] = "@class.inner",
         ["ac"] = "@class.outer",
-        ['ia'] = '@parameter.inner',
-        ['aa'] = '@parameter.outer',
+        ["ia"] = "@parameter.inner",
+        ["aa"] = "@parameter.outer",
       },
     },
   },
