@@ -7,7 +7,7 @@
 	ui = true
 [core]
 	autocrlf = input
-	editor = vim
+	editor = nvim
 	excludesfile = /Users/niels.hagen/.gitignore_global
 [pull]
 	rebase = true
@@ -54,3 +54,7 @@
 	keepremote = true
 [init]
 	defaultBranch = main
+[remote "origin"]
+	prune = true
+[url "git@github.com:coopnorge/"]
+    insteadOf = https://github.com/coopnorge/

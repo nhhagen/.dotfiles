@@ -36,14 +36,13 @@ PREDEF_BREW_TAPS := $(addprefix $(BREW_TAPS_PATH)/,$(BREW_TAPS))
 
 BREW_FORMULAS := \
 	ack \
+	aspell \
 	azure-cli \
 	bat \
 	battery \
 	cmake \
 	cookiecutter \
-	docker \
-	docker-compose \
-	docker-machine \
+	coreutils \
 	fd \
 	fzf \
 	gh \
@@ -55,16 +54,21 @@ BREW_FORMULAS := \
 	httpie \
 	icu4c \
 	jq \
+	libpq \
 	make \
 	minikube \
 	mysql-client \
 	node \
+	openssl@1.1 \
+	openssl@3 \
 	pkg-config \
+	readline \
 	reattach-to-user-namespace \
 	ripgrep \
 	ruby \
 	spark \
 	speedtest \
+	sqlite \
 	terraform \
 	the_silver_searcher \
 	tig \
@@ -75,28 +79,30 @@ BREW_FORMULAS := \
 	vim \
 	wget \
 	write-good \
+	xz \
 	yamllint \
 	yq \
+	zlib \
 	zsh \
 	zsh-completions \
 	zsh-syntax-highlighting
 
 BREW_FORMULAS_PATHS := $(addprefix $(BREW_CELLAR),$(BREW_FORMULAS))
-UNIVERSAL_CTAGS := /usr/local/Homebrew/Library/Taps/universal-ctags/homebrew-universal-ctags
+UNIVERSAL_CTAGS := $(BREW_TAPS_PATH)/universal-ctags/homebrew-universal-ctags
 BREW_CASKS := \
 	1password \
 	avibrazil-rdm \
+	docker \
 	fanny \
+	figma \
 	firefox \
-	font-inter \
 	font-input \
+	font-inter \
 	google-drive \
 	google-chrome \
 	iterm2 \
-	keybase \
 	slack \
-	spotify \
-	virtualbox
+	spotify
 
 BREW_CASKS_PATHS := $(addprefix $(BREW_CASK_ROOM),$(BREW_CASKS))
 
@@ -111,18 +117,18 @@ PYENV_VERSIONS := $(PYENV_DIR)/versions
 PYTHON_2_MINOR := 2.7
 PYTHON_3_MINOR := 3.9
 
-PYTHON_2 := $(PYTHON_2_MINOR).17
-PYTHON_3 := $(PYTHON_3_MINOR).0
-GCP_SDK_PYTHON := 3.8.6
+PYTHON_2 := $(PYTHON_2_MINOR).18
+PYTHON_3 := $(PYTHON_3_MINOR).13
 
 PYTHON_2_DIR := $(PYENV_VERSIONS)/$(PYTHON_2)
 PYTHON_3_DIR := $(PYENV_VERSIONS)/$(PYTHON_3)
-GCP_SDK_PYTHON_DIR := $(PYENV_VERSIONS)/$(GCP_SDK_PYTHON)
 
-PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR) $(GCP_SDK_PYTHON_DIR)
+PYTHON_DIRS := $(PYTHON_2_DIR) $(PYTHON_3_DIR)
 
 PYTHON_2_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim2/lib/python$(PYTHON_2_MINOR)/site-packages/neovim
 PYTHON_3_NEOVIM_LIB := $(PYENV_VERSIONS)/neovim3/lib/python$(PYTHON_3_MINOR)/site-packages/neovim
+
+POETRY_HOME := $(HOME)/.poetry
 
 install: \
 	$(HOME)/code \
@@ -131,7 +137,7 @@ install: \
 	$(UNIVERSAL_CTAGS) \
 	$(BREW_CASKS_PATHS) \
 	base16-shell \
-	/usr/local/Cellar/neovim \
+	$(BREW_CELLAR)/neovim \
 	$(PREDEF_DOTFILES) \
 	$(DOT_CONFIG)/nvim \
 	nvm \
@@ -147,7 +153,7 @@ install: \
 	$(PYENV) \
 	$(HOME)/.goenv \
 	$(HOME)/.tfenv \
-	$(HOME)/.poetry \
+	$(POETRY_HOME) \
 	$(HOME)/.docker/cli-plugins/docker-lock \
 	$(GEMS)
 
@@ -158,7 +164,7 @@ $(STAMPS)/scripts/%.stamp: $(SCRIPTS)/%.sh |$(STAMPS)/scripts
 
 brew: $(BREW)
 $(BREW): |/Library/Developer/CommandLineTools
-	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew-update: |$(BREW)
 	$(BREW) update
@@ -175,7 +181,7 @@ $(UNIVERSAL_CTAGS):
 	$(BREW) install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 $(BREW_CASKS_PATHS): |$(BREW)
-	$(BREW) install $(patsubst .%,%,$(notdir $@))
+	$(BREW) install --cask $(patsubst .%,%,$(notdir $@))
 
 gem-install: $(GEMS)
 $(GEMS): |$(BREW_FORMULAS_PATHS)
@@ -201,8 +207,8 @@ xcode: |/Library/Developer/CommandLineTools
 /Library/Developer/CommandLineTools:
 	xcode-select --install
 
-$(PYENV_VERSIONS)/gcp-sdk: $(GCP_SDK_PYTHON_DIR) |$(PYENV)
-	$(PYENV) virtualenv -f $(GCP_SDK_PYTHON) $(notdir $@)
+$(PYENV_VERSIONS)/gcp-sdk: $(PYTHON_3_DIR) |$(PYENV)
+	$(PYENV) virtualenv -f $(PYTHON_3) $(notdir $@)
 
 google-cloud-sdk: |$(HOME)/.google-cloud-sdk
 $(HOME)/.google-cloud-sdk: $(PYENV_VERSIONS)/gcp-sdk
@@ -244,7 +250,7 @@ node: |$(HOME)/.nvm/alias/default
 $(HOME)/.nvm/alias/default: |$(HOME)/.nvm
 	source $(HOME)/.nvm/nvm.sh && nvm alias default system
 
-/usr/local/Cellar/neovim: $(PYTHON_2_NEOVIM_LIB) $(PYTHON_3_NEOVIM_LIB) | $(HOME)/.vimrc_background $(BREW)
+/usr/local/Cellar/neovim: $(PYTHON_3_NEOVIM_LIB) | $(HOME)/.vimrc_background $(BREW)
 	$(BREW) install neovim
 
 pyenv: $(PYENV)
@@ -254,15 +260,15 @@ $(PYENV): |/usr/bin/curl
 $(PYTHON_DIRS): |$(PYENV)
 	$(PYENV) install $(notdir $@)
 
-$(PYENV_VERSIONS)/neovim2: $(PYTHON_2_DIR) |$(PYENV)
-	$(PYENV) virtualenv $(PYTHON_2) $(notdir $@)
+# $(PYENV_VERSIONS)/neovim2: $(PYTHON_2_DIR) |$(PYENV)
+# 	$(PYENV) virtualenv $(PYTHON_2) $(notdir $@)
 
 $(PYENV_VERSIONS)/neovim3: $(PYTHON_3_DIR) |$(PYENV)
 	$(PYENV) virtualenv $(PYTHON_3) $(notdir $@)
 
-$(PYTHON_2_NEOVIM_LIB): $(PYENV_VERSIONS)/neovim2
-	PATH="$(PYENV_VERSIONS)/neovim2/bin:$$PATH" pip install --upgrade pip
-	PATH="$(PYENV_VERSIONS)/neovim2/bin:$$PATH" pip install neovim
+# $(PYTHON_2_NEOVIM_LIB): $(PYENV_VERSIONS)/neovim2
+# 	PATH="$(PYENV_VERSIONS)/neovim2/bin:$$PATH" pip install --upgrade pip
+# 	PATH="$(PYENV_VERSIONS)/neovim2/bin:$$PATH" pip install neovim
 
 $(PYTHON_3_NEOVIM_LIB): $(PYENV_VERSIONS)/neovim3
 	PATH="$(PYENV_VERSIONS)/neovim3/bin:$$PATH" pip install --upgrade pip
@@ -287,9 +293,9 @@ $(HOME)/.tfenv: |$(BREW_CELLAR)git $(HOME)/.zshrc
 $(PYENV_VERSIONS)/poetry: $(PYTHON_3_DIR) |$(PYENV)
 	$(PYENV) virtualenv $(PYTHON_3) $(notdir $@)
 
-poetry: $(HOME)/.poetry
-$(HOME)/.poetry: $(PYENV_VERSIONS)/poetry
-	PATH="$(PYENV_VERSIONS)/poetry/bin:$$PATH" curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+poetry: $(POETRY_HOME)
+$(POETRY_HOME): $(PYENV_VERSIONS)/poetry
+	PATH="$(PYENV_VERSIONS)/poetry/bin:$$PATH" curl -sSL https://install.python-poetry.org | POETRY_HOME=$(POETRY_HOME) python3 -
 
 DOCKER_LOCK_VERSION := 0.8.10
 docker-lock: $(HOME)/.docker/cli-plugins/docker-lock
@@ -311,6 +317,7 @@ $(DIRS):
 	brew-update \
 	brew-update \
 	dirs \
+	docker-lock \
 	dotfiles \
 	input-font \
 	install \
