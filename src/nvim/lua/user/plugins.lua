@@ -12,6 +12,8 @@ end
 local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
+  use('wbthomason/packer.nvim')
+
   use('editorconfig/editorconfig-vim')
   use('roman/golden-ratio')
   -- use('sheerun/vim-polyglot')
@@ -21,7 +23,6 @@ return require('packer').startup(function(use)
   use('tpope/vim-dispatch')
   use('tpope/vim-fugitive')
   use('tpope/vim-surround')
-  use('wbthomason/packer.nvim')
 
   -- use {
   --   'yamatsum/nvim-nonicons',
@@ -31,17 +32,23 @@ return require('packer').startup(function(use)
   --   end
   -- }
 
+  -- use({
+  --   'neovim/nvim-lspconfig',
+  --   config = function()
+  --   end
+  -- })
+
   use({
     'airblade/vim-gitgutter',
     config = function()
-      require('plugins.gitgutter')
+      require('user.plugins.gitgutter')
     end,
   })
 
   use({
     'RRethy/nvim-base16',
     config = function()
-      require('plugins.base16')
+      require('user.plugins.base16')
     end,
   })
 
@@ -58,28 +65,28 @@ return require('packer').startup(function(use)
       { 'vim-airline/vim-airline-themes' },
     },
     config = function()
-      require('plugins.airline')
+      require('user.plugins.airline')
     end,
   })
 
   use({
     'nathanaelkane/vim-indent-guides',
     config = function()
-      require('plugins.vimindentguides')
+      require('user.plugins.vimindentguides')
     end,
   })
 
   use({
     'Raimondi/delimitMate',
     config = function()
-      require('plugins.delimate')
+      require('user.plugins.delimate')
     end,
   })
 
   use({
     'dense-analysis/ale',
     config = function()
-      require('plugins.ale')
+      require('user.plugins.ale')
     end,
   })
 
@@ -89,7 +96,7 @@ return require('packer').startup(function(use)
       { 'godlygeek/tabular' },
     },
     config = function()
-      require('plugins.markdown')
+      require('user.plugins.markdown')
     end,
   })
 
@@ -105,7 +112,7 @@ return require('packer').startup(function(use)
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
     },
     config = function()
-      require('plugins.telescope')
+      require('user.plugins.telescope')
     end,
   })
 
@@ -118,13 +125,9 @@ return require('packer').startup(function(use)
       'JoosepAlviste/nvim-ts-context-commentstring',
     },
     config = function()
-      require('plugins.treesitter')
+      require('user.plugins.treesitter')
     end,
   })
-
-  -- My plugins here
-  -- use 'foo1/bar1.nvim'
-  -- use 'foo2/bar2.nvim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
