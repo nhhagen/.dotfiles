@@ -33,17 +33,26 @@ return require("packer").startup(function(use)
 
   use({
     "neovim/nvim-lspconfig",
+    requires = {
+      "williamboman/mason-lspconfig.nvim"
+    },
     config = function()
       require("user.plugins.lspconfig")
     end
   })
 
   use({
-    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
     requires = {
-      "williamboman/mason-lspconfig.nvim",
-      "neovim/nvim-lspconfig",
+      "williamboman/mason.nvim"
     },
+    config = function()
+      require("user.plugins.lspconfig")
+    end
+  })
+
+  use({
+    "williamboman/mason.nvim" ,
     config = function()
       require("user.plugins.mason")
     end
