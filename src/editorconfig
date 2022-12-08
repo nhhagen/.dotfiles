@@ -19,6 +19,12 @@ indent_style = tab
 [*.{js,jsx}]
 indent_size = 2
 
+[*.lua]
+indent_size = 2
+
+[*.vim]
+indent_size = 2
+
 # YAML
 [*.{yml,yaml}]
 indent_size = 2

@@ -55,3 +55,7 @@ tags
 
 # pyenv
 .python-version
+
+# goenv
+.go-version
+.envrc

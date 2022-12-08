@@ -1,3 +1,5 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 export LANGUAGE=C
 export LC_ALL=en_US.UTF-8
 
@@ -185,3 +187,6 @@ export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
 
 export PATH="$HOME/.tfenv/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+eval "$(direnv hook zsh)"
