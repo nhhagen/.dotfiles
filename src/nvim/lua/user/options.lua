@@ -1,6 +1,6 @@
-vim.gpython_host_prog = "$HOME/.pyenv/versions/neovim2/bin/python"
-vim.gpython2_host_prog = "$HOME/.pyenv/versions/neovim2/bin/python"
-vim.gpython3_host_prog = "$HOME/.pyenv/versions/neovim3/bin/python"
+vim.g.python_host_prog = "$HOME/.pyenv/versions/neovim2/bin/python"
+vim.g.python2_host_prog = "$HOME/.pyenv/versions/neovim2/bin/python"
+vim.g.python3_host_prog = "$HOME/.pyenv/versions/neovim3/bin/python"
 
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
