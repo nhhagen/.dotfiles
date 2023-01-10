@@ -14,7 +14,8 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
 
-  use("editorconfig/editorconfig-vim")
+  use("gpanders/editorconfig.nvim")
+  --use("editorconfig/editorconfig-vim")
   use("roman/golden-ratio")
   -- use("sheerun/vim-polyglot")
   use("sjl/vitality.vim")
@@ -52,7 +53,7 @@ return require("packer").startup(function(use)
   })
 
   use({
-    "williamboman/mason.nvim" ,
+    "williamboman/mason.nvim",
     config = function()
       require("user.plugins.mason")
     end
@@ -99,14 +100,33 @@ return require("packer").startup(function(use)
   })
 
   use({
-    "vim-airline/vim-airline",
+    'nvim-lualine/lualine.nvim',
+    -- requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function()
+      require("user.plugins.lualine")
+    end
+  })
+
+  use({
+    'kdheepak/tabline.nvim',
     requires = {
-      { "vim-airline/vim-airline-themes" },
+      { 'hoob3rt/lualine.nvim', opt=true },
+      -- {'kyazdani42/nvim-web-devicons', opt = true}
     },
     config = function()
-      require("user.plugins.airline")
-    end,
+      require("user.plugins.tabline")
+    end
   })
+
+  -- use({
+  --   "vim-airline/vim-airline",
+  --   requires = {
+  --     { "vim-airline/vim-airline-themes" },
+  --   },
+  --   config = function()
+  --     require("user.plugins.airline")
+  --   end,
+  -- })
 
   use({
     "nathanaelkane/vim-indent-guides",
@@ -122,12 +142,12 @@ return require("packer").startup(function(use)
     end,
   })
 
-  use({
-    "dense-analysis/ale",
-    config = function()
-      require("user.plugins.ale")
-    end,
-  })
+  -- use({
+  --   "dense-analysis/ale",
+  --   config = function()
+  --     require("user.plugins.ale")
+  --   end,
+  -- })
 
   use({
     "plasticboy/vim-markdown",
@@ -167,6 +187,14 @@ return require("packer").startup(function(use)
       require("user.plugins.treesitter")
     end,
   })
+
+  --- use({
+  ---   'ldelossa/gh.nvim',
+  ---   requires = { { 'ldelossa/litee.nvim' } },
+  ---   config = function()
+  ---     require("user.plugins.gh")
+  ---   end
+  --- })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
