@@ -1,14 +1,13 @@
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+local packer_user_config = vim.api.nvim_create_augroup("packer_user_config", { clear = true })
+vim.api.nvim_create_autocmd({"BufWritePost"}, {
+  pattern = "plugins.lua",
+  command = "source <afile> | PackerCompile",
+  group = packer_user_config
+})
 
-vim.cmd([[
-  augroup Mkdir
-    autocmd!
-    autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
-  augroup END
-]])
-
+local mkdir = vim.api.nvim_create_augroup("Mkdir", { clear = true })
+vim.api.nvim_create_autocmd({"BufWritePre"}, {
+  pattern = "*",
+  command = 'call mkdir(expand("<afile>:p:h"), "p")',
+  group = mkdir
+})
