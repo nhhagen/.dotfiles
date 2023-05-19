@@ -38,18 +38,22 @@ local lsp_flags = {
 }
 
 require("mason").setup()
-require("mason-lspconfig").setup({
+local mason_lspconfig = require("mason-lspconfig")
+mason_lspconfig.setup({
   ensure_installed = {
     "dockerls",
     "gopls",
-    "pyright",
     "lua_ls",
+    "pyright",
+    "rust_analyzer",
+    "terraformls",
     "tsserver",
+    "yamlls",
   },
   automatic_installation = true,
 })
 
-require("mason-lspconfig").setup_handlers {
+mason_lspconfig.setup_handlers {
   -- The first entry (without a key) will be the default handler
   -- and will be called for each installed server that doesn't have
   -- a dedicated handler.
