@@ -100,7 +100,7 @@ export GIT_PS1_SHOWUPSTREAM="verbose"
 export GIT_PS1_SHOWCOLORHINTS=true
 
 export ACKRC=".ackrc"
-export EDITOR=vim
+export EDITOR=nvim
 
 # Tell ls to be colourful
 export CLICOLOR=1
@@ -128,9 +128,8 @@ if [ -f `pyenv prefix gcp-sdk`/bin/python ]; then
 fi
 
 
-if which goenv > /dev/null; then eval "$(goenv init -)"; fi
 
-source $HOME/.zsh_prompt
+# source $HOME/.zsh_prompt
 source $HOME/.alias
 
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
@@ -182,11 +181,24 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
-export GOPATH="$HOME/.go"
+# export GOPATH="$HOME/.go"
+
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
+
+# export GOENV_GOPATH_PREFIX="$HOME/.go"
+
+eval "$(goenv init -)"
+
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+
+# export PATH="$GOROOT/bin:$PATH"
+# export PATH="$PATH:$GOPATH/bin"
 
 export PATH="$HOME/.tfenv/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 eval "$(direnv hook zsh)"
+
+eval "$(starship init zsh)"

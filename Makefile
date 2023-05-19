@@ -69,6 +69,7 @@ BREW_FORMULAS := \
 	spark \
 	speedtest \
 	sqlite \
+	starship \
 	terraform \
 	the_silver_searcher \
 	tig \
@@ -140,6 +141,7 @@ install: \
 	$(BREW_CELLAR)/neovim \
 	$(PREDEF_DOTFILES) \
 	$(DOT_CONFIG)/nvim \
+	$(DOT_CONFIG)/starship.toml \
 	nvm \
 	xcode \
 	scripts \
@@ -201,6 +203,10 @@ $(HOME)/.bash_profile: |$(HOME)/.bash_profile_mac
 
 nvim-config: $(DOT_CONFIG)/nvim
 $(DOT_CONFIG)/nvim: |$(DOT_CONFIG)
+	ln -Fsv $(PWD)/src/$(patsubst .%,%,$(notdir $@)) $@
+
+starship-config: $(DOT_CONFIG)/starship.toml
+$(DOT_CONFIG)/starship.toml: |$(DOT_CONFIG)
 	ln -Fsv $(PWD)/src/$(patsubst .%,%,$(notdir $@)) $@
 
 xcode: |/Library/Developer/CommandLineTools

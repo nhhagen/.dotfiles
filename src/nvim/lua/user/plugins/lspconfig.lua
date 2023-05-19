@@ -37,12 +37,13 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
+require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
     "dockerls",
     "gopls",
     "pyright",
-    "sumneko_lua",
+    "lua_ls",
     "tsserver",
   },
   automatic_installation = true,
@@ -59,8 +60,8 @@ require("mason-lspconfig").setup_handlers {
     }
   end,
 
-  ["sumneko_lua"] = function ()
-    require("lspconfig")["sumneko_lua"].setup{
+  ["lua_ls"] = function()
+    require("lspconfig")["lua_ls"].setup {
       on_attach = on_attach,
       flags = lsp_flags,
       settings = {
@@ -70,6 +71,19 @@ require("mason-lspconfig").setup_handlers {
           }
         }
       }
+    }
+  end,
+
+  ["pyright"] = function()
+    require("lspconfig")["pyright"].setup {
+      on_attach = on_attach,
+      flags = lsp_flags,
+      on_new_config = function(config, root_dir)
+        local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
+        if string.len(env) > 0 then
+          config.settings.python.pythonPath = env .. '/bin/python'
+        end
+      end
     }
   end
 }
