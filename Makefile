@@ -314,6 +314,8 @@ dirs: $(DIRS)
 $(DIRS):
 	mkdir -p $@
 
+clean:
+	$(foreach dotfile, $(PREDEF_DOTFILES), unlink $(dotfile) &&) true
 
 .PHONY: \
 	base16-shell \
