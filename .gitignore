@@ -55,3 +55,5 @@ $RECYCLE.BIN/
 base16-iterm2/
 tmp
 .stamps
+
+src/nvim/plugin/packer_compiled.lua
