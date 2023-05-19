@@ -2,7 +2,7 @@ require("nvim-treesitter.configs").setup({
   auto_install = true,
   highlight = {
     enable = true,
-    disable = { "NvimTree", "yaml", "gitcommit" },
+    disable = { "NvimTree", "yaml", "gitcommit", "ini" },
     additional_vim_regex_highlighting = true,
   },
   indent = {

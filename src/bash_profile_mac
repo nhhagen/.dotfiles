@@ -41,3 +41,4 @@ export SDKMAN_DIR="/Users/niels.hagen/.sdkman"
 [[ -s "/Users/niels.hagen/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/niels.hagen/.sdkman/bin/sdkman-init.sh"
 
 export PATH="$HOME/.poetry/bin:$PATH"
+. "$HOME/.cargo/env"

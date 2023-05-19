@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+repo=${1}
+
+gh search prs --author="app/dependabot" --repo="${repo}" --limit=100 --state=open --json url --jq=".[].url" | xargs -I '{}' gh pr review {} -a -b "@dependabot squash and merge"
+gh search prs --author="app/dependabot" --repo="${repo}" --limit=100 --state=open --json url --jq=".[].url" | xargs -I '{}' gh pr edit {} --add-reviewer coopnorge/engineering

@@ -14,7 +14,7 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
 
-  use("gpanders/editorconfig.nvim")
+  --use("gpanders/editorconfig.nvim")
   --use("editorconfig/editorconfig-vim")
   use("roman/golden-ratio")
   -- use("sheerun/vim-polyglot")
@@ -47,9 +47,9 @@ return require("packer").startup(function(use)
     requires = {
       "williamboman/mason.nvim"
     },
-    config = function()
-      require("user.plugins.lspconfig")
-    end
+    -- config = function()
+    --   require("user.plugins.lspconfig")
+    -- end
   })
 
   use({
@@ -63,7 +63,7 @@ return require("packer").startup(function(use)
     "hrsh7th/nvim-cmp",
     requires = {
       "nvim-lua/plenary.nvim",
-      {"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"},
+      "L3MON4D3/LuaSnip",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lsp",
@@ -169,6 +169,7 @@ return require("packer").startup(function(use)
       { "nvim-telescope/telescope-ui-select.nvim" },
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       { "nvim-telescope/telescope-live-grep-args.nvim" },
+      { "nvim-treesitter/nvim-treesitter" }
     },
     config = function()
       require("user.plugins.telescope")
