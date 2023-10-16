@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+url=$1
+directory=$1
+
+# echo $url
+
+directory="${directory%.git}"
+
+directory="${directory#git@}"
+
+directory=$(echo "$directory" | sed -r 's/:+/\//g')
+
+directory="${HOME}/repos/${directory}"
+echo $directory
+
+git clone ${url} ${directory}
