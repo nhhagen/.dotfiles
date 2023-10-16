@@ -33,29 +33,21 @@ return require("packer").startup(function(use)
   -- }
 
   use({
-    "neovim/nvim-lspconfig",
-    requires = {
-      "williamboman/mason-lspconfig.nvim"
-    },
+    "williamboman/mason.nvim",
     config = function()
-      require("user.plugins.lspconfig")
+      require("mason").setup()
     end
   })
 
   use({
     "williamboman/mason-lspconfig.nvim",
+    after = "mason.nvim",
     requires = {
-      "williamboman/mason.nvim"
+      "neovim/nvim-lspconfig",
+      "hrsh7th/cmp-nvim-lsp",
     },
-    -- config = function()
-    --   require("user.plugins.lspconfig")
-    -- end
-  })
-
-  use({
-    "williamboman/mason.nvim",
     config = function()
-      require("user.plugins.mason")
+      require("user.plugins.lspconfig")
     end
   })
 
@@ -188,6 +180,8 @@ return require("packer").startup(function(use)
       require("user.plugins.treesitter")
     end,
   })
+
+use ({'stevearc/dressing.nvim'})
 
   --- use({
   ---   'ldelossa/gh.nvim',

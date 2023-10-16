@@ -23,6 +23,9 @@ vim.opt.listchars = { tab = "▸ ", trail = "·" }
 vim.opt.mouse = "a"
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
+vim.opt.mouse = "a"
+vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
 -- vim.opt.nojoinspaces = true
 vim.opt.joinspaces = false
 vim.opt.splitright = true
