@@ -49,3 +49,6 @@ alias tig='tig --show-signature'
 
 alias make='gmake'
 # alias make='gmake -j 4'
+
+alias golang-devtools='docker compose run --rm golang-devtools'
+alias techdocs='docker compose run --rm techdocs'
