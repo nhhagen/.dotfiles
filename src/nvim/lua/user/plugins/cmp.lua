@@ -1,9 +1,7 @@
-local ok, lspkind = pcall(require, "lspkind")
-if not ok then
-  return
-end
-
+local lspkind = require("lspkind")
 local cmp = require "cmp"
+
+-- lspkind.init({ mode = "symbol_text", preset="default" })
 
 cmp.setup {
   mapping = {
@@ -124,17 +122,28 @@ cmp.setup {
     },
   },
 
-  -- Youtube: mention that you need a separate snippets plugin
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
     end,
   },
 
+  view = {
+    entries = "custom",
+    docs = {
+      auto_open = true
+    }
+  },
+
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+
   formatting = {
-    -- Youtube: How to set up nice formatting for your sources.
-    format = lspkind.cmp_format {
-      with_text = true,
+    format = lspkind.cmp_format({
+      maxwidth = 50,
+      ellipsis_char = "...",
       menu = {
         buffer = "[buf]",
         nvim_lsp = "[LSP]",
@@ -144,15 +153,11 @@ cmp.setup {
         gh_issues = "[issues]",
         tn = "[TabNine]",
       },
-    },
+    }),
   },
 
   experimental = {
-    -- I like the new menu better! Nice work hrsh7th
-    native_menu = false,
-
-    -- Let's play with this for a day or two
-    ghost_text = false,
+    ghost_text = true,
   },
 }
 
