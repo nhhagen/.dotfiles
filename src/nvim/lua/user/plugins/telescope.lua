@@ -44,7 +44,7 @@ telescope.setup({
       prompt_title = "History",
     },
     lsp_references = {
-      previewer = false,
+      previewer = true,
     },
   },
   extensions = {
