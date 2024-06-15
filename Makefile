@@ -9,9 +9,10 @@ STAMPS := $(ROOT_DIR)/.stamps
 DOT_CONFIG := $(HOME)/.config
 BIN := $(HOME)/bin
 
-DIRS := $(HOME)/code $(HOME)/code/personal $(HOME)/code/work $(BIN) $(DOT_CONFIG) $(STAMPS) $(STAMPS)/scripts
-DOTFILES := $(shell ls src)
-PREDEF_DOTFILES := $(addprefix $(HOME)/.,$(DOTFILES))
+DIRS := $(HOME)/code $(BIN) $(DOT_CONFIG) $(STAMPS) $(STAMPS)/scripts
+
+STOW_PACKAGES_DIR := $(ROOT_DIR)/packages
+STOW_PACKAGES := $(shell ls $(STOW_PACKAGES_DIR))
 
 
 ifeq ($(shell uname -p),arm)
@@ -71,6 +72,7 @@ BREW_FORMULAS := \
 	speedtest \
 	sqlite \
 	starship \
+	stow \
 	terraform \
 	the_silver_searcher \
 	tig \
@@ -140,9 +142,7 @@ install: \
 	$(BREW_CASKS_PATHS) \
 	base16-shell \
 	$(BREW_CELLAR)/neovim \
-	$(PREDEF_DOTFILES) \
-	$(DOT_CONFIG)/nvim \
-	$(DOT_CONFIG)/starship.toml \
+	dotfiles \
 	nvm \
 	xcode \
 	scripts \
@@ -190,24 +190,11 @@ gem-install: $(GEMS)
 $(GEMS): |$(BREW_FORMULAS_PATHS)
 	sudo gem install $@
 
-dotfiles: |$(PREDEF_DOTFILES)
-$(PREDEF_DOTFILES):
-	ln -Fsv $(PWD)/src/$(patsubst .%,%,$(notdir $@)) $@
+dotfiles:
+	stow --verbose --target=$$HOME --dir $(STOW_PACKAGES_DIR) --restow $(STOW_PACKAGES)
 
 scripts: $(HOME)/scripts
 $(HOME)/scripts:
-	ln -Fsv $(PWD)/src/$(patsubst .%,%,$(notdir $@)) $@
-
-bash_profile: $(HOME)/.bash_profile
-$(HOME)/.bash_profile: |$(HOME)/.bash_profile_mac
-	ln -Fsv $(HOME)/.bash_profile_mac $@
-
-nvim-config: $(DOT_CONFIG)/nvim
-$(DOT_CONFIG)/nvim: |$(DOT_CONFIG)
-	ln -Fsv $(PWD)/src/$(patsubst .%,%,$(notdir $@)) $@
-
-starship-config: $(DOT_CONFIG)/starship.toml
-$(DOT_CONFIG)/starship.toml: |$(DOT_CONFIG)
 	ln -Fsv $(PWD)/src/$(patsubst .%,%,$(notdir $@)) $@
 
 xcode: |/Library/Developer/CommandLineTools
@@ -316,7 +303,7 @@ $(DIRS):
 	mkdir -p $@
 
 clean:
-	$(foreach dotfile, $(PREDEF_DOTFILES), unlink $(dotfile) &&) true
+	stow --verbose --target=$$HOME --dir $(STOW_PACKAGES_DIR) --delete $(STOW_PACKAGES)
 
 .PHONY: \
 	base16-shell \
