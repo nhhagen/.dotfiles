@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+gh search prs "bump coopnorge/engineering-docker-images" --review-requested=@me --author="app/dependabot" --owner="coopnorge" --limit=100 --state=open --checks=pending --json url --jq=".[].url" | xargs -I '{}' gh pr review {} -a -b "@dependabot squash and merge"
+gh search prs "bump coopnorge/engineering-docker-images" --review-requested=@me --author="app/dependabot" --owner="coopnorge" --limit=100 --state=open --checks=success --json url --jq=".[].url" | xargs -I '{}' gh pr review {} -a -b "@dependabot squash and merge"

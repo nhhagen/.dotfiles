@@ -1,4 +1,6 @@
 -- require("mason").setup()
+vim.lsp.set_log_level("off")
+
 require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -18,7 +20,7 @@ local lsp_flags = {
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -70,7 +72,6 @@ end
 
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
-
 local handlers = {
   -- The first entry (without a key) will be the default handler
   -- and will be called for each installed server that doesn't have
@@ -115,6 +116,7 @@ local handlers = {
 
 mason_lspconfig.setup({
   ensure_installed = {
+    "bufls",
     "dockerls",
     "gopls",
     "lua_ls",

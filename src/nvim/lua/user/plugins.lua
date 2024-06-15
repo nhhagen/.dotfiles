@@ -14,9 +14,20 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
 
-  --use("gpanders/editorconfig.nvim")
-  --use("editorconfig/editorconfig-vim")
-  use("roman/golden-ratio")
+  use("MunifTanjim/nui.nvim")
+  use("rcarriga/nvim-notify")
+  use({
+    "folke/noice.nvim",
+    requires = {
+      "rcarriga/nvim-notify",
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require("user.plugins.noice")
+    end
+  })
+
+  -- use("roman/golden-ratio")
   -- use("sheerun/vim-polyglot")
   use("sjl/vitality.vim")
   use("tmux-plugins/vim-tmux")
@@ -28,7 +39,7 @@ return require("packer").startup(function(use)
   -- use {
   --   "yamatsum/nvim-nonicons",
   --   requires = {
-  --     "kyazdani42/nvim-web-devicons"
+  --     "nvim-tree/nvim-web-devicons"
   --   },
   -- }
 
@@ -69,16 +80,16 @@ return require("packer").startup(function(use)
     end
   })
 
-
   use({
-    "airblade/vim-gitgutter",
+    "lewis6991/gitsigns.nvim",
     config = function()
-      require("user.plugins.gitgutter")
-    end,
+      require("user.plugins.gitsigns")
+    end
   })
 
   use({
     "RRethy/nvim-base16",
+    -- commit = "3c6a56016cea7b892f1d5b9b5b4388c0f71985be",
     config = function()
       require("user.plugins.base16")
     end,
@@ -92,33 +103,23 @@ return require("packer").startup(function(use)
   })
 
   use({
-    'nvim-lualine/lualine.nvim',
-    -- requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    "nvim-lualine/lualine.nvim",
+    requires = { "nvim-tree/nvim-web-devicons", opt = true },
     config = function()
       require("user.plugins.lualine")
     end
   })
 
   use({
-    'kdheepak/tabline.nvim',
+    "kdheepak/tabline.nvim",
     requires = {
-      { 'hoob3rt/lualine.nvim', opt=true },
-      -- {'kyazdani42/nvim-web-devicons', opt = true}
+      { "hoob3rt/lualine.nvim", opt=true },
+      {"nvim-tree/nvim-web-devicons", opt = true},
     },
     config = function()
       require("user.plugins.tabline")
     end
   })
-
-  -- use({
-  --   "vim-airline/vim-airline",
-  --   requires = {
-  --     { "vim-airline/vim-airline-themes" },
-  --   },
-  --   config = function()
-  --     require("user.plugins.airline")
-  --   end,
-  -- })
 
   use({
     "nathanaelkane/vim-indent-guides",
@@ -152,12 +153,20 @@ return require("packer").startup(function(use)
   })
 
   use({
+    "nvim-tree/nvim-web-devicons",
+    -- commit = "313d9e7193354c5de7cdb1724f9e2d3f442780b0",
+    config = function()
+      require("nvim-web-devicons")
+    end
+  })
+
+  use({
     "nvim-telescope/telescope.nvim",
     requires = {
       { "RRethy/nvim-base16" },
       { "nvim-lua/plenary.nvim" },
       -- { "yamatsum/nvim-nonicons" },
-      { "kyazdani42/nvim-web-devicons" },
+      { "nvim-tree/nvim-web-devicons" },
       { "nvim-telescope/telescope-ui-select.nvim" },
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       { "nvim-telescope/telescope-live-grep-args.nvim" },
@@ -171,21 +180,79 @@ return require("packer").startup(function(use)
   use({
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    requires = {
-      "nvim-treesitter/playground",
-      "nvim-treesitter/nvim-treesitter-textobjects",
-      "JoosepAlviste/nvim-ts-context-commentstring",
-    },
     config = function()
       require("user.plugins.treesitter")
     end,
   })
 
-use ({'stevearc/dressing.nvim'})
+  use({
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+  })
+
+
+  use({
+    "nvim-treesitter/playground",
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+  })
+
+  use ({"JoosepAlviste/nvim-ts-context-commentstring"})
+
+  use ({"stevearc/dressing.nvim"})
+
+  use({ "mfussenegger/nvim-dap" })
+  use({
+    "jay-babu/mason-nvim-dap.nvim",
+    after = "mason.nvim",
+    requires = {
+      "mfussenegger/nvim-dap",
+    },
+    config = function()
+      require("user.plugins.mason_nvim_dap")
+    end
+  })
+  use({
+    "theHamsta/nvim-dap-virtual-text",
+    requires = {
+      "nvim-treesitter/nvim-treesitter",
+      "mfussenegger/nvim-dap",
+    },
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end
+  })
+  use({
+    "rcarriga/nvim-dap-ui",
+    after = "nvim-dap",
+    requires = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+    },
+    config = function()
+      require("user.plugins.dapui")
+    end
+  })
+  use({
+    "folke/neodev.nvim",
+    config = function()
+      require("user.plugins.neodev")
+    end
+  })
+  use({
+    "leoluz/nvim-dap-go",
+    requires = {
+      "mfussenegger/nvim-dap",
+    },
+    config = function()
+      require("dap-go").setup()
+    end
+  })
 
   --- use({
-  ---   'ldelossa/gh.nvim',
-  ---   requires = { { 'ldelossa/litee.nvim' } },
+  ---   "ldelossa/gh.nvim",
+  ---   requires = { { "ldelossa/litee.nvim" } },
   ---   config = function()
   ---     require("user.plugins.gh")
   ---   end

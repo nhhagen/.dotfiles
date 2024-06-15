@@ -5,8 +5,25 @@ if base16theme then
     base16theme,
     {
       telescope = false,
+      indentblankline = true,
+      notify = true,
+      ts_rainbow = true,
+      cmp = true,
+      illuminate = true,
+      dapui = true,
     }
   )
+  -- require('base16-colorscheme').with_config({
+  --   telescope = true,
+  --   indentblankline = true,
+  --   notify = true,
+  --   ts_rainbow = true,
+  --   cmp = true,
+  --   illuminate = true,
+  --   dapui = true,
+  -- })
+  -- require("base16-colorscheme").setup()
+  -- vim.cmd("colorscheme base16-" .. base16theme)
 end
 
 

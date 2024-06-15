@@ -41,10 +41,10 @@ if [ "$SELECTED_DIRECTORY" = "" ]; then
     exit # exit silently if no result
 fi
 
-#FOLDER=$(basename "$ZOXIDE_RESULT")
-# FOLDER=$(basename "$SELECTED_DIRECTORY")
-FOLDER="$(basename $(dirname $SELECTED_DIRECTORY))/$(basename $SELECTED_DIRECTORY)"
-SESSION_NAME=$(echo "$FOLDER" | tr ' ' '_' | tr '.' '_')
+#DIRECTORY=$(basename "$ZOXIDE_RESULT")
+# DIRECTORY=$(basename "$SELECTED_DIRECTORY")
+DIRECTORY="$(basename $(dirname $SELECTED_DIRECTORY))/$(basename $SELECTED_DIRECTORY)"
+SESSION_NAME=$(echo "$DIRECTORY" | tr ' ' '_' | tr '.' '_')
 
 SESSION=$(tmux list-sessions | grep -F "$SESSION_NAME" | awk '{print $1}') # find existing session
 SESSION=${SESSION//:/} # grab session name
