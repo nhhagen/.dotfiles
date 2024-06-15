@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+query=${1}
+author=${2}
+
+gh search prs "${1}" --review-requested=@me --author="${2}" --owner="coopnorge" --limit=100 --state=open --checks=pending --json url --jq=".[].url" | xargs -I '{}' gh pr review {} -a -b "@dependabot squash and merge"
+gh search prs "${1}" --review-requested=@me --author="${2}" --owner="coopnorge" --limit=100 --state=open --checks=success --json url --jq=".[].url" | xargs -I '{}' gh pr review {} -a -b "@dependabot squash and merge"

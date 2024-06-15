@@ -1,5 +1,6 @@
 local telescope = require("telescope")
 local actions = require("telescope.actions")
+local themes = require("telescope.themes")
 -- local icons = require("nvim-nonicons")
 
 -- vim.cmd([[
@@ -20,6 +21,7 @@ telescope.setup({
     entry_prefix = "   ",
     layout_config = {
       prompt_position = "top",
+      -- layout_strategy = 'flex',
     },
     sorting_strategy = "ascending",
     mappings = {
@@ -49,21 +51,21 @@ telescope.setup({
   },
   extensions = {
     ["ui-select"] = {
-      require("telescope.themes").get_dropdown {
+      themes.get_dropdown {
           -- even more opts
       }
     }
   }
 })
 
-require("telescope").load_extension("ui-select")
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("live_grep_args")
+telescope.load_extension("ui-select")
+telescope.load_extension("fzf")
+telescope.load_extension("live_grep_args")
 
--- vim.keymap.set("n", "<C-f>", [[<cmd>lua require("telescope.builtin").find_files()<CR>]])
-vim.keymap.set("n", "<leader>f", [[<cmd>lua require("telescope.builtin").find_files()<CR>]])
-vim.keymap.set("n", "<leader>F", [[<cmd>lua require("telescope.builtin").find_files({ no_ignore = true, prompt_title = "All Files" })<CR>]]) -- luacheck: no max line length
-vim.keymap.set("n", "<leader>b", [[<cmd>lua require("telescope.builtin").buffers()<CR>]])
-vim.keymap.set("n", "<leader>g", [[<cmd>lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>]])
-vim.keymap.set("n", "<leader>h", [[<cmd>lua require("telescope.builtin").oldfiles()<CR>]])
-vim.keymap.set("n", "<leader>s", [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>]])
+-- vim.keymap.set("n", "<C-f>", function telescope.builtin.find_files() end)
+vim.keymap.set("n", "<leader>f", function() require("telescope.builtin").find_files() end, { desc = "Find files" })
+vim.keymap.set("n", "<leader>F", function() require("telescope.builtin").find_files({ no_ignore = true, prompt_title = "All Files" }) end, { desc = "Find all files" }) -- luacheck: no max line length
+vim.keymap.set("n", "<leader>b", function() require("telescope.builtin").buffers() end, { desc = "Find buffer" })
+vim.keymap.set("n", "<leader>g", function() require("telescope").extensions.live_grep_args.live_grep_args() end, { desc = "Live grep" })
+vim.keymap.set("n", "<leader>h", function() require("telescope.builtin").oldfiles() end, { desc = "Find in history" })
+vim.keymap.set("n", "<leader>s", function() require("telescope.builtin").lsp_document_symbols() end, { desc = "Find symbols" })

@@ -54,6 +54,7 @@ BREW_FORMULAS := \
 	httpie \
 	icu4c \
 	jq \
+	lazygit \
 	libpq \
 	make \
 	minikube \

@@ -1,5 +1,6 @@
 require("nvim-treesitter.configs").setup({
   auto_install = true,
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "bash", "terraform" },
   highlight = {
     enable = true,
     disable = { "NvimTree", "yaml", "gitcommit", "ini" },
@@ -21,8 +22,5 @@ require("nvim-treesitter.configs").setup({
         ["aa"] = "@parameter.outer",
       },
     },
-  },
-  context_commentstring = {
-    enable = true,
   },
 })

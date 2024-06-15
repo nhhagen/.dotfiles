@@ -11,7 +11,7 @@ vim.opt.signcolumn = "yes:2"
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.ruler = true
--- vim.opt.set termguicolors
+vim.opt.termguicolors = true
 vim.opt.title = true
 vim.opt.spell = true
 vim.opt.ignorecase = true

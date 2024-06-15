@@ -5,6 +5,7 @@ require("lualine").setup({
     section_separators = { left = "", right = ""},
   },
   sections = {
-    lualine_c = {{'filename', path = 1}},
+    lualine_b = {"branch", "diff", "diagnostics"},
+    lualine_c = {{"filename", symbols = {modified = "●"}, path = 1}, "nvim_treesitter#statusline"},
   },
 })
