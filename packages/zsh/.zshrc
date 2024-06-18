@@ -134,7 +134,7 @@ source $HOME/.alias
 
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
-export PATH=~/bin:~/scripts:$PATH
+export PATH=~/bin:~/.scripts:$PATH
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/niels.hagen/.sdkman"
