@@ -250,6 +250,13 @@ return require("packer").startup(function(use)
     end
   })
 
+  use({
+    "nvim-tree/nvim-tree.lua",
+    config = function()
+      require("user.plugins.nvimtree")
+    end
+  })
+
   --- use({
   ---   "ldelossa/gh.nvim",
   ---   requires = { { "ldelossa/litee.nvim" } },
