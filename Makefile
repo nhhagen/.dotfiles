@@ -147,7 +147,6 @@ install: \
 	xcode \
 	scripts \
 	$(HOME)/bin \
-	bash_profile \
 	google-cloud-sdk \
 	sdkman \
 	node \

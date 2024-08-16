@@ -1,3 +1,10 @@
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
 vim.g.python_host_prog = "$HOME/.pyenv/versions/neovim2/bin/python"
 vim.g.python2_host_prog = "$HOME/.pyenv/versions/neovim2/bin/python"
 vim.g.python3_host_prog = "$HOME/.pyenv/versions/neovim3/bin/python"

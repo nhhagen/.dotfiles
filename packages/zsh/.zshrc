@@ -93,11 +93,11 @@ if [ -f `brew --prefix`/etc/profile.d/colorsvn-env.sh ]; then
     source `brew --prefix`/etc/profile.d/colorsvn-env.sh
 fi
 
-export GIT_PS1_SHOWSTASHSTATE=true
-export GIT_PS1_SHOWDIRTYSTATE=true
-export GIT_PS1_SHOWUNTRACKEDFILES=true
-export GIT_PS1_SHOWUPSTREAM="verbose"
-export GIT_PS1_SHOWCOLORHINTS=true
+# export GIT_PS1_SHOWSTASHSTATE=true
+# export GIT_PS1_SHOWDIRTYSTATE=true
+# export GIT_PS1_SHOWUNTRACKEDFILES=true
+# export GIT_PS1_SHOWUPSTREAM="verbose"
+# export GIT_PS1_SHOWCOLORHINTS=true
 
 export ACKRC=".ackrc"
 export EDITOR=nvim
@@ -127,9 +127,6 @@ if [ -f `pyenv prefix gcp-sdk`/bin/python ]; then
     export CLOUDSDK_PYTHON=`pyenv prefix gcp-sdk`/bin/python
 fi
 
-
-
-# source $HOME/.zsh_prompt
 source $HOME/.alias
 
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
@@ -175,7 +172,7 @@ if [ -f "$GCLOUD_SDK_DIR/path.zsh.inc" ]; then source "$GCLOUD_SDK_DIR/path.zsh.
 if [ -f "$GCLOUD_SDK_DIR/completion.zsh.inc" ]; then source "$GCLOUD_SDK_DIR/completion.zsh.inc"; fi
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
-command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
+# command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux
 # command -v pip >/dev/null && eval $(pip completion --zsh)
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 
