@@ -3,6 +3,7 @@
 query=${1}
 author=${2}
 body=${3}
+limit=1000
 
-gh search prs "${1}" --review-requested=@me --author="${2}" --owner="coopnorge" --limit=100 --state=open --checks=pending --json url --jq=".[].url" | xargs -I '{}' gh pr review {} -a -b "${body}"
-gh search prs "${1}" --review-requested=@me --author="${2}" --owner="coopnorge" --limit=100 --state=open --checks=success --json url --jq=".[].url" | xargs -I '{}' gh pr review {} -a -b "${body}"
+gh search prs "${1}" --match=title --review-requested=@me --author="${2}" --owner="coopnorge" --limit=${limit} --state=open --checks=pending --json url --jq=".[].url" | xargs -I '{}' gh pr review {} -a -b "${body}"
+gh search prs "${1}" --match=title --review-requested=@me --author="${2}" --owner="coopnorge" --limit=${limit} --state=open --checks=success --json url --jq=".[].url" | xargs -I '{}' gh pr review {} -a -b "${body}"
