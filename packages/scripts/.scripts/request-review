@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+query=${1}
+author=${2}
+reviewer=${3}
+limit=1000
+
+gh search prs "${1}" --match=title --review=none --author="${2}" --owner="coopnorge" --limit=${limit} --state=open --checks=pending --json url --jq=".[].url" | xargs -I '{}' gh pr edit --add-reviewer="${reviewer}" {}
+gh search prs "${1}" --match=title --review=none --author="${2}" --owner="coopnorge" --limit=${limit} --state=open --checks=success --json url --jq=".[].url" | xargs -I '{}' gh pr edit --add-reviewer="${reviewer}" {}
