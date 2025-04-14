@@ -63,6 +63,32 @@ return require("packer").startup(function(use)
   })
 
   use({
+    "mfussenegger/nvim-lint",
+    after = "mason.nvim",
+    config = function()
+      require("user.plugins.lintconfig")
+    end
+  })
+
+  use({
+    "rshkarin/mason-nvim-lint",
+    after = "nvim-lint",
+    config = function()
+      require("mason-nvim-lint").setup({
+        ensure_installed = {
+          "buf",
+          "golangci-lint",
+          "hadolint",
+          "jsonlint",
+          "tflint",
+          "vale",
+          "yamllint",
+        }
+      })
+    end
+  })
+
+  use({
     "hrsh7th/nvim-cmp",
     requires = {
       "nvim-lua/plenary.nvim",

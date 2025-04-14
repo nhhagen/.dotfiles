@@ -57,3 +57,9 @@ vim.opt.wildmenu = true
 -- vim.opt.noshowmode = true
 vim.opt.showmode = false
 vim.opt.laststatus = 2
+
+
+vim.diagnostic.config({
+  virtual_text = false,
+  virtual_lines = true,
+})
