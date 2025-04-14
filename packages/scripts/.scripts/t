@@ -1,6 +1,8 @@
 #!/bin/bash
 # Modified from https://github.com/joshmedeski/t-smart-tmux-session-manager
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 if [ "$1" = "-h" ] || [ "$1" == "--help" ]; then
     printf "\n"
     printf "\033[1m  t - the smart tmux session manager\033[0m\n"

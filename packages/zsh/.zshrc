@@ -1,3 +1,5 @@
+zmodload zsh/zprof
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 export LANGUAGE=C
@@ -56,10 +58,6 @@ if [ -d `brew --prefix`/share/zsh-completions ]; then
 fi
 
 
-# if [ -f ~/.zsh/git-flow-completion.zsh ]; then
-#     source ~/.zsh/git-flow-completion.zsh
-# fi
-
 if [ -f `brew --prefix`/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source `brew --prefix`/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
@@ -92,12 +90,6 @@ autoload -U colors && colors
 if [ -f `brew --prefix`/etc/profile.d/colorsvn-env.sh ]; then
     source `brew --prefix`/etc/profile.d/colorsvn-env.sh
 fi
-
-# export GIT_PS1_SHOWSTASHSTATE=true
-# export GIT_PS1_SHOWDIRTYSTATE=true
-# export GIT_PS1_SHOWUNTRACKEDFILES=true
-# export GIT_PS1_SHOWUPSTREAM="verbose"
-# export GIT_PS1_SHOWCOLORHINTS=true
 
 export ACKRC=".ackrc"
 export EDITOR=nvim
@@ -183,19 +175,22 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
 
-# export GOENV_GOPATH_PREFIX="$HOME/.go"
-
 eval "$(goenv init -)"
 
 export PATH="$GOROOT/bin:$PATH"
 export PATH="$PATH:$GOPATH/bin"
 
-# export PATH="$GOROOT/bin:$PATH"
-# export PATH="$PATH:$GOPATH/bin"
-
 export PATH="$HOME/.tfenv/bin:$PATH"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+if [ -d `brew --prefix libpq`/bin ]; then
+    export PATH="$(brew --prefix libpq)/bin:$PATH"
+fi
 
 eval "$(direnv hook zsh)"
 
 eval "$(starship init zsh)"
+
+if [ -d `brew --prefix openjdk`/bin ]; then
+    export PATH="$(brew --prefix openjdk)/bin:$PATH"
+fi
+

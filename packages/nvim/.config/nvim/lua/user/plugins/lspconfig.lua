@@ -116,14 +116,14 @@ local handlers = {
 
 mason_lspconfig.setup({
   ensure_installed = {
-    "bufls",
+    "buf_ls",
     "dockerls",
     "gopls",
     "lua_ls",
     "pyright",
     "rust_analyzer",
     "terraformls",
-    "tsserver",
+    "ts_ls",
     "yamlls",
   },
   automatic_installation = true,
