@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ex
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 branch=${1:-$current_branch}
@@ -9,6 +9,7 @@ base=${2:-${remote_base}}
 
 echo "Deleting ${branch}"
 
-git checkout $base
-git branch -D $branch
-git push origin :$branch
+
+git checkout ${base}
+git branch -D ${branch}
+git push origin :${branch}

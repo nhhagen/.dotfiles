@@ -2,9 +2,9 @@
 
 set -e
 
-current_branch=$(git rev-parse --abbrev-ref HEAD)
 branch_input=${1}
-remote_base=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
+remote=$(git remote)
+remote_base=$(git remote show ${remote} | grep 'HEAD branch' | cut -d' ' -f5)
 base=${2:-${remote_base}}
 
 date=$(date "+%Y-%m-%d-%H-%M-%S")
@@ -12,7 +12,7 @@ branch=${branch_input}-${date}
 
 echo "Creating pull request ${branch} from ${base}"
 
-git checkout $base
+git switch $base
 git pull --rebase
 git checkout -b $branch
 git push --set-upstream origin $branch
