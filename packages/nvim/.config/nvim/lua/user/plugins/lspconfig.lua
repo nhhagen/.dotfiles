@@ -1,8 +1,8 @@
 return {
-  "williamboman/mason-lspconfig.nvim",
+  "mason-org/mason-lspconfig.nvim",
   after = "mason.nvim",
   dependencies = {
-    "williamboman/mason.nvim",
+    { "mason-org/mason.nvim", opts = {} },
     "neovim/nvim-lspconfig",
     "hrsh7th/cmp-nvim-lsp",
   },
@@ -80,47 +80,42 @@ return {
 
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    local handlers = {
-      -- The first entry (without a key) will be the default handler
-      -- and will be called for each installed server that doesn't have
-      -- a dedicated handler.
-      function (server_name) -- default handler (optional)
-        require("lspconfig")[server_name].setup{
-          capabilities = capabilities,
-          on_attach = on_attach,
-          flags = lsp_flags,
-        }
-      end,
+    vim.lsp.config('*', {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      flags = lsp_flags,
+    })
 
-      ["lua_ls"] = function()
-        require("lspconfig")["lua_ls"].setup {
-          capabilities = capabilities,
-          on_attach = on_attach,
-          flags = lsp_flags,
-          settings = {
-            Lua = {
-              diagnostics = {
-                globals = { 'vim' }
-              }
-            }
-          }
-        }
-      end,
-
-      ["pyright"] = function()
-        require("lspconfig")["pyright"].setup {
-          capabilities = capabilities,
-          on_attach = on_attach,
-          flags = lsp_flags,
-          on_new_config = function(config, root_dir)
-            local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
-            if string.len(env) > 0 then
-              config.settings.python.pythonPath = env .. '/bin/python'
-            end
+    vim.lsp.config("pyright", {
+        -- capabilities = capabilities,
+        -- on_attach = on_attach,
+        -- flags = lsp_flags,
+        on_new_config = function(config, root_dir)
+          local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
+          if string.len(env) > 0 then
+            config.settings.python.pythonPath = env .. '/bin/python'
           end
-        }
-      end
-    }
+        end
+      })
+
+    vim.lsp.config('lua_ls', {
+      -- capabilities = capabilities,
+      -- on_attach = on_attach,
+      -- flags = lsp_flags,
+      settings = {
+        Lua = {
+          runtime = {
+            version = 'LuaJIT',
+          },
+          diagnostics = {
+            globals = {
+              'vim',
+              'require',
+            },
+          },
+        },
+      },
+    })
 
     mason_lspconfig.setup({
       ensure_installed = {
@@ -134,8 +129,6 @@ return {
         "ts_ls",
         "yamlls",
       },
-      automatic_installation = true,
-      handlers = handlers,
     })
   end
 }

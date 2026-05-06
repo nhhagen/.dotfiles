@@ -33,10 +33,12 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
-  {
-    "nvim-treesitter/playground",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-  },
+  -- {
+  --   "nvim-treesitter/playground",
+  --   branch = "main",
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  -- },
 }

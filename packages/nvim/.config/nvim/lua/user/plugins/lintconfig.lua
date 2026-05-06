@@ -13,7 +13,7 @@ return {
         json = { "jsonlint" },
         lua = { "selene" },
         markdown = { "vale" },
-        proto = { "buf" },
+        -- proto = { "buf" },
         terraform = { "tflint" },
         yaml = { "yamllint" },
       }
