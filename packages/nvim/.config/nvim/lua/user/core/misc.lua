@@ -32,3 +32,15 @@ vim.api.nvim_create_autocmd('FileType', {
     pcall(vim.treesitter.start, bufnr, lang)
   end,
 })
+
+vim.filetype.add({
+  pattern = {
+    -- This is for OpenCode, which is a platform for hosting open source
+    -- projects. It serves a JSON file at the path .*/.well-known/opencode that
+    -- contains metadata about the project. By associating this path with the
+    -- 'json' filetype, we can ensure that when we open this file in Neovim, it
+    -- will be treated as JSON and get the appropriate syntax highlighting and
+    -- other features.
+    [".*/%.well%-known/opencode"] = "json",
+  },
+})
