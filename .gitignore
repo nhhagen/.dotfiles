@@ -59,3 +59,17 @@ tmp
 packages/nvim/.config/nvim/plugin/packer_compiled.lua
 
 node_modules
+
+# Symlinks in opencode config dirs
+packages/opencode/.config/opencode/agents/review-l3.md
+packages/opencode/.config/opencode/agents/review-l4.md
+packages/opencode/.config/opencode/agents/review-l5.md
+packages/opencode/.config/opencode/agents/review-l6.md
+packages/opencode/.config/opencode/skills/coop-api-interfaces
+packages/opencode/.config/opencode/skills/coop-cloud-platform
+packages/opencode/.config/opencode/skills/coop-guidelines
+packages/opencode/.config/opencode/skills/coop-idp
+packages/opencode/.config/opencode/skills/coop-organisation
+packages/opencode/.config/opencode/skills/coop-playbook
+packages/opencode/.config/opencode/skills/inventory-links
+packages/opencode/.config/opencode/skills/techdocs
