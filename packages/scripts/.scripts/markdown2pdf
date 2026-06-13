@@ -1,0 +1,162 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+ASSETS_BASE="$SCRIPT_DIR/markdown2pdf-assets"
+
+SUPPORTED_THEMES="coop generic"
+
+usage() {
+  echo "Usage: markdown2pdf <input.md> [-o output.pdf]"
+  echo ""
+  echo "Convert a Markdown file to a PDF using pandoc + XeLaTeX + eisvogel."
+  echo ""
+  echo "Theme is selected via the 'theme' field in the document front-matter."
+  echo "Supported themes: $SUPPORTED_THEMES (default: coop)"
+  echo ""
+  echo "Options:"
+  echo "  -o <output.pdf>   Output file path (default: <input-basename>.pdf)"
+  echo "  -h                Show this help"
+  exit 1
+}
+
+check_prerequisites() {
+  local assets_dir="$1"
+  local missing=0
+  local install_cmds=()
+
+  if ! command -v pandoc >/dev/null 2>&1; then
+    echo "Error: 'pandoc' not found." >&2
+    install_cmds+=("brew install pandoc")
+    missing=1
+  fi
+
+  if ! command -v xelatex >/dev/null 2>&1; then
+    echo "Error: 'xelatex' not found." >&2
+    install_cmds+=("brew install --cask mactex-no-gui" "# After install, add MacTeX to PATH:" "export PATH=\"/Library/TeX/texbin:\$PATH\"")
+    missing=1
+  fi
+
+  if ! command -v yq >/dev/null 2>&1; then
+    echo "Error: 'yq' not found." >&2
+    install_cmds+=("brew install yq")
+    missing=1
+  fi
+
+  if ! command -v fc-list >/dev/null 2>&1; then
+    echo "Error: 'fc-list' not found." >&2
+    install_cmds+=("brew install fontconfig")
+    missing=1
+  else
+    if ! grep -qi "Inter" < <(fc-list); then
+      echo "Error: font 'Inter' not found." >&2
+      install_cmds+=("brew install --cask font-inter")
+      missing=1
+    fi
+
+    if ! grep -qi "InputMono" < <(fc-list); then
+      echo "Error: font 'InputMono' not found." >&2
+      install_cmds+=("# Download and install InputMono from https://input.djr.com/download/")
+      missing=1
+    fi
+  fi
+
+  if [[ "$missing" -eq 1 ]]; then
+    echo "" >&2
+    echo "Run the following to install missing dependencies:" >&2
+    for cmd in "${install_cmds[@]}"; do
+      echo "  $cmd" >&2
+    done
+    exit 1
+  fi
+}
+
+resolve_theme() {
+  local input="$1"
+  local theme
+
+  # Extract theme from front-matter; default to coop
+  theme="$(yq --front-matter=extract '.theme // "coop"' "$input" 2>/dev/null || echo "coop")"
+
+  # Validate
+  local valid=0
+  for t in $SUPPORTED_THEMES; do
+    [[ "$theme" == "$t" ]] && valid=1 && break
+  done
+
+  if [[ "$valid" -eq 0 ]]; then
+    echo "Error: unsupported theme '$theme'. Supported: $SUPPORTED_THEMES" >&2
+    exit 1
+  fi
+
+  echo "$theme"
+}
+
+INPUT=""
+OUTPUT=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -o)
+      OUTPUT="$2"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      ;;
+    -*)
+      echo "Unknown option: $1" >&2
+      usage
+      ;;
+    *)
+      if [[ -z "$INPUT" ]]; then
+        INPUT="$1"
+      else
+        echo "Unexpected argument: $1" >&2
+        usage
+      fi
+      shift
+      ;;
+  esac
+done
+
+if [[ -z "$INPUT" ]]; then
+  usage
+fi
+
+if [[ ! -f "$INPUT" ]]; then
+  echo "Error: input file not found: $INPUT" >&2
+  exit 1
+fi
+
+if [[ -z "$OUTPUT" ]]; then
+  OUTPUT="${INPUT%.md}.pdf"
+fi
+
+THEME="$(resolve_theme "$INPUT")"
+ASSETS_DIR="$ASSETS_BASE/$THEME"
+
+check_prerequisites "$ASSETS_DIR"
+
+# Find the defaults file in the theme directory
+DEFAULTS_FILE="$(ls "$ASSETS_DIR"/*-defaults.yaml 2>/dev/null | head -1)"
+if [[ -z "$DEFAULTS_FILE" ]]; then
+  echo "Error: no defaults YAML found in $ASSETS_DIR" >&2
+  exit 1
+fi
+
+PANDOC_ARGS=(
+  --defaults "$DEFAULTS_FILE"
+  --template "$ASSETS_DIR/eisvogel.latex"
+)
+
+# Inject logo for coop theme
+LOGO="$ASSETS_DIR/coop-logo-white.png"
+if [[ -f "$LOGO" ]]; then
+  PANDOC_ARGS+=(--variable "titlepage-logo=$LOGO")
+fi
+
+pandoc "${PANDOC_ARGS[@]}" "$INPUT" -o "$OUTPUT"
+
+echo "$OUTPUT"

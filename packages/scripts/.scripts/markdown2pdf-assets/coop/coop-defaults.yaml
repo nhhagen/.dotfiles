@@ -1,0 +1,41 @@
+pdf-engine: xelatex
+highlight-style: tango
+
+variables:
+  # Title page
+  titlepage: true
+  titlepage-rule-height: 6
+  logo-width: 45mm
+
+  # Page layout
+  papersize: a4
+  geometry:
+    - margin=2.5cm
+    - top=3cm
+    - bottom=2.5cm
+
+  # Typography — Coop Masterbrand
+  mainfont: "Inter"
+  mainfontoptions:
+    - BoldFont=Inter Bold
+    - ItalicFont=Inter Italic
+  sansfont: "Inter"
+  monofont: "InputMono"
+  monofontoptions:
+    - Scale=0.9
+  fontsize: 11pt
+  linestretch: 1.4
+
+  # Colors — driven by theme variable in the template (see eisvogel.latex)
+  # Override individually in front-matter if needed:
+  #   linkcolor: "0050FF"
+  #   urlcolor:  "0050FF"
+  colorlinks: true
+  linkcolor: "coop-link"
+  urlcolor: "coop-link"
+  toccolor: "black"
+
+  # Structure
+  toc: true
+  toc-own-page: true
+  numbersections: false

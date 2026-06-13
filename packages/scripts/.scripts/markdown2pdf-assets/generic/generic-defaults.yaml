@@ -1,0 +1,36 @@
+pdf-engine: xelatex
+highlight-style: tango
+
+variables:
+  # Title page
+  titlepage: true
+  titlepage-rule-height: 4
+  logo-width: 35mm
+
+  # Page layout
+  papersize: a4
+  geometry:
+    - margin=2.5cm
+    - top=3cm
+    - bottom=2.5cm
+
+  # Typography
+  mainfont: "Inter"
+  mainfontoptions:
+    - BoldFont=Inter Bold
+    - ItalicFont=Inter Italic
+  sansfont: "Inter"
+  monofont: "InputMono"
+  monofontoptions:
+    - Scale=0.9
+  fontsize: 11pt
+  linestretch: 1.4
+
+  # Colors
+  colorlinks: true
+  toccolor: "black"
+
+  # Structure
+  toc: true
+  toc-own-page: true
+  numbersections: false
