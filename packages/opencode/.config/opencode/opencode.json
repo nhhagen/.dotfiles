@@ -1,0 +1,53 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "lsp": true,
+  "default_agent": "plan",
+  "share": "disabled",
+  "permission": {
+    "external_directory": {
+      "~/Downloads": "deny",
+      "~/Desktop": "deny",
+      "~/Documents": "deny",
+      "~/Pictures": "deny",
+      "~/Videos": "deny",
+      "~/Google Drive/**/**": "deny",
+      "~/Library/CloudStorage/*/**/**": "deny"
+    },
+    "doom_loop": "deny",
+    "edit": "ask",
+    "read": {},
+    "bash": {}
+  },
+  "provider": {
+    "ollama": {
+      "name": "Ollama (local)",
+      "type": "openai-compatible",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "gemma4:e4b": {
+          "name": "Gemma 4:e4b (local)"
+        }
+      }
+    }
+  },
+  "mcp": {
+    "inventory-catalog-staging": {
+      "type": "remote",
+      "url": "https://engineering-staging.internal.coop/api/mcp-actions/v1/catalog",
+      "enabled": false
+    },
+    "figma": {
+      "type": "remote",
+      "url": "https://mcp.figma.com/mcp",
+      "enabled": false
+    }
+  },
+  "skills": {
+    "paths": [
+      "/opt/homebrew/etc/opencode/skills"
+    ]
+  }
+}
