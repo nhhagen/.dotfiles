@@ -1,0 +1,16 @@
+[global]
+
+[MD007]
+indent = 2
+style = "fixed"
+
+[MD010]
+code-blocks = false
+
+[MD013]
+line-length = 80
+reflow = true
+headings = false
+
+[MD024]
+allow-different-nesting = true
