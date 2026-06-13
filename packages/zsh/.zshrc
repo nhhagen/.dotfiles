@@ -194,3 +194,6 @@ if [ -d `brew --prefix openjdk`/bin ]; then
     export PATH="$(brew --prefix openjdk)/bin:$PATH"
 fi
 
+# export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
