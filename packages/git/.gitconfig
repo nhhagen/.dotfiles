@@ -59,3 +59,9 @@
 	prune = true
 [url "git@github.com:coopnorge/"]
     insteadOf = https://github.com/coopnorge/
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
